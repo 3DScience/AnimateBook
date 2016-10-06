@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using UnityEditor.SceneManagement;
+//using UnityEditor.SceneManagement;
 using UnityEngine.UI;
 
 public class buttonChangeScreen : MonoBehaviour {
@@ -9,11 +9,10 @@ public class buttonChangeScreen : MonoBehaviour {
 	public int timePause;
 
 	private GameObject RePlay;
-	private GameObject Home ;
+	private GameObject Home;
 	private GameObject Pause;
 	private GameObject Back;
 	private GameObject Next;
-	private GameObject Resume;
 	private GameObject Play;
 
 
@@ -24,7 +23,6 @@ public class buttonChangeScreen : MonoBehaviour {
 		Pause = GameObject.Find ("Pause");
 		Back = GameObject.Find ("Back");
 		Next = GameObject.Find ("Next");
-		Resume = GameObject.Find ("Resume");
 		Play = GameObject.Find ("Play");
 	}
 
@@ -33,7 +31,6 @@ public class buttonChangeScreen : MonoBehaviour {
 		Pause.SetActive(false);
 		Back.SetActive(false);
 		Next.SetActive(false);
-		Resume.SetActive(false);
 		Play.SetActive(true);
 	}
 
@@ -50,7 +47,6 @@ public class buttonChangeScreen : MonoBehaviour {
 		Pause.SetActive(false);
 		Back.SetActive(false);
 		Next.SetActive(false);
-		Resume.SetActive(false);
 		Play.SetActive(false);
 	}
 
