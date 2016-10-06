@@ -9,7 +9,7 @@ public class BookLoaderScript : MonoBehaviour
     public static  string assetBundleName;
     public string jsonAssetBundleMetaDataFileName = "AssetBundleMetaData";
     public string jsonSceneDataFileName = "Scene";
-    public int currentSceneIdx = 0;
+    public int currentSceneIdx = 1;
     public SceneInfo currentScene;
 
 
@@ -68,7 +68,9 @@ public class BookLoaderScript : MonoBehaviour
 	}
 
 	void OnHome() {
-		SceneManager.LoadScene (1);
+		SceneManager.UnloadScene(currentScene.name);
+		currentSceneIdx = 1;
+		StartCoroutine (loadSceneMetaData ());
 	}
 
 	void OnNext() {
