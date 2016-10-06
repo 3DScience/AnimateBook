@@ -31,6 +31,7 @@ public class buttonChangeScreen : MonoBehaviour {
 		Back.SetActive(false);
 		Next.SetActive(false);
 		Resume.SetActive(false);
+		Play.SetActive(true);
 	}
 
 	void ButtonToPage() {
