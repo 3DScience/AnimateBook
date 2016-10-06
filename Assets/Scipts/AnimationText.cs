@@ -7,6 +7,10 @@ public class AnimationText : MonoBehaviour {
 	public Text textArea;
 	public string[] strings;
 	public float speed = 0.1f;
+	public float waitTime = 2f;
+
+	private float deltaTime = 0;
+	private float endTime = 0;
 
 	int stringIndex = 0;
 	int characterIndex = 0;
@@ -16,6 +20,7 @@ public class AnimationText : MonoBehaviour {
 	}
 
 	IEnumerator DisplayTimer() {
+
 		while (1 == 1) {
 			yield return new WaitForSeconds (speed);
 			if (characterIndex > strings [stringIndex].Length) {
@@ -27,7 +32,13 @@ public class AnimationText : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		deltaTime = Time.realtimeSinceStartup;
+
+		if (characterIndex == (strings [stringIndex].Length)) {
+			endTime = deltaTime + waitTime;
+		}
+
+		if ( characterIndex == (strings [stringIndex].Length + 1) & (strings.Length - 1) > stringIndex &  deltaTime >= endTime) {
 			if (characterIndex < strings [stringIndex].Length) {
 				characterIndex = strings [stringIndex].Length;
 			} else if (stringIndex < strings.Length) {
