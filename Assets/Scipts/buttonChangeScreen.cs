@@ -2,9 +2,11 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
+using UnityEngine.UI;
 
 public class buttonChangeScreen : MonoBehaviour {
 
+	public int timePause;
 
 	private GameObject RePlay;
 	private GameObject Home ;
@@ -16,6 +18,7 @@ public class buttonChangeScreen : MonoBehaviour {
 
 
 	void Start() {
+		timePause = 0;
 		RePlay = GameObject.Find ("Replay");
 		Home = GameObject.Find ("Home");
 		Pause = GameObject.Find ("Pause");
@@ -52,12 +55,22 @@ public class buttonChangeScreen : MonoBehaviour {
 	}
 
 	void ButtonToPause() {
-		Pause.SetActive(false);
-		Resume.SetActive(true);
+		Button textPause = Pause.GetComponent<Button>();
+		if (timePause == 0) {
+			timePause = 1;
+			textPause.GetComponentInChildren<Text> ().text = "Resume";
+		} else if (timePause == 1) {
+			timePause = 0;
+			textPause.GetComponentInChildren<Text> ().text = "Pause";
+		}
+		//Pause.SetActive(false);
+		//Resume.SetActive(true);
 	}
 	void ButtonToResume() {
-		Pause.SetActive(true);
-		Resume.SetActive(false);
+		Button textResume = Pause.GetComponent<Button>();
+		textResume.GetComponentInChildren<Text>().text = "Pause";
+//		Pause.SetActive(true);
+//		Resume.SetActive(false);
 	}
 
 	public void playToScene(){
@@ -76,15 +89,20 @@ public class buttonChangeScreen : MonoBehaviour {
 	}
 
 	public void pauseToScene(){
-		GameObject Loader = GameObject.Find ("Loader");
-		Loader.SendMessage ("OnPause");
-//		Time.timeScale = 0;
+		if (timePause == 0) {
+			GameObject Loader = GameObject.Find ("Loader");
+			Loader.SendMessage ("OnPause");
+			timePause = 1;
+		} else if (timePause == 1) {
+			timePause = 0;
+			GameObject Loader = GameObject.Find ("Loader");
+			Loader.SendMessage ("OnResume");
+		}
 	}
 
 	public void resumeToScene(){
 		GameObject Loader = GameObject.Find ("Loader");
-		Loader.SendMessage ("OnResume");
-//		Time.timeScale = 1;
+		Loader.SendMessage ("OnPause");
 	}
 
 	public void backToScene(){

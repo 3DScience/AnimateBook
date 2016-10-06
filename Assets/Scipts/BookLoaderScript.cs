@@ -94,7 +94,7 @@ public class BookLoaderScript : MonoBehaviour
 
 	void OnResume() {
 		Time.timeScale = 1;
-		gameObject.SendMessage ("ButtonToResume");
+		gameObject.SendMessage ("ButtonToPause");
 	}
 
 	void OnReplay() {
