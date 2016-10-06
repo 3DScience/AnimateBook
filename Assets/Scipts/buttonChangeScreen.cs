@@ -63,14 +63,6 @@ public class buttonChangeScreen : MonoBehaviour {
 			timePause = 0;
 			textPause.GetComponentInChildren<Text> ().text = "Pause";
 		}
-		//Pause.SetActive(false);
-		//Resume.SetActive(true);
-	}
-	void ButtonToResume() {
-		Button textResume = Pause.GetComponent<Button>();
-		textResume.GetComponentInChildren<Text>().text = "Pause";
-//		Pause.SetActive(true);
-//		Resume.SetActive(false);
 	}
 
 	public void playToScene(){
