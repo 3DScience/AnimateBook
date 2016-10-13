@@ -68,9 +68,9 @@ public class BookLoaderScript : MonoBehaviour
 	}
 
 	void OnHome() {
-		SceneManager.UnloadScene(currentScene.name);
-		currentSceneIdx = 1;
-		StartCoroutine (loadSceneMetaData ());
+		DestroyObject (gameObject);
+		SceneManager.UnloadScene(GlobalConfig.BOOK_LOADER_SCENE);
+		SceneManager.LoadScene (GlobalConfig.MAINSCENE);
 	}
 
 	void OnNext() {
