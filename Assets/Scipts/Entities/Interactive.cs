@@ -7,7 +7,8 @@ namespace Entities
     public enum INTERACTIVE_EVENT
     {
         TOUCH,
-        DRAG
+        DRAG,
+        DROP
     }
     public enum INTERACTIVE_ACTION
     {

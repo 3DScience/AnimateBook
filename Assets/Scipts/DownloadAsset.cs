@@ -89,7 +89,7 @@ public class DownloadAsset : MonoBehaviour {
     }
     IEnumerator unzipFile(string zipFile,string path)
     {
-        barBehaviour.m_AttachedText.text = "Unzip...";
+        barBehaviour.m_AttachedText.text = "extracting...";
         yield return null;
         try
         {

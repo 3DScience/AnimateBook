@@ -29,6 +29,15 @@
 							"actionParam": "1"
 						}
 					]
+                },
+				{
+                    "eventName": "Drop",
+                    "actions":[
+						{
+							"actionName":"Animation",
+							"actionParam": "Ithcing"
+						}
+					]
                 }
             ]
         }

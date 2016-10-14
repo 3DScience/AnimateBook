@@ -19,7 +19,7 @@ public class InteractiveController : MonoBehaviour {
                 Debug.Log("processing for mainObject name=" + mainObject.ObjectName + ", movePath=" + mainObject.movePath);
 
             iTween.MoveFrom(GameObject.Find(mainObject.ObjectName), iTween.Hash("path", iTweenPath.GetPath(mainObject.movePath), "orienttopath", true,"time", 20, "easetype", iTween.EaseType.linear, "looptype", "loop"));
-            doAnimation(mainObject.defaultAnimation);//
+            gameObject.GetComponent<Animation>().Play(mainObject.defaultAnimation); 
             isITweenPlaying = true;
         }
 
@@ -56,17 +56,40 @@ public class InteractiveController : MonoBehaviour {
 	private Vector3 screenPoint;
 	private Vector3 offset;
     private float startTouchTime;
+
+    void OnTouchs()
+    {
+        Touch firstTouch = Input.touches[0];
+        if (firstTouch.phase == TouchPhase.Began)
+        {
+            OnTouchDown();
+        }
+        else if (firstTouch.phase == TouchPhase.Moved)
+        {
+            OnTouchMoved();
+        }
+        else if (firstTouch.phase == TouchPhase.Stationary)
+        {
+            OnTouchStay();
+        }
+        else if (firstTouch.phase == TouchPhase.Ended)
+        {
+            OnTouchUp();
+        }
+        else if (firstTouch.phase == TouchPhase.Canceled)
+        {
+            //OnTouchExit();
+        }
+    }
     void OnTouchDown()
     {
         isDraging = false;
         screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
-       // Debug.Log("screenPoint="+ screenPoint);
         offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.touches[0].position.x, Input.touches[0].position.y, screenPoint.z));
 
         startTouchTime = Time.time;
         if (Debug.isDebugBuild)
             Debug.Log("OnTouchDown!"+ System.DateTime.Now.Millisecond);
-        // Debug.Log("OnTouchDown!");
 
     }
     void OnTouchMoved()
@@ -74,9 +97,9 @@ public class InteractiveController : MonoBehaviour {
         float time = (Time.time - startTouchTime);
         if (Debug.isDebugBuild)
             Debug.Log("OnTouchMoved!"+ time+"/"+ System.DateTime.Now.Millisecond);
-        if (time >= 0.3)
+        if (time >=0)
         {
-            onInteractivMove();
+            onInteractiveDrag();
             if (isITweenPlaying)
                 pauseMovePath();
             isDraging = true;
@@ -96,9 +119,12 @@ public class InteractiveController : MonoBehaviour {
         // iTween.Resume(gameObject);
         if (!isDraging)
         {
-        
-            onInteractiveTouch();
             playMovePath();
+            onInteractiveTouch();
+        }
+        else
+        {
+            onInteractiveDrop();
         }
             
     }
@@ -111,52 +137,56 @@ public class InteractiveController : MonoBehaviour {
         if (listInteractives.ContainsKey(INTERACTIVE_EVENT.TOUCH))
         {
             Interactive interactive = listInteractives[INTERACTIVE_EVENT.TOUCH];
-            foreach (Action action in interactive.actions)
-            {
-                INTERACTIVE_ACTION action_ = (INTERACTIVE_ACTION)System.Enum.Parse(typeof(INTERACTIVE_ACTION), action.actionName, true);
-                if (action_ == INTERACTIVE_ACTION.SCALE)
-                {
-                    doScale(interactive);
-                }else if( action_== INTERACTIVE_ACTION.ANIMATION)
-                {
-                    if(interactive.isDefaultAnimation)
-                    {
-                        doAnimation(action.actionParam);
-                        interactive.isDefaultAnimation = false;
-                    }
-                    else
-                    { 
-                        doAnimation(mainObject.defaultAnimation);
-                        interactive.isDefaultAnimation = true;
-                    }
-                    
-                }
-            }
-
+            doActions(interactive);
         }
     }
-    protected void onInteractivMove()
+    protected void onInteractiveDrag()
     {
         if (listInteractives.ContainsKey(INTERACTIVE_EVENT.DRAG))
         {
             Interactive interactive = listInteractives[INTERACTIVE_EVENT.DRAG];
-
-            foreach (Action action in interactive.actions)
-            {
-                INTERACTIVE_ACTION action_ = (INTERACTIVE_ACTION)System.Enum.Parse(typeof(INTERACTIVE_ACTION), action.actionName, true);
-                if (action_ == INTERACTIVE_ACTION.MOVE)
-                {
-                    doDrag(interactive);
-                }
-            }
-
-   
+            doActions(interactive);
         }
     }
-    protected void doAnimation(string animationName)
+    protected void onInteractiveDrop()
     {
-        //gameObject.GetComponent<Animation>().wrapMode = WrapMode.Loop;
-          gameObject.GetComponent<Animation>().Play(animationName);
+        if (listInteractives.ContainsKey(INTERACTIVE_EVENT.DROP))
+        {
+            Interactive interactive = listInteractives[INTERACTIVE_EVENT.DROP];
+            doActions(interactive);
+        }
+    }
+    protected void doActions(Interactive interactive)
+    {
+        foreach (Action action in interactive.actions)
+        {
+            INTERACTIVE_ACTION action_ = (INTERACTIVE_ACTION)System.Enum.Parse(typeof(INTERACTIVE_ACTION), action.actionName, true);
+            if (action_ == INTERACTIVE_ACTION.SCALE)
+            {
+                doScale(interactive,action);
+            }
+            else if (action_ == INTERACTIVE_ACTION.ANIMATION)
+            {
+                doAnimation(action);
+
+            }
+            else if (action_ == INTERACTIVE_ACTION.MOVE)
+            {
+                doDrag(interactive);
+            }
+        }
+    }
+    protected void doAnimation(Action action)
+    {
+        string animationName;
+        if (isITweenPlaying)
+        {
+            animationName = mainObject.defaultAnimation;
+        }else
+        {
+            animationName = action.actionParam;
+        }
+        gameObject.GetComponent<Animation>().Play(animationName);
     }
     protected void doDrag(Interactive interactive)
     {
@@ -170,18 +200,18 @@ public class InteractiveController : MonoBehaviour {
         gameObject.transform.position = cursorPosition;
 
     }
-    protected void doScale(Interactive interactive)
+    protected void doScale(Interactive interactive,Action action)
     {
         if (!interactive.isScaling)
         {
            // Debug.Log("scale!");
-            gameObject.transform.localScale = gameObject.transform.localScale * 1.5f;
+            gameObject.transform.localScale = gameObject.transform.localScale * float.Parse(action.actionParam);
             interactive.isScaling = true;
         }
         else
         {
            // Debug.Log("unscale!");
-            gameObject.transform.localScale = gameObject.transform.localScale / 1.5f;
+            gameObject.transform.localScale = gameObject.transform.localScale / float.Parse(action.actionParam);
             interactive.isScaling = false;
         }
     }
@@ -207,79 +237,5 @@ public class InteractiveController : MonoBehaviour {
         isITweenPlaying = true;
     }
 
-    void Update1()
-    {
-
-        if (Application.platform != RuntimePlatform.Android)
-        {
-            // use the input stuff
-            if (Input.GetMouseButtonDown(0))
-            {
-                onTouchBegin(Input.mousePosition);
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-                onTouchEnd(Input.mousePosition);
-            }
-
-        }
-
-        if (Input.touchCount > 0)
-        {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                onTouchBegin(Input.GetTouch(0).position);
-                if (Debug.isDebugBuild)
-                    Debug.Log("Touch Began.............................");
-            }
-            else if (Input.GetTouch(0).phase == TouchPhase.Ended)
-            {
-                if (Debug.isDebugBuild)
-                    Debug.Log("Touch Ended.............................");
-                onTouchEnd(Input.GetTouch(0).position);
-
-            }
-
-        }
-    }
-    void onTouchBegin(Vector3 pos)
-    {
-
-        if (isHitOnGameObject(mainObject.ObjectName, pos))
-        {
-          
-            iTween.Pause(gameObject);
-            //Debug.Log("This is a Player");
-            gameObject.transform.localScale = gameObject.transform.localScale * 1.2f;
-        }
-        else
-        {
-           // Debug.Log("This isn't a Player");
-        }
-
-    }
-    void onTouchEnd(Vector3 pos)
-    {
-        if (isHitOnGameObject(mainObject.ObjectName, pos))
-        {
-     
-            iTween.Resume(gameObject);
-            gameObject.transform.localScale = gameObject.transform.localScale / 1.2f;
-        }
-    }
-    bool isHitOnGameObject(string gameObjectName, Vector3 pos)
-    {
-        Ray ray = Camera.main.ScreenPointToRay(pos);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.transform.name == gameObjectName)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
+ 
 }
