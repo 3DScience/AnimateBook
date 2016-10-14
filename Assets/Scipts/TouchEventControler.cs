@@ -11,8 +11,7 @@ public class TouchEventControler : MonoBehaviour {
             Touch firstTouch= Input.touches[0];
             if( firstTouch.phase== TouchPhase.Began)
             {
-                DebugOnScreen log=DebugOnScreen.addToGameObject(gameObject);
-                log.Log("on touch "+Time.deltaTime);
+                DebugOnScreen.Log("on touch "+Time.deltaTime);
                 Ray ray = Camera.main.ScreenPointToRay(firstTouch.position);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit))

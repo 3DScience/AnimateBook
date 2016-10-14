@@ -78,8 +78,7 @@ public class DownloadAsset : MonoBehaviour {
         }
         catch (System.Exception ex)
         {
-            DebugOnScreen.addToGameObject(gameObject).Log(ex.ToString());
-            Debug.Log(ex.ToString());
+            DebugOnScreen.Log(ex.ToString());
             yield break;
         }
 
@@ -97,8 +96,7 @@ public class DownloadAsset : MonoBehaviour {
         }
         catch (System.Exception ex)
         {
-            DebugOnScreen.addToGameObject(gameObject).Log(ex.ToString());
-            Debug.Log(ex.ToString());
+            DebugOnScreen.Log(ex.ToString());
             yield break;
         }
 
