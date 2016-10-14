@@ -2,32 +2,39 @@
 using System.Collections;
 
 public class DebugOnScreen : MonoBehaviour {
-    bool msg = true;
-    string msgStr = "";
+    static bool msg = true;
+    static string msgStr = "";
+    Vector2 scrollPos;
+    static int i;
     void OnGUI()
     {
         if (msg)
         {
+            
+            scrollPos = GUILayout.BeginScrollView(scrollPos, GUILayout.Width(Screen.width-50), GUILayout.Height(Screen.height-50));
             GUIStyle gui = new GUIStyle();
             gui.fontSize = 30;
             gui.wordWrap = true;
+            
             // string text = System.IO.File.ReadAllText("D:/ping.bat");
-            GUI.Label(new Rect(10, Screen.height / 10, Screen.width, Screen.height), msgStr, gui);
+            GUILayout.Label( msgStr, gui);
+            GUILayout.EndScrollView();
+            scrollPos.y = Mathf.Infinity;
         }
     }
-    public static DebugOnScreen addToGameObject(GameObject gameObject) { 
-
-        return gameObject.AddComponent<DebugOnScreen>();
-
-
-    }
-    public void Log(string str)
+    public static void Log(string str)
     {
+        if(Camera.main.gameObject.GetComponent<DebugOnScreen>()==null)
+        {
+            Camera.main.gameObject.AddComponent<DebugOnScreen>();
+        }
         msg = true;
-        msgStr = str;
+        msgStr =msgStr+"\n"+i+".    "+str ;
+        i++;
     }
     public void UnLog()
     {
+
         msg = false;
     }
 
