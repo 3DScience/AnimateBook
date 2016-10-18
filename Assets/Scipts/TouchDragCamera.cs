@@ -139,11 +139,11 @@ public class TouchDragCamera : MonoBehaviour {
 
 		GetComponent<Camera>().fieldOfView = cameraSize;
 		curentCameraSize = cameraSize;
-
-		oldTouchPositions[0] = newTouchPositions[0];
-		oldTouchPositions[1] = newTouchPositions[1];
-		oldTouchVector = newTouchVector;
-		oldTouchDistance = newTouchDistance;
+//
+//		oldTouchPositions[0] = newTouchPositions[0];
+//		oldTouchPositions[1] = newTouchPositions[1];
+//		oldTouchVector = newTouchVector;
+//		oldTouchDistance = newTouchDistance;
 	}
 
 	void DragCamera(Vector2 deltaPosition)
