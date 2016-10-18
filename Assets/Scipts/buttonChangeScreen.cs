@@ -79,16 +79,22 @@ public class buttonChangeScreen : MonoBehaviour {
 		Button textcamera = Camera.GetComponent<Button>();
 		string test = textcamera.GetComponentInChildren<Text> ().text;
 		CameraMoveFollowObjects = GameObject.Find ("CameraMoveFollowObjects");
-		Debug.Log ("FUKKKKKKKKK: " + CameraMoveFollowObjects);
 		if (CameraMoveFollowObjects != null) { 
-			if (test.IndexOf("Camera:On") == 0) {
-				textcamera.GetComponentInChildren<Text> ().text = "Camera:Off";
-				CameraMoveFollowObjects.GetComponent<Camera> ().enabled = true;
-				CameraMain.GetComponent<Camera> ().enabled = false;
-			} else if (test.IndexOf("Camera:Off") == 0 ) {
-				textcamera.GetComponentInChildren<Text> ().text = "Camera:On";
-				CameraMoveFollowObjects.GetComponent<Camera> ().enabled = false;
-				CameraMain.GetComponent<Camera> ().enabled = true;
+			
+			CameraMoveFollowObjects cameraMoveFollowObjectsScripts = CameraMoveFollowObjects.AddComponent<CameraMoveFollowObjects> ();
+			GameObject starring = GameObject.FindGameObjectWithTag("Starring");
+
+			if (starring != null) {
+				cameraMoveFollowObjectsScripts.player = starring;
+				if (test.IndexOf ("Camera:On") == 0) {
+					textcamera.GetComponentInChildren<Text> ().text = "Camera:Off";
+					CameraMoveFollowObjects.GetComponent<Camera> ().enabled = true;
+					CameraMain.GetComponent<Camera> ().enabled = false;
+				} else if (test.IndexOf ("Camera:Off") == 0) {
+					textcamera.GetComponentInChildren<Text> ().text = "Camera:On";
+					CameraMoveFollowObjects.GetComponent<Camera> ().enabled = false;
+					CameraMain.GetComponent<Camera> ().enabled = true;
+				}
 			}
 		}
 	}
@@ -128,15 +134,13 @@ public class buttonChangeScreen : MonoBehaviour {
 		Debug.Log ("text camera:" + test);
 
 		if (test.IndexOf("Camera:On") == 0) {
-			Debug.Log ("text camera: FUCKK 1111");
 			Loader.SendMessage ("OnCamera");
 
 		} else if (test.IndexOf("Camera:Off") == 0) {
-			Debug.Log ("text camera: FUCKK 222222");
 			Loader.SendMessage ("OffCamera");
 
 		} else {
-			Debug.Log ("text camera: FUCKK 33333");
+			Debug.Log ("text camera: none");
 		}
 	}
 
