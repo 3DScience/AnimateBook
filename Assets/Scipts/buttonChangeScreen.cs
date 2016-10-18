@@ -18,6 +18,7 @@ public class buttonChangeScreen : MonoBehaviour {
 	private GameObject Camera;
 	private GameObject CameraMain;
 	private GameObject CameraMoveFollowObjects;
+	private GameObject animationText;
 
 
 	void Start() {
@@ -62,12 +63,17 @@ public class buttonChangeScreen : MonoBehaviour {
 
 	void ButtonToPause() {
 		Button textPause = Pause.GetComponent<Button>();
-		if (timePause == 0) {
-			timePause = 1;
-			textPause.GetComponentInChildren<Text> ().text = "Resume";
-		} else if (timePause == 1) {
-			timePause = 0;
-			textPause.GetComponentInChildren<Text> ().text = "Pause";
+		animationText = GameObject.Find ("AnimationText");
+		if (animationText != null) {
+			if (timePause == 0) {
+				timePause = 1;
+				textPause.GetComponentInChildren<Text> ().text = "Resume";
+				animationText.GetComponent<AudioSource> ().Pause ();
+			} else if (timePause == 1) {
+				timePause = 0;
+				textPause.GetComponentInChildren<Text> ().text = "Pause";
+				animationText.GetComponent<AudioSource> ().UnPause ();
+			}
 		}
 	}
 
@@ -89,7 +95,7 @@ public class buttonChangeScreen : MonoBehaviour {
 				if (test.IndexOf ("Camera:On") == 0) {
 					textcamera.GetComponentInChildren<Text> ().text = "Camera:Off";
 					CameraMoveFollowObjects.GetComponent<Camera> ().enabled = true;
-					CameraMain.GetComponent<Camera> ().enabled = false;
+					CameraMain.GetComponent<Camera> ().enabled = true;
 				} else if (test.IndexOf ("Camera:Off") == 0) {
 					textcamera.GetComponentInChildren<Text> ().text = "Camera:On";
 					CameraMoveFollowObjects.GetComponent<Camera> ().enabled = false;
@@ -163,10 +169,5 @@ public class buttonChangeScreen : MonoBehaviour {
 	public void nextToScene(){
 		GameObject Loader = GameObject.Find ("Loader");
 		Loader.SendMessage ("OnNext");
-//		int sceneID = SceneManager.GetActiveScene().buildIndex;
-//		if (sceneID < SceneManager.sceneCount) {
-//			sceneID = sceneID + 1;
-//		}
-//		SceneManager.LoadScene (sceneID);
 	}
 }
