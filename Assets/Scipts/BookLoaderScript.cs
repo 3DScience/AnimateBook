@@ -99,6 +99,14 @@ public class BookLoaderScript : MonoBehaviour
 		gameObject.SendMessage ("ButtonToPause");
 	}
 
+	void OnCamera() {
+		gameObject.SendMessage ("ButtonToCamera");
+	}
+
+	void OffCamera() {
+		gameObject.SendMessage ("ButtonToCamera");
+	}
+
 	void OnReplay() {
 		SceneManager.UnloadScene(currentScene.name);
 		StartCoroutine(loadSceneMetaData());
@@ -146,7 +154,7 @@ public class BookLoaderScript : MonoBehaviour
             yield break;
         yield return StartCoroutine(request);
 
-
+		gameObject.SendMessage ("OndoneLoadScene");
       //  GameObject mainobject = GameObject.Find("MainObject01");
       //  interactivecontroller.addtogameobject(mainobject, "testing param");
       //  iTween.MoveTo(mainobject, iTween.Hash("path", iTweenPath.GetPath("p1"), "time", 10, "easetype", iTween.EaseType.linear, "looptype", "pingpong"));

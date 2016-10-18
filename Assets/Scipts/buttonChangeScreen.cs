@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 //using UnityEditor.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class buttonChangeScreen : MonoBehaviour {
 
@@ -14,6 +15,9 @@ public class buttonChangeScreen : MonoBehaviour {
 	private GameObject Back;
 	private GameObject Next;
 	private GameObject Play;
+	private GameObject Camera;
+	private GameObject CameraMain;
+	private GameObject CameraMoveFollowObjects;
 
 
 	void Start() {
@@ -24,6 +28,8 @@ public class buttonChangeScreen : MonoBehaviour {
 		Back = GameObject.Find ("Back");
 		Next = GameObject.Find ("Next");
 		Play = GameObject.Find ("Play");
+		Camera = GameObject.Find ("Camera");
+		CameraMain = GameObject.Find ("MainCamera");
 	}
 
 	void ButtonToBegin() {
@@ -31,6 +37,7 @@ public class buttonChangeScreen : MonoBehaviour {
 		Pause.SetActive(false);
 		Back.SetActive(false);
 		Next.SetActive(false);
+		Camera.SetActive (false);
 		Play.SetActive(true);
 	}
 
@@ -40,6 +47,7 @@ public class buttonChangeScreen : MonoBehaviour {
 		Pause.SetActive(true);
 		Back.SetActive(true);
 		Next.SetActive(true);
+		Camera.SetActive (true);
 	}
 
 	void ButtonToEnd() {
@@ -48,6 +56,8 @@ public class buttonChangeScreen : MonoBehaviour {
 		Back.SetActive(false);
 		Next.SetActive(false);
 		Play.SetActive(false);
+		Camera.SetActive (false);
+
 	}
 
 	void ButtonToPause() {
@@ -58,6 +68,28 @@ public class buttonChangeScreen : MonoBehaviour {
 		} else if (timePause == 1) {
 			timePause = 0;
 			textPause.GetComponentInChildren<Text> ().text = "Pause";
+		}
+	}
+
+	void OndoneLoadScene() {
+		ButtonToCamera ();
+	}
+
+	void ButtonToCamera() {
+		Button textcamera = Camera.GetComponent<Button>();
+		string test = textcamera.GetComponentInChildren<Text> ().text;
+		CameraMoveFollowObjects = GameObject.Find ("CameraMoveFollowObjects");
+		Debug.Log ("FUKKKKKKKKK: " + CameraMoveFollowObjects);
+		if (CameraMoveFollowObjects != null) { 
+			if (test.IndexOf("Camera:On") == 0) {
+				textcamera.GetComponentInChildren<Text> ().text = "Camera:Off";
+				CameraMoveFollowObjects.GetComponent<Camera> ().enabled = true;
+				CameraMain.GetComponent<Camera> ().enabled = false;
+			} else if (test.IndexOf("Camera:Off") == 0 ) {
+				textcamera.GetComponentInChildren<Text> ().text = "Camera:On";
+				CameraMoveFollowObjects.GetComponent<Camera> ().enabled = false;
+				CameraMain.GetComponent<Camera> ().enabled = true;
+			}
 		}
 	}
 
@@ -85,6 +117,26 @@ public class buttonChangeScreen : MonoBehaviour {
 			timePause = 0;
 			GameObject Loader = GameObject.Find ("Loader");
 			Loader.SendMessage ("OnResume");
+		}
+	}
+
+	public void cameraToScene(){
+		Button textcamera = Camera.GetComponent<Button>();
+		GameObject Loader = GameObject.Find ("Loader");
+
+		string test = textcamera.GetComponentInChildren<Text> ().text;
+		Debug.Log ("text camera:" + test);
+
+		if (test.IndexOf("Camera:On") == 0) {
+			Debug.Log ("text camera: FUCKK 1111");
+			Loader.SendMessage ("OnCamera");
+
+		} else if (test.IndexOf("Camera:Off") == 0) {
+			Debug.Log ("text camera: FUCKK 222222");
+			Loader.SendMessage ("OffCamera");
+
+		} else {
+			Debug.Log ("text camera: FUCKK 33333");
 		}
 	}
 
