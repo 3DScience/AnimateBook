@@ -33,7 +33,7 @@ public class TouchDragCamera : MonoBehaviour {
 	Vector2 oldTouchVector;
 	float oldTouchDistance;
 
-	public float mincameraSize=10;
+	public float mincameraSize=20;
 	public float maxcameraSize=100;
 	public float curentCameraSize ;
 	public float cameraConnerLimit;
@@ -139,7 +139,7 @@ public class TouchDragCamera : MonoBehaviour {
 
 		GetComponent<Camera>().fieldOfView = cameraSize;
 		curentCameraSize = cameraSize;
-//
+
 //		oldTouchPositions[0] = newTouchPositions[0];
 //		oldTouchPositions[1] = newTouchPositions[1];
 //		oldTouchVector = newTouchVector;

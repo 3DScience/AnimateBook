@@ -71,8 +71,8 @@ public class CameraController : MonoBehaviour {
 
                 oldTouchPositions[0] = newTouchPositions[0];
                 oldTouchPositions[1] = newTouchPositions[1];
-                oldTouchVector = newTouchVector;
-                oldTouchDistance = newTouchDistance;
+//                oldTouchVector = newTouchVector;
+//                oldTouchDistance = newTouchDistance;
             }
         }
     }
