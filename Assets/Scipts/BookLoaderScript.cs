@@ -3,6 +3,7 @@ using System.Collections;
 using AssetBundles;
 using Entities;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.ImageEffects;
 public class BookLoaderScript : MonoBehaviour
 {
 
@@ -139,7 +140,11 @@ public class BookLoaderScript : MonoBehaviour
     }
     protected IEnumerator LoadScence(SceneInfo sceneInfo)
     {
-		if (currentSceneIdx == 1) {
+        GameObject gLoadingEffect = GameObject.Find("LoadingEffect");
+        LoadingEffect loadingEffect = gLoadingEffect.GetComponent<LoadingEffect>();
+        loadingEffect.loading = true;
+
+        if (currentSceneIdx == 1) {
 			gameObject.SendMessage ("ButtonToBegin");
 		} else if (currentSceneIdx == assetBundleInfo.totalScenes) {
 			gameObject.SendMessage ("ButtonToEnd");
@@ -164,6 +169,8 @@ public class BookLoaderScript : MonoBehaviour
         if (Debug.isDebugBuild)
             Debug.Log("Finished loading scene " + sceneInfo.name + " in " + elapsedTime + " seconds");
         interactiveProcessing(sceneInfo);
+        loadingEffect.loading = false;
+        //gLoadingEffect.GetComponent<Renderer>().enabled = false;
     }
     protected void interactiveProcessing(SceneInfo sceneInfo)
     {
