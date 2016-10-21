@@ -55,10 +55,10 @@ public class TouchDragCamera : MonoBehaviour {
 
 			switch (Input.GetTouch (0).phase) {
 			case TouchPhase.Began:
-				ObjectPostionSart = - Input.GetTouch (0).position;
+				//ObjectPostionSart = - Input.GetTouch (0).position;
 				break;
 			case TouchPhase.Moved:
-				DragCamera(_deltaPosition);
+				//DragCamera(_deltaPosition);
 				break;
 			case TouchPhase.Ended:
 				break;
@@ -140,10 +140,10 @@ public class TouchDragCamera : MonoBehaviour {
 		GetComponent<Camera>().fieldOfView = cameraSize;
 		curentCameraSize = cameraSize;
 
-//		oldTouchPositions[0] = newTouchPositions[0];
-//		oldTouchPositions[1] = newTouchPositions[1];
-//		oldTouchVector = newTouchVector;
-//		oldTouchDistance = newTouchDistance;
+		oldTouchPositions[0] = newTouchPositions[0];
+		oldTouchPositions[1] = newTouchPositions[1];
+		oldTouchVector = newTouchVector;
+		oldTouchDistance = newTouchDistance;
 	}
 
 	void DragCamera(Vector2 deltaPosition)
