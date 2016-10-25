@@ -47,14 +47,14 @@ public class TouchLogic : TouchEventControler {
 				if(Input.GetTouch(i).phase == TouchPhase.Stationary) {	// khi cham vao man hinh am ko di chuyen
 					this.SendMessage("OnTouchStayAnyWhere");
 				}
-
-				// Cho doi tuong 3d voi colliders
-				if(Input.GetTouch(i).phase == TouchPhase.Began) {	// khi bat dau cham vao man hinh
-					ray = Camera.main.ScreenPointToRay(Input.GetTouch(i).position);	// khoi tao mot ray tu vi chi touch tren man hinh
-					if(Physics.Raycast(ray, out rayHitInfo)) {
-						rayHitInfo.transform.gameObject.SendMessage ("OnTouchBegan3D");
-					}
-				}
+//
+//				// Cho doi tuong 3d voi colliders
+//				if(Input.GetTouch(i).phase == TouchPhase.Began) {	// khi bat dau cham vao man hinh
+//					ray = Camera.main.ScreenPointToRay(Input.GetTouch(i).position);	// khoi tao mot ray tu vi chi touch tren man hinh
+//					if(Physics.Raycast(ray, out rayHitInfo)) {
+//						rayHitInfo.transform.gameObject.SendMessage ("OnTouchBegan3D");
+//					}
+//				}
 			}
 		}
 	}
