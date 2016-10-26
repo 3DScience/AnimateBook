@@ -82,27 +82,36 @@ public class buttonChangeScreen : MonoBehaviour {
 	}
 
 	void ButtonToCamera() {
-		Button textcamera = Camera.GetComponent<Button>();
-		string test = textcamera.GetComponentInChildren<Text> ().text;
-		CameraMoveFollowObjects = GameObject.Find ("CameraMoveFollowObjects");
-		if (CameraMoveFollowObjects != null) { 
-			
-			CameraMoveFollowObjects cameraMoveFollowObjectsScripts = CameraMoveFollowObjects.AddComponent<CameraMoveFollowObjects> ();
-			GameObject starring = GameObject.FindGameObjectWithTag("Starring");
+		//DebugOnScreen.Log ("button camera");
 
-			if (starring != null) {
-				cameraMoveFollowObjectsScripts.player = starring;
-				if (test.IndexOf ("Camera:On") == 0) {
-					textcamera.GetComponentInChildren<Text> ().text = "Camera:Off";
-					CameraMoveFollowObjects.GetComponent<Camera> ().enabled = true;
-					CameraMain.GetComponent<Camera> ().enabled = true;
-				} else if (test.IndexOf ("Camera:Off") == 0) {
-					textcamera.GetComponentInChildren<Text> ().text = "Camera:On";
-					CameraMoveFollowObjects.GetComponent<Camera> ().enabled = false;
-					CameraMain.GetComponent<Camera> ().enabled = true;
+		try {
+			Button textcamera = Camera.GetComponent<Button>();
+			string test = textcamera.GetComponentInChildren<Text> ().text;
+			CameraMoveFollowObjects = GameObject.Find ("CameraMoveFollowObjects");
+			if (CameraMoveFollowObjects != null) { 
+
+				CameraMoveFollowObjects cameraMoveFollowObjectsScripts = CameraMoveFollowObjects.AddComponent<CameraMoveFollowObjects> ();
+				GameObject starring = GameObject.FindGameObjectWithTag("Starring");
+
+				if (starring != null) {
+					cameraMoveFollowObjectsScripts.player = starring;
+					if (test.IndexOf ("Camera:On") == 0) {
+						//DebugOnScreen.Log ("button camera: Off");
+						textcamera.GetComponentInChildren<Text> ().text = "Camera:Off";
+						CameraMoveFollowObjects.GetComponent<Camera> ().enabled = true;
+						CameraMain.GetComponent<Camera> ().enabled = true;
+					} else if (test.IndexOf ("Camera:Off") == 0) {
+						//DebugOnScreen.Log ("button camera: On");
+						textcamera.GetComponentInChildren<Text> ().text = "Camera:On";
+						CameraMoveFollowObjects.GetComponent<Camera> ().enabled = false;
+						CameraMain.GetComponent<Camera> ().enabled = true;
+					}
 				}
 			}
+		} catch (System.Exception ex) {
+			DebugOnScreen.Log ("button camera err :" + ex);
 		}
+			
 	}
 
 	public void playToScene(){

@@ -45,7 +45,6 @@ public class CameraController : TouchLogic {
 
 	void OnTouchMoveAnyWhere()
 	{
-		Debug.Log ("OnTouchMoveAnyWhereOnTouchMoveAnyWhereOnTouchMoveAnyWhere");
 		ZoomCamera ();
 		if (Input.touchCount == 1) {
 			Vector2 _deltaPosition = -Input.GetTouch (0).deltaPosition; // deltaPosition khoang cach giua vi tri cuoi cung va vi tri gan day nhat
@@ -53,7 +52,6 @@ public class CameraController : TouchLogic {
 			switch (Input.GetTouch (0).phase) {
 			case TouchPhase.Began:
 				//ObjectPostionSart = - Input.GetTouch (0).position;
-				Debug.Log ("BeganBeganBeganBeganBeganBeganBeganBeganBeganBeganBeganBegan");
 				break;
 			case TouchPhase.Moved:
 				DragCamera (_deltaPosition);
@@ -131,9 +129,9 @@ public class CameraController : TouchLogic {
 //		}
 
 		if (flagCameraExitZoom == 1 & flagCameraZoom == 0 & zoomFactor > 0) {
-			Debug.Log ("khong zoom out" + zoomFactor);
+			//Debug.Log ("khong zoom out" + zoomFactor);
 		} else if (flagCameraExitZoom == 1 & flagCameraZoom == 0 & zoomFactor < 0) {
-			Debug.Log ("khong zoom in" + zoomFactor);
+			//Debug.Log ("khong zoom in" + zoomFactor);
 		} else {
 			Camera.main.transform.Translate(Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime);
 
@@ -142,9 +140,6 @@ public class CameraController : TouchLogic {
 
 	void DragCamera(Vector2 deltaPosition)
 	{
-		//deltaA = deltaPosition.y;
-		Debug.Log ("Camera Y:" + Camera.main.transform.position.y);
-
 		_plane = GameObject.Find ("Plane");
 
 		if (_plane == null) {
@@ -155,17 +150,41 @@ public class CameraController : TouchLogic {
 		Renderer planeMesh = _plane.GetComponent<Renderer>();
 		Bounds bounds = planeMesh.bounds;
 
-		float a = Camera.main.transform.position.y / (_planceScare.x * 10);	//ty le toc do a zoom tuong ung voi quang duong zoom Y anh huong toc do di chuyen quang duong X, Z di chuyen dc
-		float b = Camera.main.transform.position.y / (_planceScare.z * 10);
+		float cameraFieldofview = Camera.main.fieldOfView;
+		float cameraRotationX = Camera.main.transform.eulerAngles.x;
+		float cachedFieldofview  = cameraFieldofview / 2;	// ung voi cachedRotationCameraX = 90
+
+		float deltaCameraRotationX = 90 - cameraRotationX;
+
+		conorA1 = cachedFieldofview - deltaCameraRotationX;
+		conorA2 = cameraFieldofview - conorA1;
+
+		Debug.Log ("conorA1:" + conorA1);
+		Debug.Log ("conorA2:" + conorA2);
+		Debug.Log ("cameraRotationX:" + cameraRotationX);
+		Debug.Log ("deltaCameraRotationX:" + deltaCameraRotationX);
+		Debug.Log ("cameraFieldofview:" + cameraFieldofview);
+		Debug.Log ("position.y:" + Camera.main.transform.position.y);
+		float limitCameraZ1 = (float)Camera.main.transform.position.y * Mathf.Tan ((conorA1)*Mathf.PI/180);
+		float limitCameraZ2 = (float)Camera.main.transform.position.y * Mathf.Tan ((conorA2)*Mathf.PI/180);
+		Debug.Log ("deafaultMaxCameraZ:" + limitCameraZ1);
+		float limitCameraX1 = limitCameraZ1 * Screen.width / Screen.height;	// + bb
+		float limitCameraX2 = limitCameraZ2 * Screen.width / Screen.height;	// - aa
+		float cc = (limitCameraX1 + limitCameraX2)/2 + 0.1f;
+		limitCameraX1 = cc;
+		limitCameraX2 = cc;
+
+		float a = Camera.main.transform.position.y / limitCameraX1;	//ty le toc do a zoom tuong ung voi quang duong zoom Y anh huong toc do di chuyen quang duong X, Z di chuyen dc
+		float b = Camera.main.transform.position.y / limitCameraX2;
 
 		float aX = Mathf.Clamp ((deltaPosition.x * a * dragSpeed * Time.deltaTime) + cachedTransform.position.x,
 			-bounds.size.x, bounds.size.x);
 		float aZ = Mathf.Clamp ((deltaPosition.y * b * dragSpeed* Time.deltaTime) + cachedTransform.position.z,-bounds.size.z, bounds.size.z);
 
 		if (flagCameraExitDrag == 1 & flagCameraDrag == 0 & (aX > 0 || aZ > 0)) {
-			Debug.Log ("khong move x+ :" + aX + "khong move Z+ :" + aZ);
+			//Debug.Log ("khong move x+ :" + aX + "khong move Z+ :" + aZ);
 		} else if (flagCameraExitDrag == 1 & flagCameraDrag == 0 & (aX < 0 || aZ < 0)) {
-			Debug.Log ("khong move x- :" + aX + "khong move Z- :" + aZ);
+			//Debug.Log ("khong move x- :" + aX + "khong move Z- :" + aZ);
 		} else {
 			cachedTransform.position = new Vector3 (aX, cachedTransform.position.y, aZ);
 
@@ -176,8 +195,6 @@ public class CameraController : TouchLogic {
 		// tich Is trigger trong Box Collier cua doi tuong Pick Up de kich hoat nhan su kien OnTriggerEnter
 		if(other.gameObject.CompareTag("BackGround"))	// xac dinh doi tuong va cham la doi tuong Pick Up
 		{
-
-			Debug.Log ("Stop zoom in camera FUCKKCKKKKKKKKK" + other.gameObject);
 			if (Input.touchCount == 1) {
 				flagCameraExitDrag = 1;
 			} else {
@@ -192,7 +209,7 @@ public class CameraController : TouchLogic {
 
 	void OnTriggerStay(Collider other) {	// OnTriggerEnter su kien se xay ra khi doi tuong xay ra va cham voi doi tuong khac
 		// tich Is trigger trong Box Collier cua doi tuong Pick Up de kich hoat nhan su kien OnTriggerEnter
-		Debug.Log ("Stop zoom in camera OnTriggerStay" );
+		//Debug.Log ("Stop zoom in camera OnTriggerStay" );
 		lastCameraPos = cachedTransform.position;
 			flagCameraExitDrag = 0;
 			flagCameraExitZoom = 0;
