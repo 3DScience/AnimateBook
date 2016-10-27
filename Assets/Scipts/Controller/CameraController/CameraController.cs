@@ -4,12 +4,8 @@ using System.Collections;
 public class CameraController : TouchLogic {
 
 	public float dragSpeed = 1.0f;
-	//public float currDist = 0.0f;
 	public float cameraY = 0.0f;
-	public float deltaMaxCameraX1 = 0f;	// gioi han truc x max cua cameraY khi di chuyen +;
-	public float deltaMaxCameraX2 = 0f;	// gioi han truc x max cua cameraY khi di chuyen +;
-	public float deltaMaxCameraZ1 = 0f;
-	public float deltaMaxCameraZ2 = 0f;
+
 	public float conorA1 = 0;
 	public float conorA2 = 0;
 	public float zoomSpeed = 2.0f;
@@ -35,9 +31,33 @@ public class CameraController : TouchLogic {
 	private float flagCameraExitDrag = 0;
 	private float flagCameraDrag = 0;
 
+	// rotation camera
+	private float rotX = 0f;
+	private float rotY = 0f;
+	private float deltaX = 0f,
+	deltaY = 0,
+	deltaX1 = 0,
+	deltaY1 = 0;
+	private Vector3 origRot;
+	private Touch initTouch = new Touch();
+
+	public float rotSpeed = 0.2f;
+	public float dir =-1;
+
+	Vector2?[] oldTouchPositions = {
+		null,
+		null
+	};
+	Vector2 oldTouchVector;
+	float oldTouchDistance;
+
+
 	void Start() {
 		cachedTransform = transform;
 		startingPos = cachedTransform.position;
+		origRot = transform.eulerAngles;
+		rotX = origRot.x;
+		rotY = origRot.y;
 	}
 
 	void OnTouchBeganAnyWhere() {
@@ -45,21 +65,15 @@ public class CameraController : TouchLogic {
 
 	void OnTouchMoveAnyWhere()
 	{
-		ZoomCamera ();
 		if (Input.touchCount == 1) {
 			Vector2 _deltaPosition = -Input.GetTouch (0).deltaPosition; // deltaPosition khoang cach giua vi tri cuoi cung va vi tri gan day nhat
+			DragCamera (_deltaPosition);
+		} else if (Input.touchCount == 2) {
+			ZoomCamera ();
 
-			switch (Input.GetTouch (0).phase) {
-			case TouchPhase.Began:
-				//ObjectPostionSart = - Input.GetTouch (0).position;
-				break;
-			case TouchPhase.Moved:
-				DragCamera (_deltaPosition);
-				break;
-			case TouchPhase.Ended:
+			//transform.RotateAround (transform.position, new Vector3(0,1,0), rotSpeed * Time.deltaTime);
 
-				break;
-			}
+			//RotationCamera ();
 		}
 	}
 
@@ -71,6 +85,73 @@ public class CameraController : TouchLogic {
 		if (flagCameraExitDrag == 1 || flagCameraExitZoom == 1) {
 			cachedTransform.position = lastCameraPos;
 		}
+	}
+
+	void RotationCamera ()
+	{
+//		switch (TouchLogic.currTouch) 
+//		{
+//		case 0:	// firt touch
+//			deltaX = Input.GetTouch (0).deltaPosition.x;
+//			deltaY = Input.GetTouch (0).deltaPosition.y;
+//			break;
+//		case 1:	// second touch
+//			deltaX1 = Input.GetTouch (1).deltaPosition.y;
+//			deltaY1 = Input.GetTouch (1).deltaPosition.y;
+//			break;
+//		}
+//
+//		Debug.Log ("Rotation Camera: deltaX" + deltaX);
+//		Debug.Log ("Rotation Camera: deltaX1" + deltaX1);
+//		Debug.Log ("Rotation Camera: deltaY" + deltaY);
+//		Debug.Log ("Rotation Camera: deltaY1" + deltaY1);
+//		Debug.Log ("Rotation Camera: deltaX - deltaX1" + (deltaX - deltaX1) );
+//		Debug.Log ("Rotation Camera: deltaY - deltaY1" + (deltaX - deltaX1) );
+//		//rotX -= (deltaY - deltaY1) * Time.deltaTime * rotSpeed * dir;
+//		rotY -= (deltaX - deltaX1) * Time.deltaTime * rotSpeed * dir;
+//	
+//		transform.eulerAngles = new Vector3 (20f, rotY, 0f);
+
+
+		if (Input.touchCount == 0) {
+			oldTouchPositions [0] = null;
+			oldTouchPositions [1] = null;
+		} else if (Input.touchCount == 1) {
+			if (oldTouchPositions [0] == null || oldTouchPositions [1] != null) {
+				oldTouchPositions [0] = Input.GetTouch (0).position;
+				oldTouchPositions [1] = null;
+			}
+		} else {
+			if (oldTouchPositions [1] == null) {
+				oldTouchPositions [0] = Input.GetTouch (0).position;
+				oldTouchPositions [1] = Input.GetTouch (1).position;
+				oldTouchVector = (Vector2)(oldTouchPositions [0] - oldTouchPositions [1]);
+				oldTouchDistance = oldTouchVector.magnitude;
+				Debug.Log ("oldTouchDistance --------: " + oldTouchDistance);
+			} else {
+				Vector2 screen = new Vector2(GetComponent<Camera>().pixelWidth, GetComponent<Camera>().pixelHeight);
+
+				Vector2[] newTouchPositions = {
+					Input.GetTouch (0).position,
+					Input.GetTouch (1).position
+				};
+				Vector2 newTouchVector = newTouchPositions [0] - newTouchPositions [1];
+				float newTouchDistance = newTouchVector.magnitude;
+				Debug.Log ("newTouchDistance --------: " + newTouchDistance);
+
+			//	transform.position += transform.TransformDirection((Vector3)((oldTouchPositions[0] + oldTouchPositions[1] - screen) * GetComponent<Camera>().orthographicSize / screen.y));
+//				transform.localRotation *= Quaternion.Euler (new Vector3 (0, 0, Mathf.Asin (Mathf.Clamp ((oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y) / oldTouchDistance / newTouchDistance, -1f, 1f)) / 0.0174532924f));
+				transform.localRotation *= Quaternion.Euler (new Vector3 (0, Mathf.Asin (Mathf.Clamp ((oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y) / oldTouchDistance / newTouchDistance, -1f, 1f)) / 0.0174532924f, 0));
+				//	GetComponent<Camera>().orthographicSize *= oldTouchDistance / newTouchDistance;
+				//transform.position -= transform.TransformDirection((newTouchPositions[0] + newTouchPositions[1] - screen) * GetComponent<Camera>().orthographicSize / screen.y);
+
+				oldTouchPositions [0] = newTouchPositions [0];
+				oldTouchPositions [1] = newTouchPositions [1];
+				oldTouchVector = newTouchVector;
+				oldTouchDistance = newTouchDistance;
+			}
+		}
+
 	}
 		
 	void ZoomCamera ()
@@ -96,8 +177,6 @@ public class CameraController : TouchLogic {
 		}
 			
 		zoomFactor =  Mathf.Clamp(lastDist - currDist, -30f, 30f);
-	
-
 
 		_plane = GameObject.Find ("Plane");
 
@@ -134,8 +213,8 @@ public class CameraController : TouchLogic {
 			//Debug.Log ("khong zoom in" + zoomFactor);
 		} else {
 			Camera.main.transform.Translate(Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime);
-
 		}
+
 	}
 
 	void DragCamera(Vector2 deltaPosition)
@@ -159,15 +238,15 @@ public class CameraController : TouchLogic {
 		conorA1 = cachedFieldofview - deltaCameraRotationX;
 		conorA2 = cameraFieldofview - conorA1;
 
-		Debug.Log ("conorA1:" + conorA1);
-		Debug.Log ("conorA2:" + conorA2);
-		Debug.Log ("cameraRotationX:" + cameraRotationX);
-		Debug.Log ("deltaCameraRotationX:" + deltaCameraRotationX);
-		Debug.Log ("cameraFieldofview:" + cameraFieldofview);
-		Debug.Log ("position.y:" + Camera.main.transform.position.y);
+//		Debug.Log ("conorA1:" + conorA1);
+//		Debug.Log ("conorA2:" + conorA2);
+//		Debug.Log ("cameraRotationX:" + cameraRotationX);
+//		Debug.Log ("deltaCameraRotationX:" + deltaCameraRotationX);
+//		Debug.Log ("cameraFieldofview:" + cameraFieldofview);
+//		Debug.Log ("position.y:" + Camera.main.transform.position.y);
 		float limitCameraZ1 = (float)Camera.main.transform.position.y * Mathf.Tan ((conorA1)*Mathf.PI/180);
 		float limitCameraZ2 = (float)Camera.main.transform.position.y * Mathf.Tan ((conorA2)*Mathf.PI/180);
-		Debug.Log ("deafaultMaxCameraZ:" + limitCameraZ1);
+//		Debug.Log ("deafaultMaxCameraZ:" + limitCameraZ1);
 		float limitCameraX1 = limitCameraZ1 * Screen.width / Screen.height;	// + bb
 		float limitCameraX2 = limitCameraZ2 * Screen.width / Screen.height;	// - aa
 		float cc = (limitCameraX1 + limitCameraX2)/2 + 0.1f;
