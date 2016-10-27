@@ -63,7 +63,7 @@ public class HomeScript : MonoBehaviour {
         if(checkIsDownloadedAsset(assetBundleName))
         {
             BookLoaderScript.assetBundleName = assetBundleName;
-            StartCoroutine(loadScene(GlobalConfig.BOOK_LOADER_SCENE));
+            StartCoroutine(loadScene(GlobalConfig.CATEGORY_SCENE));
         }
         else
         {
