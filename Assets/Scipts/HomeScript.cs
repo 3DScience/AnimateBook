@@ -44,6 +44,8 @@ public class HomeScript : MonoBehaviour {
         BookInfo bookInfo = (BookInfo)listBookInfo[index];
         LoadBookSelected(bookInfo.bookName);
 
+
+
     }
     public void ButtonClick(string assetBundleName)
     {
@@ -61,15 +63,27 @@ public class HomeScript : MonoBehaviour {
         if(checkIsDownloadedAsset(assetBundleName))
         {
             BookLoaderScript.assetBundleName = assetBundleName;
-            Application.LoadLevel(GlobalConfig.BOOK_LOADER_SCENE);
-            //test 2
+            StartCoroutine(loadScene(GlobalConfig.BOOK_LOADER_SCENE));
         }
         else
         {
-            Application.LoadLevel(GlobalConfig.DOWNLOAD_ASSET_SCENE);
+            StartCoroutine(loadScene(GlobalConfig.DOWNLOAD_ASSET_SCENE));
         }
     }
-
+    IEnumerator loadScene(string senceName)
+    {
+ 
+        GameObject dbook = GameObject.Find("3dbook");
+        Vector3 center = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, dbook.transform.position.z));
+        iTween.MoveTo(dbook, iTween.Hash("position", center, "time", 1.5f));
+        Vector3 scale = dbook.transform.localScale;
+        iTween.ScaleTo(dbook, iTween.Hash("scale", scale * 2, "time", 1.5));
+        iTween.CameraFadeAdd();
+        iTween.CameraFadeTo(0.5f, 2);
+        yield return new WaitForSeconds(1.5f);
+        Application.LoadLevel(senceName);
+        yield return null;
+    }
     private bool checkIsDownloadedAsset(string assetBundleName)
     {
         string assetDataFolder = GlobalConfig.DATA_PATH + "/" + assetBundleName;
