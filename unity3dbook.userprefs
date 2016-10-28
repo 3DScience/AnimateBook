@@ -1,14 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scipts/BookLoaderScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scipts/CameraController/CameraController.cs">
     <Files>
-      <File FileName="Assets/Scipts/BookLoaderScript.cs" Line="97" Column="42" />
-      <File FileName="Assets/Scipts/buttonChangeScreen.cs" Line="53" Column="20" />
-      <File FileName="Assets/BookAssetBunbleTest/MetaData/AssetBundleMetaData.json" Line="3" Column="19" />
-      <File FileName="Assets/BookAssetBunbleTest/MetaData/Scene1.json" Line="2" Column="1" />
-      <File FileName="Assets/BookAssetBunbleTest/MetaData/Scene2.json" Line="13" Column="32" />
-      <File FileName="Assets/BookAssetBunbleTest/MetaData/Scene4.json" Line="3" Column="24" />
-      <File FileName="Assets/BookAssetBunbleTest/MetaData/Scene3.json" Line="3" Column="24" />
+      <File FileName="Assets/Scipts/CameraController/CameraController.cs" Line="113" Column="57" />
+      <File FileName="Assets/Scipts/CameraController/TouchCamera.cs" Line="49" Column="5" />
+      <File FileName="Assets/Scipts/buttonChangeScreen.cs" Line="112" Column="4" />
+      <File FileName="Assets/Scipts/CameraController/TouchLogic.cs" Line="26" Column="37" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
