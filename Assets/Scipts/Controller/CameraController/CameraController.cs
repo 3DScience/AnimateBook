@@ -70,10 +70,10 @@ public class CameraController : TouchLogic {
 			DragCamera (_deltaPosition);
 		} else if (Input.touchCount == 2) {
 			ZoomCamera ();
-
-			//transform.Rotate (new Vector3 (Time.deltaTime * 50, 0, 0));
-			//transform.RotateAround (transform.position, new Vector3 (0, 1, 0), rotSpeed * Time.deltaTime);
-			//RotationCamera ();
+		} else if (Input.touchCount == 3) {
+			RotationCamera (); // camera rotaion round its
+			// camera rotaion round object
+			//transform.RotateAround(Vector3.zero, Vector3.down, 5 * Time.deltaTime);
 		}
 	}
 
@@ -86,72 +86,59 @@ public class CameraController : TouchLogic {
 			cachedTransform.position = lastCameraPos;
 		}
 	}
-
+		
 	void RotationCamera ()
 	{
-		switch (TouchLogic.currTouch) 
-		{
-		case 0:	// firt touch
-			deltaX = Input.GetTouch (0).deltaPosition.x;
-			deltaY = Input.GetTouch (0).deltaPosition.y;
-			break;
-		case 1:	// second touch
-			deltaX1 = Input.GetTouch (1).deltaPosition.y;
-			deltaY1 = Input.GetTouch (1).deltaPosition.y;
-			break;
+//		float speedRotation = 0.5f;
+//		
+//		switch (TouchLogic.currTouch) 
+//		{
+//		case 0:	// firt touch
+//			deltaX = Input.GetTouch (0).deltaPosition.x;
+//			deltaY = Input.GetTouch (0).deltaPosition.y;
+//			break;
+//		case 1:	// second touch
+//			deltaX1 = Input.GetTouch (1).deltaPosition.y;
+//			deltaY1 = Input.GetTouch (1).deltaPosition.y;
+//			break;
+//		}
+//			
+//		rotY -= (deltaX - deltaX1) * Time.deltaTime * speedRotation * dir;
+//	
+//		transform.eulerAngles = new Vector3 (20f, rotY, 0f);
+
+
+		if (oldTouchPositions[1] == null) {
+			oldTouchPositions[0] = Input.GetTouch(0).position;
+			oldTouchPositions[1] = Input.GetTouch(1).position;
+			oldTouchVector = (Vector2)(oldTouchPositions[0] - oldTouchPositions[1]);
+			oldTouchDistance = oldTouchVector.magnitude;
+		}
+		else {
+			Vector2 screen = new Vector2(GetComponent<Camera>().pixelWidth, GetComponent<Camera>().pixelHeight);
+
+			Vector2[] newTouchPositions = {
+				Input.GetTouch(0).position,
+				Input.GetTouch(1).position
+			};
+			Vector2 newTouchVector = newTouchPositions[0] - newTouchPositions[1];
+			float newTouchDistance = newTouchVector.magnitude;
+
+			//transform.position += transform.TransformDirection((Vector3)((oldTouchPositions[0] + oldTouchPositions[1] - screen) * GetComponent<Camera>().orthographicSize / screen.y));
+			//transform.localRotation *= Quaternion.Euler(new Vector3(0, Mathf.Asin(Mathf.Clamp((oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y) / oldTouchDistance / newTouchDistance, -1f, 1f)) / 0.0174532924f, 0));
+			//GetComponent<Camera>().orthographicSize *= oldTouchDistance / newTouchDistance;
+			//transform.position -= transform.TransformDirection((newTouchPositions[0] + newTouchPositions[1] - screen) * GetComponent<Camera>().orthographicSize / screen.y);
+			transform.RotateAround(Vector3.zero, new Vector3(0, Mathf.Asin(Mathf.Clamp((oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y) / oldTouchDistance / newTouchDistance, -2f, 2f)) / 0.0174532924f, 0), 50 * Time.deltaTime);
+
+			Debug.Log ("transform.localRotation 1 : " + transform.localRotation);
+			Debug.Log ("transform.localRotation 2 : " + (oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y));
+
+			oldTouchPositions[0] = newTouchPositions[0];
+			oldTouchPositions[1] = newTouchPositions[1];
+			oldTouchVector = newTouchVector;
+			oldTouchDistance = newTouchDistance;
 		}
 
-		Debug.Log ("Rotation Camera: deltaX" + deltaX);
-		Debug.Log ("Rotation Camera: deltaX1" + deltaX1);
-		Debug.Log ("Rotation Camera: deltaY" + deltaY);
-		Debug.Log ("Rotation Camera: deltaY1" + deltaY1);
-		Debug.Log ("Rotation Camera: deltaX - deltaX1" + (deltaX - deltaX1) );
-		Debug.Log ("Rotation Camera: deltaY - deltaY1" + (deltaX - deltaX1) );
-		//rotX -= (deltaY - deltaY1) * Time.deltaTime * rotSpeed * dir;
-		rotY -= (deltaX - deltaX1) * Time.deltaTime * rotSpeed * dir;
-	
-		//transform.eulerAngles = new Vector3 (20f, rotY, 0f);
-		//cachedTransform. = new Vector3(20f,rotY,0f);
-
-
-//		if (Input.touchCount == 0) {
-//			oldTouchPositions [0] = null;
-//			oldTouchPositions [1] = null;
-//		} else if (Input.touchCount == 1) {
-//			if (oldTouchPositions [0] == null || oldTouchPositions [1] != null) {
-//				oldTouchPositions [0] = Input.GetTouch (0).position;
-//				oldTouchPositions [1] = null;
-//			}
-//		} else {
-//			if (oldTouchPositions [1] == null) {
-//				oldTouchPositions [0] = Input.GetTouch (0).position;
-//				oldTouchPositions [1] = Input.GetTouch (1).position;
-//				oldTouchVector = (Vector2)(oldTouchPositions [0] - oldTouchPositions [1]);
-//				oldTouchDistance = oldTouchVector.magnitude;
-//				Debug.Log ("oldTouchDistance --------: " + oldTouchDistance);
-//			} else {
-//				Vector2 screen = new Vector2(GetComponent<Camera>().pixelWidth, GetComponent<Camera>().pixelHeight);
-//
-//				Vector2[] newTouchPositions = {
-//					Input.GetTouch (0).position,
-//					Input.GetTouch (1).position
-//				};
-//				Vector2 newTouchVector = newTouchPositions [0] - newTouchPositions [1];
-//				float newTouchDistance = newTouchVector.magnitude;
-//				Debug.Log ("newTouchDistance --------: " + newTouchDistance);
-//
-//			//	transform.position += transform.TransformDirection((Vector3)((oldTouchPositions[0] + oldTouchPositions[1] - screen) * GetComponent<Camera>().orthographicSize / screen.y));
-////				transform.localRotation *= Quaternion.Euler (new Vector3 (0, 0, Mathf.Asin (Mathf.Clamp ((oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y) / oldTouchDistance / newTouchDistance, -1f, 1f)) / 0.0174532924f));
-//				transform.localRotation *= Quaternion.Euler (new Vector3 (0, Mathf.Asin (Mathf.Clamp ((oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y) / oldTouchDistance / newTouchDistance, -1f, 1f)) / 0.0174532924f, 0));
-//				//	GetComponent<Camera>().orthographicSize *= oldTouchDistance / newTouchDistance;
-//				//transform.position -= transform.TransformDirection((newTouchPositions[0] + newTouchPositions[1] - screen) * GetComponent<Camera>().orthographicSize / screen.y);
-//
-//				oldTouchPositions [0] = newTouchPositions [0];
-//				oldTouchPositions [1] = newTouchPositions [1];
-//				oldTouchVector = newTouchVector;
-//				oldTouchDistance = newTouchDistance;
-//			}
-//		}
 
 	}
 		
@@ -187,34 +174,13 @@ public class CameraController : TouchLogic {
 
 		Vector3 _planceScare = _plane.transform.localScale;
 
-//		if (flagCameraExitZoom == 1 & flagCameraZoom == 0  & zoomFactor > 0) {
-//			Debug.Log ("khong zoom out" + zoomFactor);
-//			flagCameraZoom = 1;
-//		} else if (flagCameraExitZoom == 1 & flagCameraZoom == 0 & zoomFactor < 0) {
-//			flagCameraZoom = 2;
-//			Debug.Log ("khong zoom in" + zoomFactor);
-//		} else if (flagCameraExitZoom == 1 & flagCameraZoom == 2 & zoomFactor > 0) {
-//			flagCameraExitZoom = 0;
-//			flagCameraZoom = 0;
-//			Debug.Log ("tiep tuc zoom out" + zoomFactor);
-//			Camera.main.transform.Translate (Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime);
-//		} else if (flagCameraExitZoom == 1 & flagCameraZoom == 1 & zoomFactor < 0) {
-//			Debug.Log ("tiep tuc zoom in" + zoomFactor);
-//			flagCameraExitZoom = 0;
-//			flagCameraZoom = 0;
-//			Camera.main.transform.Translate(Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime);
-//		} else if (flagCameraExitZoom == 0 & flagCameraZoom == 0) {
-//			Debug.Log ("tiep tuc zoom nhu binh thuong" + zoomFactor);
-//			Camera.main.transform.Translate(Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime);
-//		}
-
 		if (flagCameraExitZoom == 1 & flagCameraZoom == 0 & zoomFactor > 0) {
-			//Debug.Log ("khong zoom out" + zoomFactor);
 		} else if (flagCameraExitZoom == 1 & flagCameraZoom == 0 & zoomFactor < 0) {
-			//Debug.Log ("khong zoom in" + zoomFactor);
 		} else {
 			Camera.main.transform.Translate(Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime);
 		}
+
+		// RotationCamera ();
 
 	}
 
