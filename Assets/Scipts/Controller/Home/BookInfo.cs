@@ -15,8 +15,5 @@ public class BookInfo : MonoBehaviour {
             Debug.Log("BookInfo-OnMouseDown...");
         GameObject.Find("Loader").SendMessage("OnSelectedBook",index,SendMessageOptions.DontRequireReceiver);
     }
-    // Update is called once per frame
-    void Update () {
-	
-	}
+
 }
