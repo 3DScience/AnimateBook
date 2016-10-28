@@ -2,12 +2,13 @@
 using System.Collections;
 using System.IO;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class HomeScript : MonoBehaviour {
     ArrayList listBookInfo = new ArrayList();
 	// Use this for initialization
 	void Start () {
         if (Debug.isDebugBuild)
-            Debug.Log("MainScript Start...");
+            Debug.Log("HomeScript Start...");
         loadAllBook();
     }
     void loadAllBook()
@@ -75,13 +76,14 @@ public class HomeScript : MonoBehaviour {
  
         GameObject dbook = GameObject.Find("3dbook");
         Vector3 center = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, dbook.transform.position.z));
-        iTween.MoveTo(dbook, iTween.Hash("position", center, "time", 1.5f));
+        iTween.MoveTo(dbook, iTween.Hash("position", center, "time", 0.8f));
         Vector3 scale = dbook.transform.localScale;
-        iTween.ScaleTo(dbook, iTween.Hash("scale", scale * 2, "time", 1.5));
+        iTween.ScaleTo(dbook, iTween.Hash("scale", scale * 2, "time", 0.8));
         iTween.CameraFadeAdd();
         iTween.CameraFadeTo(0.5f, 2);
-        yield return new WaitForSeconds(1.5f);
-        Application.LoadLevel(senceName);
+        yield return new WaitForSeconds(0.8f);
+      //  Application.LoadLevel(senceName);
+        SceneManager.LoadScene(senceName);
         yield return null;
     }
     private bool checkIsDownloadedAsset(string assetBundleName)
