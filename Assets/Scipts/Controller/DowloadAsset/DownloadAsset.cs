@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using ProgressBar;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class DownloadAsset : MonoBehaviour {
     public string assetBundleName;
 
@@ -105,7 +106,7 @@ public class DownloadAsset : MonoBehaviour {
 
         barBehaviour.m_AttachedText.text = "DONE";
         BookLoaderScript.assetBundleName = assetBundleName;
-        Application.LoadLevel(GlobalConfig.BOOK_LOADER_SCENE);
+        SceneManager.LoadScene(GlobalConfig.BOOK_LOADER_SCENE);
         yield return null;
     }
 }
