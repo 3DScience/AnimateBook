@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraController : TouchLogic {
+public class CameraController : MonoBehaviour,TouchEventInterface {
 
 	public float dragSpeed = 1.0f;
 	public float cameraY = 0.0f;
@@ -37,6 +37,7 @@ public class CameraController : TouchLogic {
 
 	public float rotSpeed = 0.2f;
 	public float dir =-1;
+	public int currTouch = 0;
 
 	Vector2?[] oldTouchPositions = {
 		null,
@@ -52,7 +53,29 @@ public class CameraController : TouchLogic {
 //		origRot = transform.eulerAngles;
 	}
 
+	public void OnTouchs()
+	{
+		for (int i = 0; i < Input.touchCount; i++) {
+			Debug.Log (i); // kiem tra xem co may touch dang cham vao man hinh 
+			currTouch = i;
+			Debug.Log ("OnTouchsOnTouchsOnTouchs");
+			if (Input.GetTouch (i).phase == TouchPhase.Began) {	// khi bat dau cham vao man hinh
+				OnTouchBeganAnyWhere ();
+			}
+			if (Input.GetTouch (i).phase == TouchPhase.Ended) {	// khi ket thuc cham vao man hinh
+				OnTouchEndedAnyWhere ();
+			}
+			if (Input.GetTouch (i).phase == TouchPhase.Moved) {	// khi cham vao man hinh va di chuyen
+				OnTouchMoveAnyWhere ();
+			}
+			if (Input.GetTouch (i).phase == TouchPhase.Stationary) {	// khi cham vao man hinh am ko di chuyen
+				OnTouchStayAnyWhere ();
+			}
+		}
+	}
+		
 	void OnTouchBeganAnyWhere() {
+		
 	}
 
 	void OnTouchMoveAnyWhere()
@@ -136,7 +159,7 @@ public class CameraController : TouchLogic {
 		
 	void ZoomCamera ()
 	{
-		switch (TouchLogic.currTouch) 
+		switch (currTouch) 
 		{
 		case 0:	// firt touch
 			currTouch1 = Input.GetTouch (0).position;
@@ -148,7 +171,7 @@ public class CameraController : TouchLogic {
 			break;
 		}
 		// we dont want to find the distance between 1 finger and nothing
-		if (TouchLogic.currTouch >= 1) {
+		if (currTouch >= 1) {
 			currDist = Vector2.Distance (currTouch1, currTouch2);		// Distance tra ve khoang cach giau a va b
 			lastDist = Vector2.Distance (lastTouch1, lastTouch2);
 		} else {

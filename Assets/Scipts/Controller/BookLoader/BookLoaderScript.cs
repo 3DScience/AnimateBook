@@ -102,16 +102,6 @@ public class BookLoaderScript : MonoBehaviour
 
     }
 
-	public void OnCamera() {
-        uiEventHandler.ButtonToCamera();
-
-    }
-
-    public void OffCamera() {
-        uiEventHandler.ButtonToCamera();
-
-    }
-
     public void OnReplay() {
 		SceneManager.UnloadScene(currentScene.name);
 		StartCoroutine(loadSceneMetaData());
