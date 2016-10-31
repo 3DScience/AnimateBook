@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class buttonChangeScreen : MonoBehaviour {
+public class UiEventHandler : MonoBehaviour {
 
 	public int timePause;
 
@@ -20,9 +20,11 @@ public class buttonChangeScreen : MonoBehaviour {
 	private GameObject CameraMoveFollowObjects;
 	private GameObject animationText;
 
+    private BookLoaderScript bookLoaderScript;
 
-	void Start() {
-		timePause = 0;
+    void Start() {
+        bookLoaderScript = gameObject.GetComponent<BookLoaderScript>();
+        timePause = 0;
 		RePlay = GameObject.Find ("Replay");
 		Home = GameObject.Find ("Home");
 		Pause = GameObject.Find ("Pause");
@@ -33,7 +35,7 @@ public class buttonChangeScreen : MonoBehaviour {
 		CameraMain = GameObject.Find ("MainCamera");
 	}
 
-	void ButtonToBegin() {
+	public void ButtonToBegin() {
 		RePlay.SetActive(false);
 		Pause.SetActive(false);
 		Back.SetActive(false);
@@ -42,7 +44,7 @@ public class buttonChangeScreen : MonoBehaviour {
 		Play.SetActive(true);
 	}
 
-	void ButtonToPage() {
+    public void ButtonToPage() {
 		Play.SetActive(false);
 		RePlay.SetActive(true);
 		Pause.SetActive(true);
@@ -51,7 +53,7 @@ public class buttonChangeScreen : MonoBehaviour {
 		Camera.SetActive (true);
 	}
 
-	void ButtonToEnd() {
+    public void ButtonToEnd() {
 		RePlay.SetActive(false);
 		Pause.SetActive(false);
 		Back.SetActive(false);
@@ -61,7 +63,7 @@ public class buttonChangeScreen : MonoBehaviour {
 
 	}
 
-	void ButtonToPause() {
+    public void ButtonToPause() {
 		Button textPause = Pause.GetComponent<Button>();
 		animationText = GameObject.Find ("AnimationText");
 		if (animationText != null) {
@@ -77,11 +79,11 @@ public class buttonChangeScreen : MonoBehaviour {
 		}
 	}
 
-	void OndoneLoadScene() {
+    public void OndoneLoadScene() {
 		ButtonToCamera ();
 	}
 
-	void ButtonToCamera() {
+    public void ButtonToCamera() {
 		//DebugOnScreen.Log ("button camera");
 
 		try {
@@ -115,68 +117,65 @@ public class buttonChangeScreen : MonoBehaviour {
 	}
 
 	public void playToScene(){
-		GameObject Loader = GameObject.Find ("Loader");
-		Loader.SendMessage ("OnPlay");
+        bookLoaderScript.OnPlay();
 	}
 
 	public void HomeToScene(){
-		GameObject Loader = GameObject.Find ("Loader");
-		Loader.SendMessage ("OnHome");
-	}
+        bookLoaderScript.OnHome();
+
+    }
 
 	public void replayToScene(){
-		GameObject Loader = GameObject.Find ("Loader");
-		Loader.SendMessage ("OnReplay");
-	}
+        bookLoaderScript.OnReplay();
+
+    }
 
 	public void pauseToScene(){
 		if (timePause == 0) {
-			GameObject Loader = GameObject.Find ("Loader");
-			Loader.SendMessage ("OnPause");
-			timePause = 1;
+            bookLoaderScript.OnPause();
+            timePause = 1;
 		} else if (timePause == 1) {
 			timePause = 0;
-			GameObject Loader = GameObject.Find ("Loader");
-			Loader.SendMessage ("OnResume");
-		}
+            bookLoaderScript.OnResume();
+
+        }
 	}
 
 	public void cameraToScene(){
 		Button textcamera = Camera.GetComponent<Button>();
-		GameObject Loader = GameObject.Find ("Loader");
 
 		string test = textcamera.GetComponentInChildren<Text> ().text;
 		Debug.Log ("text camera:" + test);
 
 		if (test.IndexOf("Camera:On") == 0) {
-			Loader.SendMessage ("OnCamera");
+            bookLoaderScript.OnCamera();
 
-		} else if (test.IndexOf("Camera:Off") == 0) {
-			Loader.SendMessage ("OffCamera");
+        } else if (test.IndexOf("Camera:Off") == 0) {
+            bookLoaderScript.OffCamera();
 
-		} else {
+
+        } else {
 			Debug.Log ("text camera: none");
 		}
 	}
 
 	public void resumeToScene(){
-		GameObject Loader = GameObject.Find ("Loader");
-		Loader.SendMessage ("OnPause");
-	}
+        bookLoaderScript.OnPause();
+
+    }
 
 	public void backToScene(){
-		GameObject Loader = GameObject.Find ("Loader");
-		Loader.SendMessage ("OnBack");
+        bookLoaderScript.OnBack();
 
 //		int sceneID = SceneManager.GetActiveScene().buildIndex;
 //		if (sceneID > 0) {
 //			sceneID = sceneID - 1;
 //		}
 //		SceneManager.LoadScene (sceneID);
-	}
+    }
 
 	public void nextToScene(){
-		GameObject Loader = GameObject.Find ("Loader");
-		Loader.SendMessage ("OnNext");
-	}
+        bookLoaderScript.OnNext();
+
+    }
 }

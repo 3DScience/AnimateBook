@@ -2,7 +2,7 @@
 using System.Collections;
 using Entities;
 using System.Collections.Generic;
-public class InteractiveController : MonoBehaviour {
+public class InteractiveController : MonoBehaviour,TouchEventInterface {
  
 
     public MainObject mainObject;
@@ -57,7 +57,7 @@ public class InteractiveController : MonoBehaviour {
 	private Vector3 offset;
     private float startTouchTime;
 
-    void OnTouchs()
+    public void OnTouchs()
     {
         Touch firstTouch = Input.touches[0];
         if (firstTouch.phase == TouchPhase.Began)

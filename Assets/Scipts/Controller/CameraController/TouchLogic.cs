@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TouchLogic : TouchEventControler {
+public class TouchLogic : TouchEventControler,TouchEventInterface {
 
 	public static int currTouch = 0; // De cac scripts khac co the biet dc vi tri hien tai cua touch tren man hinh
 	private Ray ray;	// Day la ray se dua ra bat dau tinh  tu luc touch vao man hinh
 	private RaycastHit rayHitInfo = new RaycastHit();	// dua ve thong tin doi tuong da dc hit boi ray
 
-	void OnTouchs()
+	public void OnTouchs()
 	{
 		// Kiem tra co phai co 1 touch tren man hinh
 		if (Input.touches.Length <= 0) {
