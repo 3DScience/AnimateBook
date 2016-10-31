@@ -12,15 +12,15 @@ public class BookLoaderScript : MonoBehaviour
     public string jsonSceneDataFileName = "Scene";
     public int currentSceneIdx = 1;
     public SceneInfo currentScene;
-
-
+    private UiEventHandler uiEventHandler;
     private AssetBundleInfo assetBundleInfo;
     private bool pauseMovePath = false;
     GameObject mainObject;
     // Use this for initialization
     IEnumerator Start()
     {
-        if(assetBundleName==null || assetBundleName == "")
+        uiEventHandler = gameObject.GetComponent<UiEventHandler>();
+        if (assetBundleName==null || assetBundleName == "")
         {
               assetBundleName = "book1";
         }
@@ -62,19 +62,19 @@ public class BookLoaderScript : MonoBehaviour
             yield return StartCoroutine(request);
     }
 
-	void OnPlay() {
+	public void OnPlay() {
 		SceneManager.UnloadScene(currentScene.name);
 		currentSceneIdx = 2;
 		StartCoroutine(loadSceneMetaData());
 	}
 
-	void OnHome() {
+	public void OnHome() {
 		DestroyObject (gameObject);
 		SceneManager.UnloadScene(GlobalConfig.BOOK_LOADER_SCENE);
 		SceneManager.LoadScene (GlobalConfig.MAINSCENE);
 	}
 
-	void OnNext() {
+	public void OnNext() {
 		if (currentSceneIdx < assetBundleInfo.totalScenes) {
 			SceneManager.UnloadScene(currentScene.name);
 			currentSceneIdx++;
@@ -82,7 +82,7 @@ public class BookLoaderScript : MonoBehaviour
 		}
 	}
 
-	void OnBack() {
+	public void OnBack() {
 		if (currentSceneIdx > 0) {
 			SceneManager.UnloadScene(currentScene.name);
 			currentSceneIdx--;
@@ -90,25 +90,29 @@ public class BookLoaderScript : MonoBehaviour
 		}
 	}
 
-	void OnPause() {
+	public void OnPause() {
 		Time.timeScale = 0;
-		gameObject.SendMessage ("ButtonToPause");
-	}
+        uiEventHandler.ButtonToPause();
 
-	void OnResume() {
+    }
+
+	public void OnResume() {
 		Time.timeScale = 1;
-		gameObject.SendMessage ("ButtonToPause");
-	}
+        uiEventHandler.ButtonToPause();
 
-	void OnCamera() {
-		gameObject.SendMessage ("ButtonToCamera");
-	}
+    }
 
-	void OffCamera() {
-		gameObject.SendMessage ("ButtonToCamera");
-	}
+	public void OnCamera() {
+        uiEventHandler.ButtonToCamera();
 
-	void OnReplay() {
+    }
+
+    public void OffCamera() {
+        uiEventHandler.ButtonToCamera();
+
+    }
+
+    public void OnReplay() {
 		SceneManager.UnloadScene(currentScene.name);
 		StartCoroutine(loadSceneMetaData());
 	}
@@ -145,11 +149,11 @@ public class BookLoaderScript : MonoBehaviour
         loadingEffect.loading = true;
 
         if (currentSceneIdx == 1) {
-			gameObject.SendMessage ("ButtonToBegin");
-		} else if (currentSceneIdx == assetBundleInfo.totalScenes) {
-			gameObject.SendMessage ("ButtonToEnd");
-		} else
-			gameObject.SendMessage ("ButtonToPage");
+            uiEventHandler.ButtonToBegin();
+        } else if (currentSceneIdx == assetBundleInfo.totalScenes) {
+            uiEventHandler.ButtonToEnd();
+        } else
+            uiEventHandler.ButtonToPage();
 
         float startTime = Time.realtimeSinceStartup;
 
@@ -159,10 +163,11 @@ public class BookLoaderScript : MonoBehaviour
             yield break;
         yield return StartCoroutine(request);
 
-		gameObject.SendMessage ("OndoneLoadScene");
-      //  GameObject mainobject = GameObject.Find("MainObject01");
-      //  interactivecontroller.addtogameobject(mainobject, "testing param");
-      //  iTween.MoveTo(mainobject, iTween.Hash("path", iTweenPath.GetPath("p1"), "time", 10, "easetype", iTween.EaseType.linear, "looptype", "pingpong"));
+
+        uiEventHandler.OndoneLoadScene();
+        //  GameObject mainobject = GameObject.Find("MainObject01");
+        //  interactivecontroller.addtogameobject(mainobject, "testing param");
+        //  iTween.MoveTo(mainobject, iTween.Hash("path", iTweenPath.GetPath("p1"), "time", 10, "easetype", iTween.EaseType.linear, "looptype", "pingpong"));
 
         // Calculate and display the elapsed time.
         float elapsedTime = Time.realtimeSinceStartup - startTime;
