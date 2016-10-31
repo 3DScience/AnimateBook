@@ -32,14 +32,8 @@ public class CameraController : TouchLogic {
 	private float flagCameraDrag = 0;
 
 	// rotation camera
-	private float rotX = 0f;
-	private float rotY = 0f;
-	private float deltaX = 0f,
-	deltaY = 0,
-	deltaX1 = 0,
-	deltaY1 = 0;
-	private Vector3 origRot;
-	private Touch initTouch = new Touch();
+//	private Vector3 origRot;
+//	private Touch initTouch = new Touch();
 
 	public float rotSpeed = 0.2f;
 	public float dir =-1;
@@ -55,9 +49,7 @@ public class CameraController : TouchLogic {
 	void Start() {
 		cachedTransform = transform;
 		startingPos = cachedTransform.position;
-		origRot = transform.eulerAngles;
-		rotX = origRot.x;
-		rotY = origRot.y;
+//		origRot = transform.eulerAngles;
 	}
 
 	void OnTouchBeganAnyWhere() {
@@ -70,7 +62,7 @@ public class CameraController : TouchLogic {
 			DragCamera (_deltaPosition);
 		} else if (Input.touchCount == 2) {
 			ZoomCamera ();
-		} else if (Input.touchCount == 3) {
+		} else if (Input.touchCount >= 3) {
 			RotationCamera (); // camera rotaion round its
 			// camera rotaion round object
 			//transform.RotateAround(Vector3.zero, Vector3.down, 5 * Time.deltaTime);
@@ -115,7 +107,7 @@ public class CameraController : TouchLogic {
 			oldTouchDistance = oldTouchVector.magnitude;
 		}
 		else {
-			Vector2 screen = new Vector2(GetComponent<Camera>().pixelWidth, GetComponent<Camera>().pixelHeight);
+			//Vector2 screen = new Vector2(GetComponent<Camera>().pixelWidth, GetComponent<Camera>().pixelHeight);
 
 			Vector2[] newTouchPositions = {
 				Input.GetTouch(0).position,
@@ -130,8 +122,8 @@ public class CameraController : TouchLogic {
 			//transform.position -= transform.TransformDirection((newTouchPositions[0] + newTouchPositions[1] - screen) * GetComponent<Camera>().orthographicSize / screen.y);
 			transform.RotateAround(Vector3.zero, new Vector3(0, Mathf.Asin(Mathf.Clamp((oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y) / oldTouchDistance / newTouchDistance, -2f, 2f)) / 0.0174532924f, 0), 50 * Time.deltaTime);
 
-			Debug.Log ("transform.localRotation 1 : " + transform.localRotation);
-			Debug.Log ("transform.localRotation 2 : " + (oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y));
+//			Debug.Log ("transform.localRotation 1 : " + transform.localRotation);
+//			Debug.Log ("transform.localRotation 2 : " + (oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y));
 
 			oldTouchPositions[0] = newTouchPositions[0];
 			oldTouchPositions[1] = newTouchPositions[1];
@@ -180,7 +172,7 @@ public class CameraController : TouchLogic {
 			Camera.main.transform.Translate(Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime);
 		}
 
-		// RotationCamera ();
+		//RotationCamera ();
 
 	}
 
