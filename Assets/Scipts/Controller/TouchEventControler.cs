@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public interface TouchEventInterface
+{
+    void OnTouchs();
+}
 public class TouchEventControler : MonoBehaviour {
 
     private GameObject currentTouchGameObject;
@@ -25,7 +29,6 @@ public class TouchEventControler : MonoBehaviour {
                     {
                         if (Debug.isDebugBuild)
                             Debug.Log("rx touch obj is BackGround: ");
-                        //Camera.main.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
                         currentTouchGameObject = Camera.main.gameObject;
 
                     }
@@ -33,39 +36,45 @@ public class TouchEventControler : MonoBehaviour {
                     {
                         currentTouchGameObject = touchedGameObject;
                     }
-                    currentTouchGameObject.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
-
                 }
                 else
                 {
-
-                   
                     currentTouchGameObject = Camera.main.gameObject;
-                    currentTouchGameObject.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
                     //if (Debug.isDebugBuild)
                     //    Debug.Log("nothing " );
                 }
+                //currentTouchGameObject.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
+                TouchEventInterface touchEventInterface = currentTouchGameObject.GetComponent<TouchEventInterface>();
+                if (touchEventInterface != null)
+                {
+                    touchEventInterface.OnTouchs();
+                }
+                
             }
             else if(firstTouch.phase == TouchPhase.Ended || firstTouch.phase == TouchPhase.Canceled)
             {
                 if (currentTouchGameObject != null)
-                { 
-                    currentTouchGameObject.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
+                {
+                    //currentTouchGameObject.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
+                    TouchEventInterface touchEventInterface = currentTouchGameObject.GetComponent<TouchEventInterface>();
+                    if (touchEventInterface != null)
+                    {
+                        touchEventInterface.OnTouchs();
+                    }
                     currentTouchGameObject = null;
                 }
             }else
             {
                 if (currentTouchGameObject != null)
                 {
-                    currentTouchGameObject.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
+                    //currentTouchGameObject.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
+                    TouchEventInterface touchEventInterface = currentTouchGameObject.GetComponent<TouchEventInterface>();
+                    if (touchEventInterface != null)
+                    {
+                        touchEventInterface.OnTouchs();
+                    }
+                
                 }
-            }
-        }else
-        {
-            if(currentTouchGameObject != null)
-            {
-                gameObject.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
-                currentTouchGameObject = null;
             }
         }
 	}
