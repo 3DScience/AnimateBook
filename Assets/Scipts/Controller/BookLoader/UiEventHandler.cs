@@ -147,13 +147,8 @@ public class UiEventHandler : MonoBehaviour {
 		string test = textcamera.GetComponentInChildren<Text> ().text;
 		Debug.Log ("text camera:" + test);
 
-		if (test.IndexOf("Camera:On") == 0) {
-            bookLoaderScript.OnCamera();
-
-        } else if (test.IndexOf("Camera:Off") == 0) {
-            bookLoaderScript.OffCamera();
-
-
+		if (test.IndexOf("Camera:On") == 0 || test.IndexOf("Camera:Off") == 0) {
+			ButtonToCamera ();
         } else {
 			Debug.Log ("text camera: none");
 		}
