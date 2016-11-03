@@ -17,8 +17,33 @@ public class Category :GameObjectTouchedEvent {
         page_right = GameObject.Find("page_right");
         flip_pageleft = GameObject.Find("flip_pageleft");
         flip_pageright = GameObject.Find("flip_pageright");
-    }
 
+        SwipeController sw = gameObject.GetComponent<SwipeController>();
+        sw.deledateOnSwipe = OnSwipe;
+    }
+    void OnSwipe(SwipeController.SwipeType type)
+    {
+        if (Debug.isDebugBuild)
+            Debug.Log("OnSwipe type=" + type);
+        switch (type)
+        {
+            case SwipeController.SwipeType.LEFT:
+                ChangePage(ChangingPageType.NEXT);
+                break;
+            case SwipeController.SwipeType.RIGT:
+                ChangePage(ChangingPageType.BACK);
+                break;
+            case SwipeController.SwipeType.UP:
+                break;
+            case SwipeController.SwipeType.DOWN:
+                break;
+            case SwipeController.SwipeType.TOUCH:
+                SceneManager.LoadScene(GlobalConfig.BOOK_LOADER_SCENE);
+                break;
+            default:
+                break;
+        }
+    }
 
     void OnNavigationButtonClick(string param)
     {
@@ -94,10 +119,6 @@ public class Category :GameObjectTouchedEvent {
         if (action.Equals("navigationButtonClick"))
         {
             OnNavigationButtonClick(param);
-        }
-        else if (action.Equals("bookClick"))
-        {
-            OnBookClick(param);
         }
     }
 }
