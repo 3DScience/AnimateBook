@@ -21,6 +21,7 @@ public class GameObjectTouchedController : MonoBehaviour {
     }
     void OnMouseDown()
     {
+       // Event.current.Use();
         if (Debug.isDebugBuild)
             Debug.Log("GameObjectTouchedController-OnMouseDown...");
         if (receiver != null)
