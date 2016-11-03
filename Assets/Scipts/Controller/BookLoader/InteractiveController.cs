@@ -19,7 +19,8 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
                 Debug.Log("processing for mainObject name=" + mainObject.ObjectName + ", movePath=" + mainObject.movePath);
 
             iTween.MoveFrom(GameObject.Find(mainObject.ObjectName), iTween.Hash("path", iTweenPath.GetPath(mainObject.movePath), "orienttopath", true,"time", 20, "easetype", iTween.EaseType.linear, "looptype", "loop"));
-            gameObject.GetComponent<Animation>().Play(mainObject.defaultAnimation); 
+            if(mainObject.defaultAnimation!=null && !mainObject.defaultAnimation.Equals(""))
+                gameObject.GetComponent<Animation>().Play(mainObject.defaultAnimation); 
             isITweenPlaying = true;
         }
 
