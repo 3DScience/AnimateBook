@@ -1,14 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/BookAssetBunbleTest/MetaData/Scene3.json">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scipts/Controller/BookLoader/TalkText.cs">
     <Files>
-      <File FileName="Assets/ThirdParty/Plugins/Pixelplacement/iTweenPath/iTweenPath.cs" Line="90" Column="56" />
-      <File FileName="Assets/Scipts/Controller/BookLoader/BookLoaderScript.cs" Line="103" Column="6" />
-      <File FileName="Assets/Scipts/Controller/BookLoader/UiEventHandler.cs" Line="92" Column="71" />
-      <File FileName="Assets/Scipts/Controller/CameraController/CameraController.cs" Line="158" Column="3" />
-      <File FileName="Assets/BookAssetBunbleTest/MetaData/Scene2.json" Line="43" Column="10" />
-      <File FileName="Assets/BookAssetBunbleTest/MetaData/Scene3.json" Line="6" Column="3" />
-      <File FileName="Assets/Scipts/Global/GlobalConfig.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scipts/Controller/BookLoader/TalkText.cs" Line="61" Column="36" />
+      <File FileName="Assets/Scipts/Controller/BookLoader/AnimationText.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
