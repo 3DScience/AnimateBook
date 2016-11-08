@@ -4,18 +4,34 @@ using System.Collections;
 
 public class TalkText : MonoBehaviour {
 
-	private GameObject talk;
-	public Text talkText;
+	private GameObject meoTalk;
+	private GameObject rhinoTalk;
+	private float meoActive = 1;
+	private float rhinoActive = 1;
+//	public Text talkText;
 
 	void Start () {
-		talk = GameObject.Find ("Talk");
-		talk.SetActive (false);
+		meoTalk = GameObject.Find ("MeoTalk");
+		rhinoTalk = GameObject.Find ("RhinoTalk");
+		if (meoTalk == true) {
+			meoTalk.SetActive (false);
+			meoActive = 0;
+		} else if (rhinoTalk == true) {
+			rhinoTalk.SetActive (false);
+			rhinoActive = 0;
+		}
 	}
 
 	void OnTriggerEnter(Collider other) {
 		Debug.Log ("OnTriggerEnter");
 		if (other.gameObject.CompareTag ("Player")) {
-			talk.SetActive (true);
+			if (meoActive == 0) {
+				meoTalk.SetActive (true);
+				meoActive = 1;
+			} else if (rhinoActive == 0) {
+				rhinoTalk.SetActive (true);
+				rhinoActive = 1;
+			}
 			setTalkText ();
 		}
 	}
@@ -23,12 +39,25 @@ public class TalkText : MonoBehaviour {
 	void OnTriggerExit(Collider other) {
 		Debug.Log ("OnTriggerExit");
 		if (other.gameObject.CompareTag ("Player")) {
-			talk.SetActive (false);
+			if (meoActive == 1) {
+				meoTalk.SetActive (false);
+				meoActive = 0;
+			} else if (rhinoActive == 1) {
+				rhinoTalk.SetActive (false);
+				rhinoActive = 0;
+			}
 		}
 	}
 
 	void setTalkText ()
 	{
-		talkText.text = "Meow Meow ..";
+		if ( meoTalk == true ) {
+			meoTalk.GetComponent<Text> ().text = "Meow Meow ..";
+			Debug.Log ("setTalkText: meow meow" );
+		} 
+		if ( rhinoTalk == true ) {
+			rhinoTalk.GetComponent<Text> ().text = "Ghuww ..";
+			Debug.Log ("setTalkText: ghw ghw" );
+		}
 	}
 }

@@ -3,6 +3,13 @@
 	"title": "demo page 03",
     "info": " this scence is for testing!",
     "mainObjects": [
-
+		{
+            "ObjectName": "Rhino",
+            "movePath": "RhinoMovePath",
+			"defaultAnimation": "",
+            "interactives": [
+                
+            ]
+        }
     ]
 }
