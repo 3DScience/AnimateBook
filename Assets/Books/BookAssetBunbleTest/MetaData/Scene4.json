@@ -1,0 +1,36 @@
+﻿{
+    "name": "page4",
+	"title": "demo page 04",
+    "info": " this scence is for testing!",
+    "mainObjects": [
+        {
+            "ObjectName": "MainObject01",
+            "movePath": "mainobjectmovepath1",
+			"defaultAnimation": "Walk",
+            "interactives": [
+                {
+                    "eventName": "Touch",
+                    "actions":[
+						{
+							"actionName":"Scale",
+							"actionParam": "1"
+						},
+						{
+							"actionName":"Animation",
+							"actionParam": "Ithcing"
+						}
+					]
+                },
+				{
+                    "eventName": "Drag",
+                    "actions":[
+						{
+							"actionName":"Move",
+							"actionParam": "1"
+						}
+					]
+                }
+            ]
+        }
+    ]
+}
