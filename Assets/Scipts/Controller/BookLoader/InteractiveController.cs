@@ -162,20 +162,32 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
         foreach (Action action in interactive.actions)
         {
             INTERACTIVE_ACTION action_ = (INTERACTIVE_ACTION)System.Enum.Parse(typeof(INTERACTIVE_ACTION), action.actionName, true);
-            if (action_ == INTERACTIVE_ACTION.SCALE)
+            switch (action_)
             {
-                doScale(interactive,action);
+                case INTERACTIVE_ACTION.SCALE:
+                    doScale(interactive, action);
+                    break;
+                case INTERACTIVE_ACTION.ANIMATION:
+                    doAnimation(action);
+                    break;
+                case INTERACTIVE_ACTION.MOVE:
+                    doDrag(interactive);
+                    break;
+                case INTERACTIVE_ACTION.CHANGE_SCENE:
+                    doChangeScene(action);
+                    break;
+                case INTERACTIVE_ACTION.NONE:
+                    break;
+                default:
+                    break;
             }
-            else if (action_ == INTERACTIVE_ACTION.ANIMATION)
-            {
-                doAnimation(action);
 
-            }
-            else if (action_ == INTERACTIVE_ACTION.MOVE)
-            {
-                doDrag(interactive);
-            }
         }
+    }
+    protected void doChangeScene(Action action)
+    {
+        Debug.Log("doChangeScene .............................");
+        SceneHelper.ChangeScene(action.actionParam);
     }
     protected void doAnimation(Action action)
     {
