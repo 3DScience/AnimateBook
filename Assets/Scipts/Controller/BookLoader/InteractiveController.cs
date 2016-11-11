@@ -2,9 +2,11 @@
 using System.Collections;
 using Entities;
 using System.Collections.Generic;
+public delegate void GoToScene(string sceneIdx);
 public class InteractiveController : MonoBehaviour,TouchEventInterface {
- 
 
+
+    public GoToScene goToScene;
     public MainObject mainObject;
     private bool isITweenPlaying = false;
     private bool isDraging = false;
@@ -45,11 +47,12 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     }
 	
     // -http://forum.unity3d.com/threads/add-component-to-3d-object-with-parameters-to-constructor.334757/
-    public static InteractiveController addToGameObject(MainObject mainObject)
+    public static InteractiveController addToGameObject(MainObject mainObject, GoToScene goToScene)
     {
         GameObject gameObject = GameObject.Find(mainObject.ObjectName);
         InteractiveController interactiveController = gameObject.AddComponent<InteractiveController>();
         interactiveController.mainObject = mainObject;
+        interactiveController.goToScene = goToScene;
         return interactiveController;
     }
     
@@ -57,7 +60,8 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
 	private Vector3 screenPoint;
 	private Vector3 offset;
     private float startTouchTime;
-
+    private Vector2 fingerStartPos;
+    private float minDragDistance = 20.0f;
     public void OnTouchs()
     {
         Touch firstTouch = Input.touches[0];
@@ -87,7 +91,7 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
         isDraging = false;
         screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
         offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.touches[0].position.x, Input.touches[0].position.y, screenPoint.z));
-
+        fingerStartPos = Input.touches[0].position;
         startTouchTime = Time.time;
         if (Debug.isDebugBuild)
             Debug.Log("OnTouchDown!"+ System.DateTime.Now.Millisecond);
@@ -100,10 +104,14 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
             Debug.Log("OnTouchMoved!"+ time+"/"+ System.DateTime.Now.Millisecond);
         if (time >=0)
         {
-            onInteractiveDrag();
-            if (isITweenPlaying)
-                pauseMovePath();
-            isDraging = true;
+            float gestureDist = (Input.touches[0].position - fingerStartPos).magnitude;
+            if (gestureDist > minDragDistance)
+            {
+                onInteractiveDrag();
+                if (isITweenPlaying)
+                    pauseMovePath();
+                isDraging = true;
+            }
         }
 
     }
@@ -116,7 +124,7 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     void OnTouchUp()
     {
         if (Debug.isDebugBuild)
-            Debug.Log("OnTouchUp!");
+            Debug.Log("OnTouchUp!"+isDraging);
         // iTween.Resume(gameObject);
         if (!isDraging)
         {
@@ -187,7 +195,11 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     protected void doChangeScene(Action action)
     {
         Debug.Log("doChangeScene .............................");
-        SceneHelper.ChangeScene(action.actionParam);
+        if(goToScene!=null)
+        {
+            goToScene(action.actionParam);
+        }
+        //SceneHelper.ChangeScene(action.actionParam);
     }
     protected void doAnimation(Action action)
     {

@@ -17,7 +17,11 @@ public class TouchEventControler : MonoBehaviour {
             {
                 //DebugOnScreen.Log("on touch "+Time.deltaTime);
                 if (Camera.current == null)
+                {
+                    Debug.Log("Camera.current =null ");
                     return;
+                }
+                   
                 Ray ray = Camera.current.ScreenPointToRay(firstTouch.position);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit))
@@ -40,8 +44,8 @@ public class TouchEventControler : MonoBehaviour {
                 else
                 {
                     currentTouchGameObject = Camera.main.gameObject;
-                    //if (Debug.isDebugBuild)
-                    //    Debug.Log("nothing " );
+                    if (Debug.isDebugBuild)
+                        Debug.Log("nothing " );
                 }
                 //currentTouchGameObject.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
                 TouchEventInterface touchEventInterface = currentTouchGameObject.GetComponent<TouchEventInterface>();
