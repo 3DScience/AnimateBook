@@ -19,6 +19,8 @@ public class BookLoaderScript : MonoBehaviour
     // Use this for initialization
     IEnumerator Start()
     {
+        if (Debug.isDebugBuild)
+            Debug.Log("BookLoaderScript Start assetBundleName="+ assetBundleName);
         uiEventHandler = gameObject.GetComponent<UiEventHandler>();
         if (assetBundleName==null || assetBundleName == "")
         {
@@ -65,7 +67,8 @@ public class BookLoaderScript : MonoBehaviour
 	public void OnPlay() {
 		SceneManager.UnloadScene(currentScene.name);
 		currentSceneIdx = 2;
-		StartCoroutine(loadSceneMetaData());
+        string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
+        StartCoroutine(loadSceneMetaData(jsonFileName));
 	}
 
 	public void OnHome() {
@@ -78,7 +81,8 @@ public class BookLoaderScript : MonoBehaviour
 		if (currentSceneIdx < assetBundleInfo.totalScenes) {
 			SceneManager.UnloadScene(currentScene.name);
 			currentSceneIdx++;
-			StartCoroutine(loadSceneMetaData());
+            string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
+            StartCoroutine(loadSceneMetaData(jsonFileName));
 		}
 	}
 
@@ -86,7 +90,8 @@ public class BookLoaderScript : MonoBehaviour
 		if (currentSceneIdx > 0) {
 			SceneManager.UnloadScene(currentScene.name);
 			currentSceneIdx--;
-			StartCoroutine(loadSceneMetaData());
+            string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
+            StartCoroutine(loadSceneMetaData(jsonFileName));
 		}
 	}
 
@@ -101,10 +106,17 @@ public class BookLoaderScript : MonoBehaviour
         uiEventHandler.ButtonToPause();
 
     }
-
+    public void GoToScene(string sceneIdx)
+    {
+        SceneManager.UnloadScene(currentScene.name);
+        currentSceneIdx=int.Parse(sceneIdx);
+        string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
+        StartCoroutine(loadSceneMetaData(jsonFileName));
+    }
     public void OnReplay() {
 		SceneManager.UnloadScene(currentScene.name);
-		StartCoroutine(loadSceneMetaData());
+        string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
+        StartCoroutine(loadSceneMetaData(jsonFileName));
 	}
 		
     protected IEnumerator loadAssetBundleMetaData()
@@ -117,11 +129,11 @@ public class BookLoaderScript : MonoBehaviour
         assetBundleInfo = JsonUtility.FromJson<AssetBundleInfo>(json.text);
         if (Debug.isDebugBuild)
             Debug.Log("Finished loading assetBundleInfo title=" + assetBundleInfo.title+ ", totalScenes" + assetBundleInfo.totalScenes);
-        yield return  StartCoroutine(loadSceneMetaData());
-    }
-    protected IEnumerator loadSceneMetaData()
-    {
         string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
+        yield return  StartCoroutine(loadSceneMetaData(jsonFileName));
+    }
+    protected IEnumerator loadSceneMetaData(string jsonFileName)
+    {
         AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync(assetBundleName+ ".metadata", jsonFileName, typeof(TextAsset));
         if (request == null)
             yield break;
@@ -171,7 +183,7 @@ public class BookLoaderScript : MonoBehaviour
     {
         foreach (MainObject mainObject in sceneInfo.mainObjects)
         {
-            InteractiveController interactiveController = InteractiveController.addToGameObject(mainObject);
+            InteractiveController interactiveController = InteractiveController.addToGameObject(mainObject, GoToScene);
         }
     }
 
