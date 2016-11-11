@@ -15,6 +15,7 @@ namespace Entities
         SCALE,
         ANIMATION,
         MOVE,
+        CHANGE_SCENE,
         NONE
     }
     [Serializable]

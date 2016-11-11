@@ -3,6 +3,84 @@
 	"title": "demo page 02",
     "info": " this scence is for testing!",
     "mainObjects": [
-   
+		{
+			"ObjectName": "Sun",
+			"interactives": [
+                {
+                    "eventName": "Touch",
+                    "actions":[
+						{
+							"actionName":"CHANGE_SCENE",
+							"actionParam": "3"
+						}
+					]
+                }]
+		},
+		{
+			"ObjectName": "Earth",
+			"interactives": [
+                {
+                    "eventName": "Touch",
+                    "actions":[
+						{
+							"actionName":"CHANGE_SCENE",
+							"actionParam": "4"
+						}
+					]
+                }]
+		},
+		{
+			"ObjectName": "Jupiter",
+			"interactives": [
+                {
+                    "eventName": "Touch",
+                    "actions":[
+						{
+							"actionName":"CHANGE_SCENE",
+							"actionParam": "4"
+						}
+					]
+                }]
+		},
+		{
+			"ObjectName": "Saturn",
+			"interactives": [
+                {
+                    "eventName": "Touch",
+                    "actions":[
+						{
+							"actionName":"CHANGE_SCENE",
+							"actionParam": "4"
+						}
+					]
+                }]
+		},
+		{
+			"ObjectName": "Uranus",
+			"interactives": [
+                {
+                    "eventName": "Touch",
+                    "actions":[
+						{
+							"actionName":"CHANGE_SCENE",
+							"actionParam": "4"
+						}
+					]
+                }]
+		}
+		,
+		{
+			"ObjectName": "Neptune",
+			"interactives": [
+                {
+                    "eventName": "Touch",
+                    "actions":[
+						{
+							"actionName":"CHANGE_SCENE",
+							"actionParam": "4"
+						}
+					]
+                }]
+		}
     ]
 }

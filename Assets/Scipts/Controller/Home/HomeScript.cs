@@ -16,25 +16,25 @@ public class HomeScript : MonoBehaviour {
         GameObject animal_book = GameObject.Find("animal_book");
         BookInfo book1 = animal_book.AddComponent<BookInfo>();
         book1.index = 0;
-        book1.bookName = "book1";
+        book1.bookName = "solar_system_book";
         listBookInfo.Add(book1);
 
         GameObject fairy_book = GameObject.Find("fairy_book");
         BookInfo book2 = fairy_book.AddComponent<BookInfo>();
         book2.index = 1;
-        book2.bookName = "book1";
+        book2.bookName = "solar_system_book";
         listBookInfo.Add(book2);
 
         GameObject science_book = GameObject.Find("science_book");
         BookInfo book3 = science_book.AddComponent<BookInfo>();
         book3.index = 2;
-        book3.bookName = "book1";
+        book3.bookName = "solar_system_book";
         listBookInfo.Add(book3);
 
         GameObject fiction_book = GameObject.Find("fiction_book");
         BookInfo book4 = fiction_book.AddComponent<BookInfo>();
         book4.index = 3;
-        book4.bookName = "book1";
+        book4.bookName = "solar_system_book";
         listBookInfo.Add(book4);
 
     }
@@ -63,7 +63,7 @@ public class HomeScript : MonoBehaviour {
      
         if(checkIsDownloadedAsset(assetBundleName))
         {
-            BookLoaderScript.assetBundleName = assetBundleName;
+           // BookLoaderScript.assetBundleName = assetBundleName;
             StartCoroutine(loadScene(GlobalConfig.CATEGORY_SCENE));
         }
         else
