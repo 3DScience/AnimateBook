@@ -22,7 +22,7 @@ public class BookLoaderScript : MonoBehaviour
         uiEventHandler = gameObject.GetComponent<UiEventHandler>();
         if (assetBundleName==null || assetBundleName == "")
         {
-              assetBundleName = "solar_system_book";
+              assetBundleName = "book1";
         }
 
         yield return StartCoroutine(InitializeAssetBunder());

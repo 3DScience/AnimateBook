@@ -46,7 +46,6 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 	Vector2 oldTouchVector;
 	float oldTouchDistance;
 
-
 	void Start() {
 		cachedTransform = transform;
 		startingPos = cachedTransform.position;
