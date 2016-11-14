@@ -49,6 +49,7 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 	void Start() {
 		cachedTransform = transform;
 		startingPos = cachedTransform.position;
+		DebugOnScreen.Log ("fieldOfView: " + Camera.main.fieldOfView.ToString());
 //		origRot = transform.eulerAngles;
 	}
 
