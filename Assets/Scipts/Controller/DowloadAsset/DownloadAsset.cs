@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class DownloadAsset : MonoBehaviour {
     public string assetBundleName;
-
+    private string assetDataFolder = "";
     private WWW www;
     private string url;
     private bool isSavingFile= false;
@@ -25,6 +25,18 @@ public class DownloadAsset : MonoBehaviour {
         if (Application.platform == RuntimePlatform.WindowsEditor)// for testing
         {
             platform = "Android";
+        }
+        try
+        {
+            assetDataFolder = GlobalConfig.DATA_PATH + "/" + assetBundleName;
+            if (Directory.Exists(assetDataFolder))
+            {
+                Directory.Delete(assetDataFolder,true);
+            }
+        }
+        catch (System.Exception ex)
+        {
+            DebugOnScreen.Log(ex.ToString());
         }
 
         url = GlobalConfig.BASE_ASSET_DOWNLOAD_URL +assetBundleName + "/" + platform + ".zip";
@@ -59,7 +71,7 @@ public class DownloadAsset : MonoBehaviour {
         //if (Debug.isDebugBuild)
         //Debug.Log("persistentDataPath=" + Application.persistentDataPath);
         string zipFile="";
-        string assetDataFolder="";
+    
         barBehaviour.m_AttachedText.text = "Saving...";
         yield return null;
         try
@@ -67,7 +79,7 @@ public class DownloadAsset : MonoBehaviour {
             if (Debug.isDebugBuild)
                 Debug.Log("dowload file from url " + url + " complete");
             byte[] data = www.bytes;
-            assetDataFolder = GlobalConfig.DATA_PATH + "/" + assetBundleName;
+            
             if (!Directory.Exists(assetDataFolder))
             {
                 Directory.CreateDirectory(assetDataFolder);
@@ -94,6 +106,7 @@ public class DownloadAsset : MonoBehaviour {
         try
         {
             ZipUtil.Unzip(zipFile, path);
+            File.Delete(zipFile);
         }
         catch (System.Exception ex)
         {

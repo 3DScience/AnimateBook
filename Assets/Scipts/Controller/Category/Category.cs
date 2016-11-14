@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.IO;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public enum ChangingPageType
 {
@@ -9,7 +11,7 @@ public enum ChangingPageType
 }
 public class Category :GameObjectTouchedEvent {
     public GameObject book, page_left, page_right, flip_pageleft, flip_pageright;
-
+    public GameObject contexUiPanel;
     // Use this for initialization
     void Start () {
         book = GameObject.Find("book");
@@ -38,13 +40,25 @@ public class Category :GameObjectTouchedEvent {
             case SwipeController.SwipeType.DOWN:
                 break;
             case SwipeController.SwipeType.TOUCH:
-                SceneManager.LoadScene(GlobalConfig.BOOK_LOADER_SCENE);
+                loadBook();
                 break;
             default:
                 break;
         }
     }
-
+    private void loadBook()
+    {
+        String assetBundleName= "solar_system_book";
+        if (checkIsDownloadedAsset(assetBundleName))
+        {
+            // BookLoaderScript.assetBundleName = assetBundleName;
+            SceneManager.LoadScene(GlobalConfig.BOOK_LOADER_SCENE);
+        }
+        else
+        {
+            SceneManager.LoadScene(GlobalConfig.DOWNLOAD_ASSET_SCENE);
+        }
+    }
     void OnNavigationButtonClick(string param)
     {
         if (Debug.isDebugBuild)
@@ -76,7 +90,19 @@ public class Category :GameObjectTouchedEvent {
             Debug.Log("bookClick param=" + param);
         SceneManager.LoadScene(GlobalConfig.BOOK_LOADER_SCENE);
     }
-
+    public void OnButtonCick(String action)
+    {
+        if (Debug.isDebugBuild)
+            Debug.Log("OnButtonCick action=" + action);
+        if (action.Equals("redownload"))
+        {
+            SceneManager.LoadScene(GlobalConfig.DOWNLOAD_ASSET_SCENE);
+        }
+        else if (action.Equals("deleteBook"))
+        {
+            
+        }
+    }
     protected void ChangePage(ChangingPageType type )
     {
         Material originMaterial, targeMaterialLeft, targeMaterialRight;
@@ -116,9 +142,33 @@ public class Category :GameObjectTouchedEvent {
 
     public override void OnMouseDown(string action, string param)
     {
+        if (Debug.isDebugBuild)
+            Debug.Log("OnMouseDown action=" + action);
+
         if (action.Equals("navigationButtonClick"))
         {
             OnNavigationButtonClick(param);
+        }else if (action.Equals("Setting"))
+        {
+            if (contexUiPanel.activeSelf)
+            {
+                
+                contexUiPanel.SetActive(false);
+            }
+            else
+            {
+                contexUiPanel.SetActive(true);
+            }
         }
+    }
+
+    private bool checkIsDownloadedAsset(string assetBundleName)
+    {
+        string assetDataFolder = GlobalConfig.DATA_PATH + "/" + assetBundleName;
+        if (Directory.Exists(assetDataFolder))
+        {
+            return true;
+        }
+        return false;
     }
 }
