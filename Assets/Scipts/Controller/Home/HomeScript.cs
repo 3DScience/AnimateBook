@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.IO;
-using UnityEngine.UI;
+
 using UnityEngine.SceneManagement;
 public class HomeScript : MonoBehaviour {
     ArrayList listBookInfo = new ArrayList();
@@ -60,16 +59,8 @@ public class HomeScript : MonoBehaviour {
     public void LoadBookSelected(string assetBundleName)
     {
 
-     
-        if(checkIsDownloadedAsset(assetBundleName))
-        {
-           // BookLoaderScript.assetBundleName = assetBundleName;
-            StartCoroutine(loadScene(GlobalConfig.CATEGORY_SCENE));
-        }
-        else
-        {
-            StartCoroutine(loadScene(GlobalConfig.DOWNLOAD_ASSET_SCENE));
-        }
+        StartCoroutine(loadScene(GlobalConfig.CATEGORY_SCENE));
+
     }
     IEnumerator loadScene(string senceName)
     {
@@ -86,14 +77,6 @@ public class HomeScript : MonoBehaviour {
         SceneManager.LoadScene(senceName);
         yield return null;
     }
-    private bool checkIsDownloadedAsset(string assetBundleName)
-    {
-        string assetDataFolder = GlobalConfig.DATA_PATH + "/" + assetBundleName;
-        if (Directory.Exists(assetDataFolder))
-        {
-            return true;
-        }
-        return false;
-    }
+
      
 }
