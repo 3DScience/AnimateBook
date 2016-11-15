@@ -13,8 +13,8 @@ public class GlobalConfig {
     static GlobalConfig()
     {
         DATA_PATH = Application.persistentDataPath;
-        DATA_PATH = DATA_PATH.Substring(0, DATA_PATH.Length - 5);
-        DATA_PATH = DATA_PATH.Substring(0, DATA_PATH.LastIndexOf("/"));
+        //DATA_PATH = DATA_PATH.Substring(0, DATA_PATH.Length - 5); // for Androj
+		//DATA_PATH = DATA_PATH.Substring(0, DATA_PATH.LastIndexOf("/"));	// for Androj
         DATA_PATH += "/Data";
     }
 }
