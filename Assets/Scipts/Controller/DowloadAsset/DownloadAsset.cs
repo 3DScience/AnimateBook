@@ -19,7 +19,7 @@ public class DownloadAsset : MonoBehaviour {
         barBehaviour.ProgressSpeed = 10000;
         if (assetBundleName == null || assetBundleName=="") // for testing
         {
-            assetBundleName = "solar_system_book";
+            assetBundleName = "test_book";
         }
         string platform = Application.platform.ToString();
         if (Application.platform == RuntimePlatform.WindowsEditor)// for testing
@@ -40,6 +40,7 @@ public class DownloadAsset : MonoBehaviour {
         }
 
         url = GlobalConfig.BASE_ASSET_DOWNLOAD_URL +assetBundleName + "/" + platform + ".zip";
+        DebugOnScreen.Log("url=" + url);
         www = new WWW(url);
     }
 
