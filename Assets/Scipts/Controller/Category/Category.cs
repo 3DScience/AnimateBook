@@ -48,7 +48,8 @@ public class Category :GameObjectTouchedEvent {
     }
     private void loadBook()
     {
-        String assetBundleName= "test_book";
+        //String assetBundleName= "test_book";
+        String assetBundleName= "solar_system_book";
         if (checkIsDownloadedAsset(assetBundleName))
         {
             // BookLoaderScript.assetBundleName = assetBundleName;

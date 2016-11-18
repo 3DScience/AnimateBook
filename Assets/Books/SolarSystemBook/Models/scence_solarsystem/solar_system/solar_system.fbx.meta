@@ -1,0 +1,458 @@
+fileFormatVersion: 2
+guid: 90d7515d96fcd264cb2995e3dcc3e1fe
+timeCreated: 1479182447
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Earth
+    100002: earth
+    100004: earth_orbit
+    100006: earth_orbit_color
+    100008: jupiter
+    100010: jupiter_orbit
+    100012: jupiter_orbit_color
+    100014: mars
+    100016: mars_orbit
+    100018: mars_orbit_color
+    100020: mercury
+    100022: mercury_orbit
+    100024: mercury_orbit_color
+    100026: moon
+    100028: neptune
+    100030: neptune_orbit
+    100032: neptune_orbit_color
+    100034: pluto
+    100036: pluto_orbit
+    100038: Saturn
+    100040: saturn
+    100042: saturn_orbit
+    100044: saturn_orbit_color
+    100046: saturn_ring
+    100048: //RootNode
+    100050: Sun
+    100052: sun
+    100054: sun_atmosphere
+    100056: uranus
+    100058: uranus_orbit
+    100060: uranus_orbit_color
+    100062: venus
+    100064: venus_orbit
+    100066: venus_orbit_color
+    100068: orbit1
+    100070: orbit2
+    100072: orbit3
+    100074: orbit4
+    100076: orbit5
+    100078: orbit6
+    100080: orbit7
+    100082: orbit8
+    100084: orbit9
+    100086: earth 1
+    100088: moon_orbit
+    100090: saturn 1
+    100092: sun 1
+    400000: Earth
+    400002: earth
+    400004: earth_orbit
+    400006: earth_orbit_color
+    400008: jupiter
+    400010: jupiter_orbit
+    400012: jupiter_orbit_color
+    400014: mars
+    400016: mars_orbit
+    400018: mars_orbit_color
+    400020: mercury
+    400022: mercury_orbit
+    400024: mercury_orbit_color
+    400026: moon
+    400028: neptune
+    400030: neptune_orbit
+    400032: neptune_orbit_color
+    400034: pluto
+    400036: pluto_orbit
+    400038: Saturn
+    400040: saturn
+    400042: saturn_orbit
+    400044: saturn_orbit_color
+    400046: saturn_ring
+    400048: //RootNode
+    400050: Sun
+    400052: sun
+    400054: sun_atmosphere
+    400056: uranus
+    400058: uranus_orbit
+    400060: uranus_orbit_color
+    400062: venus
+    400064: venus_orbit
+    400066: venus_orbit_color
+    400068: orbit1
+    400070: orbit2
+    400072: orbit3
+    400074: orbit4
+    400076: orbit5
+    400078: orbit6
+    400080: orbit7
+    400082: orbit8
+    400084: orbit9
+    400086: earth 1
+    400088: moon_orbit
+    400090: saturn 1
+    400092: sun 1
+    2300000: earth
+    2300002: earth_orbit_color
+    2300004: jupiter
+    2300006: jupiter_orbit_color
+    2300008: mars
+    2300010: mars_orbit_color
+    2300012: mercury
+    2300014: mercury_orbit_color
+    2300016: moon
+    2300018: neptune
+    2300020: neptune_orbit_color
+    2300022: pluto
+    2300024: saturn
+    2300026: saturn_orbit_color
+    2300028: saturn_ring
+    2300030: sun
+    2300032: sun_atmosphere
+    2300034: uranus
+    2300036: uranus_orbit_color
+    2300038: venus
+    2300040: venus_orbit_color
+    2300042: earth_orbit
+    2300044: jupiter_orbit
+    2300046: mars_orbit
+    2300048: mercury_orbit
+    2300050: neptune_orbit
+    2300052: saturn_orbit
+    2300054: uranus_orbit
+    2300056: venus_orbit
+    2300058: earth 1
+    2300060: saturn 1
+    2300062: sun 1
+    3300000: earth
+    3300002: earth_orbit_color
+    3300004: jupiter
+    3300006: jupiter_orbit_color
+    3300008: mars
+    3300010: mars_orbit_color
+    3300012: mercury
+    3300014: mercury_orbit_color
+    3300016: moon
+    3300018: neptune
+    3300020: neptune_orbit_color
+    3300022: pluto
+    3300024: saturn
+    3300026: saturn_orbit_color
+    3300028: saturn_ring
+    3300030: sun
+    3300032: sun_atmosphere
+    3300034: uranus
+    3300036: uranus_orbit_color
+    3300038: venus
+    3300040: venus_orbit_color
+    3300042: earth_orbit
+    3300044: jupiter_orbit
+    3300046: mars_orbit
+    3300048: mercury_orbit
+    3300050: neptune_orbit
+    3300052: saturn_orbit
+    3300054: uranus_orbit
+    3300056: venus_orbit
+    3300058: earth 1
+    3300060: saturn 1
+    3300062: sun 1
+    4300000: sun_atmosphere
+    4300002: sun
+    4300004: mercury
+    4300006: venus
+    4300008: moon
+    4300010: earth
+    4300012: mars
+    4300014: jupiter
+    4300016: saturn_ring
+    4300018: saturn
+    4300020: uranus
+    4300022: neptune
+    4300024: pluto
+    4300026: mercury_orbit_color
+    4300028: venus_orbit_color
+    4300030: earth_orbit_color
+    4300032: mars_orbit_color
+    4300034: jupiter_orbit_color
+    4300036: saturn_orbit_color
+    4300038: uranus_orbit_color
+    4300040: neptune_orbit_color
+    4300042: mercury_orbit
+    4300044: venus_orbit
+    4300046: earth_orbit
+    4300048: mars_orbit
+    4300050: jupiter_orbit
+    4300052: saturn_orbit
+    4300054: uranus_orbit
+    4300056: neptune_orbit
+    7400000: systemMoving
+    7400002: planetMoving
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: systemMoving
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 12240
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: earth
+        weight: 1
+      - path: earth/earth 1
+        weight: 1
+      - path: earth/moon_orbit
+        weight: 1
+      - path: earth_orbit
+        weight: 1
+      - path: jupiter
+        weight: 1
+      - path: jupiter_orbit
+        weight: 1
+      - path: mars
+        weight: 1
+      - path: mars_orbit
+        weight: 1
+      - path: mercury
+        weight: 1
+      - path: mercury_orbit
+        weight: 1
+      - path: moon
+        weight: 1
+      - path: neptune
+        weight: 1
+      - path: neptune_orbit
+        weight: 1
+      - path: orbit1
+        weight: 1
+      - path: orbit2
+        weight: 1
+      - path: orbit3
+        weight: 1
+      - path: orbit4
+        weight: 1
+      - path: orbit5
+        weight: 1
+      - path: orbit6
+        weight: 1
+      - path: orbit7
+        weight: 1
+      - path: orbit8
+        weight: 1
+      - path: orbit9
+        weight: 1
+      - path: pluto
+        weight: 1
+      - path: saturn
+        weight: 1
+      - path: saturn/saturn 1
+        weight: 1
+      - path: saturn/saturn_ring
+        weight: 1
+      - path: saturn_orbit
+        weight: 1
+      - path: sun
+        weight: 1
+      - path: sun/sun 1
+        weight: 1
+      - path: sun/sun_atmosphere
+        weight: 1
+      - path: uranus
+        weight: 1
+      - path: uranus_orbit
+        weight: 1
+      - path: venus
+        weight: 1
+      - path: venus_orbit
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: planetMoving
+      takeName: Take 001
+      firstFrame: -240
+      lastFrame: 0
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: earth
+        weight: 1
+      - path: earth/earth 1
+        weight: 1
+      - path: earth/moon_orbit
+        weight: 1
+      - path: earth_orbit
+        weight: 1
+      - path: jupiter
+        weight: 1
+      - path: jupiter_orbit
+        weight: 1
+      - path: mars
+        weight: 1
+      - path: mars_orbit
+        weight: 1
+      - path: mercury
+        weight: 1
+      - path: mercury_orbit
+        weight: 1
+      - path: moon
+        weight: 1
+      - path: neptune
+        weight: 1
+      - path: neptune_orbit
+        weight: 1
+      - path: orbit1
+        weight: 1
+      - path: orbit2
+        weight: 1
+      - path: orbit3
+        weight: 1
+      - path: orbit4
+        weight: 1
+      - path: orbit5
+        weight: 1
+      - path: orbit6
+        weight: 1
+      - path: orbit7
+        weight: 1
+      - path: orbit8
+        weight: 1
+      - path: orbit9
+        weight: 1
+      - path: pluto
+        weight: 1
+      - path: saturn
+        weight: 1
+      - path: saturn/saturn 1
+        weight: 1
+      - path: saturn/saturn_ring
+        weight: 1
+      - path: saturn_orbit
+        weight: 1
+      - path: sun
+        weight: 1
+      - path: sun/sun 1
+        weight: 1
+      - path: sun/sun_atmosphere
+        weight: 1
+      - path: uranus
+        weight: 1
+      - path: uranus_orbit
+        weight: 1
+      - path: venus
+        weight: 1
+      - path: venus_orbit
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

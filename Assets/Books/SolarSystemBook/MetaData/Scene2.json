@@ -4,7 +4,7 @@
     "info": " this scence is for testing!",
     "mainObjects": [
 		{
-			"ObjectName": "Sun",
+			"ObjectName": "sun 1",
 			"interactives": [
                 {
                     "eventName": "Touch",
@@ -17,7 +17,7 @@
                 }]
 		},
 		{
-			"ObjectName": "Earth",
+			"ObjectName": "earth 1",
 			"interactives": [
                 {
                     "eventName": "Touch",
@@ -30,7 +30,7 @@
                 }]
 		},
 		{
-			"ObjectName": "Jupiter",
+			"ObjectName": "jupiter",
 			"interactives": [
                 {
                     "eventName": "Touch",
@@ -43,7 +43,7 @@
                 }]
 		},
 		{
-			"ObjectName": "Saturn",
+			"ObjectName": "saturn",
 			"interactives": [
                 {
                     "eventName": "Touch",
@@ -56,7 +56,7 @@
                 }]
 		},
 		{
-			"ObjectName": "Uranus",
+			"ObjectName": "uranus",
 			"interactives": [
                 {
                     "eventName": "Touch",
@@ -69,8 +69,8 @@
                 }]
 		}
 		,
-		{
-			"ObjectName": "Neptune",
+		{	
+			"ObjectName": "neptune",
 			"interactives": [
                 {
                     "eventName": "Touch",
