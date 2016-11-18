@@ -19,7 +19,8 @@ public class DownloadAsset : MonoBehaviour {
         barBehaviour.ProgressSpeed = 10000;
         if (assetBundleName == null || assetBundleName=="") // for testing
         {
-            assetBundleName = "test_book";
+            //assetBundleName = "test_book";
+            assetBundleName = "solar_system_book";
         }
         string platform = Application.platform.ToString();
         if (Application.platform == RuntimePlatform.WindowsEditor)// for testing

@@ -28,7 +28,7 @@ public class TouchEventControler : MonoBehaviour {
                 {
                     GameObject touchedGameObject = hit.transform.gameObject;
                     if (Debug.isDebugBuild)
-                        Debug.Log("rx touch event on object: " + touchedGameObject.name);
+                        Debug.Log("rx touch event on object ff: " + touchedGameObject.name);
                     if (touchedGameObject.CompareTag("BackGround"))
                     {
                         if (Debug.isDebugBuild)
