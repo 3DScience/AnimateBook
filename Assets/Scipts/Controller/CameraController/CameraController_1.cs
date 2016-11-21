@@ -3,16 +3,16 @@ using System.Collections;
 
 public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 
-	public float dragSpeed = 1.0f;
-	public float cameraY = 0.0f;
+	private float dragSpeed = 10.0f;
+	private float cameraY = 0.0f;
 
-	public float conorA1 = 0;
-	public float conorA2 = 0;
-	public float zoomSpeed = 2.0f;
-	public float currDist = 0.0f,
+	private float conorA1 = 0;
+	private float conorA2 = 0;
+	private float zoomSpeed = 150.0f;
+	private float currDist = 0.0f,
 	lastDist = 0.0f,
 	zoomFactor = 0.0f;
-	public float _scare =0.0f;
+	private float _scare =0.0f;
 
 	public Vector2 ObjectPostionSart = Vector2.zero;
 	public Vector2 currDistVector = Vector2.zero;
@@ -238,7 +238,9 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 	Vector3 lastCameraPos;
 	void OnTriggerExit(Collider other) {	// OnTriggerEnter su kien se xay ra khi doi tuong xay ra va cham voi doi tuong khac
 		// tich Is trigger trong Box Collier cua doi tuong Pick Up de kich hoat nhan su kien OnTriggerEnter
+		//Debug.Log("OnTriggerExit Camera FUCK FUCK FUCK FUCK");
 		if(other.gameObject.CompareTag("BackGround"))	// xac dinh doi tuong va cham la doi tuong Pick Up
+			Debug.Log("OnTriggerExit Camera FUCK FUCK FUCK FUCK");
 		{
 			if (Input.touchCount == 1) {
 				flagCameraExitDrag = 1;
@@ -246,8 +248,6 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 				flagCameraExitZoom = 1;
 
 			}
-
-
 		}
 	}
 
@@ -255,6 +255,7 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 	void OnTriggerStay(Collider other) {	// OnTriggerEnter su kien se xay ra khi doi tuong xay ra va cham voi doi tuong khac
 		// tich Is trigger trong Box Collier cua doi tuong Pick Up de kich hoat nhan su kien OnTriggerEnter
 		//Debug.Log ("Stop zoom in camera OnTriggerStay" );
+		//Debug.Log("OnTriggerStay Camera FUCK FUCK FUCK FUCK");
 		lastCameraPos = cachedTransform.position;
 			flagCameraExitDrag = 0;
 			flagCameraExitZoom = 0;
