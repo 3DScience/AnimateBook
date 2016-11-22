@@ -1,4 +1,7 @@
 ﻿{
 	"title": "demo book",
-	"totalScenes": "5"
+	"totalScenes": "5",
+	"dependenciesAsset":[
+		"common_asset_bundle"
+	]
 }

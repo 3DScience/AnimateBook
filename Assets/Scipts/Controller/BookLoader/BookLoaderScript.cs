@@ -3,10 +3,11 @@ using System.Collections;
 using AssetBundles;
 using Entities;
 using UnityEngine.SceneManagement;
-using UnityStandardAssets.ImageEffects;
+using UnityEngine.UI;
 public class BookLoaderScript : MonoBehaviour
 {
 
+    public Canvas mainCanvas;
     public static  string assetBundleName;
     public string jsonAssetBundleMetaDataFileName = "AssetBundleMetaData";
     public string jsonSceneDataFileName = "Scene";
@@ -128,8 +129,13 @@ public class BookLoaderScript : MonoBehaviour
         yield return StartCoroutine(request);
         TextAsset json = request.GetAsset<TextAsset>();
         assetBundleInfo = JsonUtility.FromJson<AssetBundleInfo>(json.text);
+        string dependenciesAsset = "";
+        foreach (string depend in assetBundleInfo.dependenciesAsset)
+        {
+            dependenciesAsset += depend + " ";
+        }
         if (Debug.isDebugBuild)
-            Debug.Log("Finished loading assetBundleInfo title=" + assetBundleInfo.title+ ", totalScenes" + assetBundleInfo.totalScenes);
+            Debug.Log("Finished loading assetBundleInfo title=" + assetBundleInfo.title+ ", totalScenes" + assetBundleInfo.totalScenes+dependenciesAsset+", dependenciesAsset="+ dependenciesAsset);
         string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
         yield return  StartCoroutine(loadSceneMetaData(jsonFileName));
     }
@@ -140,6 +146,8 @@ public class BookLoaderScript : MonoBehaviour
             yield break;
         yield return StartCoroutine(request);
         TextAsset json = request.GetAsset<TextAsset>();
+        if (Debug.isDebugBuild)
+            Debug.Log("json string= " + json);
         currentScene = JsonUtility.FromJson<SceneInfo>(json.text);
         if (Debug.isDebugBuild)
             Debug.Log("Finished loading currentScene name= "+ currentScene.name + ", title=" + currentScene.title + ", info= " + currentScene.info);
@@ -175,7 +183,13 @@ public class BookLoaderScript : MonoBehaviour
         // Calculate and display the elapsed time.
         float elapsedTime = Time.realtimeSinceStartup - startTime;
         if (Debug.isDebugBuild)
-            Debug.Log("Finished loading scene " + sceneInfo.name + " in " + elapsedTime + " seconds");
+            Debug.Log("Finished loading scene: " + sceneInfo.name + " in " + elapsedTime + " seconds");
+        if(sceneInfo.text != null && sceneInfo.text.Length>0)
+        {
+            if (Debug.isDebugBuild)
+                Debug.Log("paragraphs1 file " + sceneInfo.text[0].textFile);
+            StartCoroutine( loadTextUi(sceneInfo));
+        }
         interactiveProcessing(sceneInfo);
         loadingEffect.loading = false;
         //gLoadingEffect.GetComponent<Renderer>().enabled = false;
@@ -187,7 +201,49 @@ public class BookLoaderScript : MonoBehaviour
             InteractiveController interactiveController = InteractiveController.addToGameObject(mainObject, GoToScene);
         }
     }
+    private IEnumerator loadTextUi(SceneInfo sceneInfo)
+    {
+        Paragraph paragraph1 = sceneInfo.text[0];
+        string[] assetBundleMetaData= paragraph1.displayUI.Split(new string[]{"/"}, System.StringSplitOptions.RemoveEmptyEntries);
+        string commonAssetBundleName = assetBundleMetaData[0];
+        string asset = assetBundleMetaData[1];
+        AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync(commonAssetBundleName, asset, typeof(GameObject));
+        if (request == null)
+            yield break;
+        yield return StartCoroutine(request);
 
+        // Get the asset.
+        GameObject prefab = request.GetAsset<GameObject>();
+
+        if (prefab != null)
+        {
+            GameObject uiGameobject=(GameObject)GameObject.Instantiate(prefab, mainCanvas.transform, false);
+
+            request = AssetBundleManager.LoadAssetAsync(assetBundleName + ".metadata", paragraph1.textFile, typeof(TextAsset));
+            if (request == null)
+                yield break;
+            yield return StartCoroutine(request);
+            TextAsset textContent = request.GetAsset<TextAsset>();
+            Debug.Log("textContent=" + textContent);
+
+            // Text txtTile = uiGameobject.transform.Find("Object").Find("titleBox").Find("txt_title").gameObject.GetComponent<Text>();
+           // Text txtTile = uiGameobject.GetComponentInChildren<Text>();
+            Text[] textUis = uiGameobject.GetComponentsInChildren<Text>();
+            foreach (Text textUi in textUis)
+            {
+                if(textUi.gameObject.name == "txt_title")
+                {
+                    textUi.text = paragraph1.header;
+                }
+                else if(textUi.gameObject.name == "txt_info")
+                {
+                    textUi.text = textContent.text;
+                }
+            }
+          
+        }
+
+    }
 
     protected IEnumerator InitializeLevelAsync(string levelName, bool isAdditive)
     {

@@ -7,6 +7,7 @@ namespace Entities
     {
         public string title;
         public int totalScenes=0;
+        public string[] dependenciesAsset;
     }
 }
 
