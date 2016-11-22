@@ -75,7 +75,9 @@ public class BookLoaderScript : MonoBehaviour
 	public void OnHome() {
 		DestroyObject (gameObject);
 		SceneManager.UnloadScene(GlobalConfig.BOOK_LOADER_SCENE);
+		DebugOnScreen.Log ("OnHome begin FUCK FUCK FUCK");
 		SceneManager.LoadScene (GlobalConfig.MAINSCENE);
+		DebugOnScreen.Log ("OnHome END FUCK FUCK FUCK");
 	}
 
 	public void OnNext() {
@@ -145,6 +147,7 @@ public class BookLoaderScript : MonoBehaviour
             Debug.Log("Finished loading currentScene name= "+ currentScene.name + ", title=" + currentScene.title + ", info= " + currentScene.info);
         yield return StartCoroutine(LoadScence(currentScene));
     }
+
     protected IEnumerator LoadScence(SceneInfo sceneInfo)
     {
         GameObject gLoadingEffect = GameObject.Find("LoadingEffect");
@@ -161,7 +164,7 @@ public class BookLoaderScript : MonoBehaviour
         float startTime = Time.realtimeSinceStartup;
 
         // Load level from assetBundle.
-        AssetBundleLoadOperation request = AssetBundleManager.LoadLevelAsync(assetBundleName, sceneInfo.name, true);
+      	AssetBundleLoadOperation request = AssetBundleManager.LoadLevelAsync(assetBundleName, sceneInfo.name, true);
         if (request == null)
             yield break;
         yield return StartCoroutine(request);
