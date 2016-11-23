@@ -40,6 +40,7 @@ public class AnimationText : MonoBehaviour {
 		if (characterIndex == 0) {
 			GetComponent<AudioSource> ().Stop();
 			GetComponent<AudioSource> ().PlayOneShot (audio [stringIndex]);
+//			GetComponent<AudioSource> ().loop = true;
 		}
 
 		if (characterIndex == (strings [stringIndex].Length)) {
