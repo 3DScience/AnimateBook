@@ -1,0 +1,3 @@
+[submodule "Assets/Books/SolarSystemPlanets"]
+	path = Assets/Books/SolarSystemPlanets
+	url = git@github.com:3DScience/b_solar_sys_planets.git
