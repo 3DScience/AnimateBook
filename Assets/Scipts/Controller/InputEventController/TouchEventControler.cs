@@ -5,8 +5,10 @@ public interface TouchEventInterface
 {
     void OnTouchs();
 }
+public delegate void onTouchNothing();
 public class TouchEventControler : MonoBehaviour {
 
+    public onTouchNothing deledateOnTouchNothing;
     private GameObject currentTouchGameObject;
     private 
 	// Update is called once per frame
@@ -46,9 +48,13 @@ public class TouchEventControler : MonoBehaviour {
                 }
                 else
                 {
-                    currentTouchGameObject = Camera.main.gameObject;
+                    currentTouchGameObject = Camera.current.gameObject;
                     if (Debug.isDebugBuild)
                         Debug.Log("nothing " );
+                    if(deledateOnTouchNothing != null)
+                    {
+                        deledateOnTouchNothing();
+                    }
                 }
                 //currentTouchGameObject.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
                 TouchEventInterface touchEventInterface = currentTouchGameObject.GetComponent<TouchEventInterface>();

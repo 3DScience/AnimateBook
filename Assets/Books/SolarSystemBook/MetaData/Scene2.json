@@ -14,11 +14,16 @@
 			"ObjectName": "sun 1",
 			"interactives": [
                 {
-                    "eventName": "Touch",
+                    "eventName": "TOUCH",
                     "actions":[
 						{
-							"actionName":"CHANGE_SCENE",
-							"actionParam": "3"
+							"actionName":"SHOW_TEXT",
+							"actionParams": [
+								{"paramName":"displayUI", "paramValue":"common_asset_bundle/RichTextUi_1" },
+								{"paramName":"header", "paramValue":"Sun info" },
+								{ "paramName":"textFile", "paramValue":"Scene2_text1" },
+								{ "paramName":"explorerSceneIndex", "paramValue":"3" }
+							]
 						}
 					]
                 }]
@@ -27,64 +32,16 @@
 			"ObjectName": "earth 1",
 			"interactives": [
                 {
-                    "eventName": "Touch",
+                    "eventName": "TOUCH",
                     "actions":[
 						{
-							"actionName":"CHANGE_SCENE",
-							"actionParam": "4"
-						}
-					]
-                }]
-		},
-		{
-			"ObjectName": "jupiter",
-			"interactives": [
-                {
-                    "eventName": "Touch",
-                    "actions":[
-						{
-							"actionName":"CHANGE_SCENE",
-							"actionParam": "4"
-						}
-					]
-                }]
-		},
-		{
-			"ObjectName": "saturn",
-			"interactives": [
-                {
-                    "eventName": "Touch",
-                    "actions":[
-						{
-							"actionName":"CHANGE_SCENE",
-							"actionParam": "4"
-						}
-					]
-                }]
-		},
-		{
-			"ObjectName": "uranus",
-			"interactives": [
-                {
-                    "eventName": "Touch",
-                    "actions":[
-						{
-							"actionName":"CHANGE_SCENE",
-							"actionParam": "4"
-						}
-					]
-                }]
-		}
-		,
-		{	
-			"ObjectName": "neptune",
-			"interactives": [
-                {
-                    "eventName": "Touch",
-                    "actions":[
-						{
-							"actionName":"CHANGE_SCENE",
-							"actionParam": "4"
+							"actionName":"SHOW_TEXT",
+							"actionParams": [
+								{"paramName":"displayUI", "paramValue":"common_asset_bundle/RichTextUi_1" },
+								{"paramName":"header", "paramValue":"earth info" },
+								{ "paramName":"textFile", "paramValue":"Scene2_text2" },
+								{ "paramName":"explorerSceneIndex", "paramValue":"4" }
+							]
 						}
 					]
                 }]

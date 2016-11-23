@@ -2,11 +2,11 @@
 using System.Collections;
 using Entities;
 using System.Collections.Generic;
-public delegate void GoToScene(string sceneIdx);
+public delegate void InteractiveCallBack(Action action);
 public class InteractiveController : MonoBehaviour,TouchEventInterface {
 
 
-    public GoToScene goToScene;
+    public InteractiveCallBack interactiveCallBack;
     public MainObject mainObject;
     private bool isITweenPlaying = false;
     private bool isDraging = false;
@@ -47,12 +47,11 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     }
 	
     // -http://forum.unity3d.com/threads/add-component-to-3d-object-with-parameters-to-constructor.334757/
-    public static InteractiveController addToGameObject(MainObject mainObject, GoToScene goToScene)
+    public static InteractiveController addToGameObject(MainObject mainObject)
     {
         GameObject gameObject = GameObject.Find(mainObject.ObjectName);
         InteractiveController interactiveController = gameObject.AddComponent<InteractiveController>();
         interactiveController.mainObject = mainObject;
-        interactiveController.goToScene = goToScene;
         return interactiveController;
     }
     
@@ -182,7 +181,11 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
                     doDrag(interactive);
                     break;
                 case INTERACTIVE_ACTION.CHANGE_SCENE:
-                    doChangeScene(action);
+                    //interactiveCallBack(action_, action.actionParams);
+                    break;
+                case INTERACTIVE_ACTION.SHOW_TEXT:
+                   
+                    interactiveCallBack(action);
                     break;
                 case INTERACTIVE_ACTION.NONE:
                     break;
@@ -195,9 +198,9 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     protected void doChangeScene(Action action)
     {
         Debug.Log("doChangeScene .............................");
-        if(goToScene!=null)
+        if(interactiveCallBack!=null)
         {
-            goToScene(action.actionParam);
+            interactiveCallBack(action);
         }
         //SceneHelper.ChangeScene(action.actionParam);
     }
@@ -209,7 +212,7 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
             animationName = mainObject.defaultAnimation;
         }else
         {
-            animationName = action.actionParam;
+            animationName = action.actionParams[0].paramValue;
         }
         gameObject.GetComponent<Animation>().Play(animationName);
     }
@@ -230,13 +233,13 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
         if (!interactive.isScaling)
         {
            // Debug.Log("scale!");
-            gameObject.transform.localScale = gameObject.transform.localScale * float.Parse(action.actionParam);
+            gameObject.transform.localScale = gameObject.transform.localScale * float.Parse(action.actionParams[0].paramValue);
             interactive.isScaling = true;
         }
         else
         {
            // Debug.Log("unscale!");
-            gameObject.transform.localScale = gameObject.transform.localScale / float.Parse(action.actionParam);
+            gameObject.transform.localScale = gameObject.transform.localScale / float.Parse(action.actionParams[0].paramValue);
             interactive.isScaling = false;
         }
     }
