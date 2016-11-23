@@ -6,8 +6,10 @@ namespace Entities
         public string name;
         public string title;
         public string info;
+        public Paragraph[] text;
         public MainObject[] mainObjects;
-       // public int idx;
+
+        // public int idx;
     }
 }
 

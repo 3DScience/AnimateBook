@@ -16,6 +16,7 @@ namespace Entities
         ANIMATION,
         MOVE,
         CHANGE_SCENE,
+        SHOW_TEXT,
         NONE
     }
     [Serializable]

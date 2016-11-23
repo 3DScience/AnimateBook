@@ -1,24 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.EventSystems;
 public interface TouchEventInterface
 {
     void OnTouchs();
 }
+public delegate void onTouchNothing();
 public class TouchEventControler : MonoBehaviour {
 
+    public onTouchNothing deledateOnTouchNothing;
     private GameObject currentTouchGameObject;
     private 
 	// Update is called once per frame
 	void Update() {
         if (Input.touchCount > 0){
+    
             Touch firstTouch= Input.touches[0];
             if( firstTouch.phase== TouchPhase.Began)
             {
                 //DebugOnScreen.Log("on touch "+Time.deltaTime);
-                if (Camera.current == null)
+                Debug.Log("EventSystem.current.currentSelectedGameObject="+ EventSystem.current.IsPointerOverGameObject(0)+ "Camera.current ="+ Camera.current);
+                if (Camera.current == null|| EventSystem.current.IsPointerOverGameObject(0))
                 {
-                    Debug.Log("Camera.current =null ");
+                    currentTouchGameObject = null;
+                    Debug.Log("Camera.current =null or touch on some ui");
                     return;
                 }
                    
@@ -43,9 +48,13 @@ public class TouchEventControler : MonoBehaviour {
                 }
                 else
                 {
-                    currentTouchGameObject = Camera.main.gameObject;
+                    currentTouchGameObject = Camera.current.gameObject;
                     if (Debug.isDebugBuild)
                         Debug.Log("nothing " );
+                    if(deledateOnTouchNothing != null)
+                    {
+                        deledateOnTouchNothing();
+                    }
                 }
                 //currentTouchGameObject.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
                 TouchEventInterface touchEventInterface = currentTouchGameObject.GetComponent<TouchEventInterface>();
