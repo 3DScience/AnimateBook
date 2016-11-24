@@ -21,12 +21,12 @@ public class BookLoaderScript : MonoBehaviour
     private AssetBunderHelper assetBunderHelper;
     private Dictionary<string, GameObject> loadedPrefab = new Dictionary<string, GameObject>();
     private GameObject currentTextUIGameObject=null;
+    private DisplayTextUiController displayTextUiController;
     // Use this for initialization
     IEnumerator Start()
     {
         if (Debug.isDebugBuild)
             Debug.Log("BookLoaderScript Start assetBundleName="+ assetBundleName);
-
         assetBunderHelper = new AssetBunderHelper(this);
         uiEventHandler = gameObject.GetComponent<UiEventHandler>();
         if (assetBundleName==null || assetBundleName == "")
@@ -35,6 +35,17 @@ public class BookLoaderScript : MonoBehaviour
                 assetBundleName = "solar_system_book"; 
         }
         metadataAssetBundleName = assetBundleName + ".metadata";
+        // Add DisplayTextUiController 
+        displayTextUiController = gameObject.AddComponent<DisplayTextUiController>();
+        displayTextUiController.assetBunderHelper = assetBunderHelper;
+        displayTextUiController.mainCanvas = mainCanvas;
+        displayTextUiController.metadataAssetBundleName = metadataAssetBundleName;
+        TouchEventControler touchEventControler = gameObject.GetComponent<TouchEventControler>();
+        if (touchEventControler != null)
+        {
+            touchEventControler.deledateOnTouchNothing = displayTextUiController.onTouchNothing;
+        }
+        //end
         //DontDestroyOnLoad(gameObject);
         yield return StartCoroutine(assetBunderHelper.InitializeAssetBunder(assetBundleName));
         yield return StartCoroutine(loadAssetBundleMetaData());
@@ -48,11 +59,7 @@ public class BookLoaderScript : MonoBehaviour
         // Load level.
         //yield return StartCoroutine(InitializeLevelAsync("page1", true));
 
-        TouchEventControler touchEventControler = gameObject.GetComponent<TouchEventControler>();
-        if (touchEventControler != null)
-        {
-            touchEventControler.deledateOnTouchNothing = handleOnTouchNothing;
-        }
+
     }
     private void handleOnTouchNothing()
     {
@@ -99,7 +106,7 @@ public class BookLoaderScript : MonoBehaviour
         {
             uiEventHandler.ButtonToBegin();
         }
-        else if (currentSceneIdx == assetBundleInfo.totalScenes)
+        else if (currentSceneIdx == assetBundleInfo.totalScenes) 
         {
             uiEventHandler.ButtonToEnd();
         }
@@ -115,12 +122,6 @@ public class BookLoaderScript : MonoBehaviour
         float elapsedTime = Time.realtimeSinceStartup - startTime;
         if (Debug.isDebugBuild)
             Debug.Log("Finished loading scene: " + sceneInfo.name + " in " + elapsedTime + " seconds");
-        if (sceneInfo.text != null && sceneInfo.text.Length > 0)
-        {
-            if (Debug.isDebugBuild)
-                Debug.Log("paragraphs1 file " + sceneInfo.text[0].textFile);
-            //StartCoroutine(loadTextUi(sceneInfo)); 
-        }
         interactiveProcessing(sceneInfo);
         loadingEffect.loading = false;
         //gLoadingEffect.GetComponent<Renderer>().enabled = false;
@@ -180,6 +181,7 @@ public class BookLoaderScript : MonoBehaviour
         {
             InteractiveController interactiveController = InteractiveController.addToGameObject(mainObject);
             interactiveController.interactiveCallBack = interactiveCallBack;
+            interactiveController.displayTextUiController = displayTextUiController;
             //if( mainObject.interactives!=null && mainObject.interactives.Length > 0)
             //{
             //    if (Debug.isDebugBuild)
@@ -202,7 +204,7 @@ public class BookLoaderScript : MonoBehaviour
         }
 
     }
-    bool showing = false;
+
     protected IEnumerator showTextUi(Dictionary<string,string> actionParams)
     {
 
@@ -285,48 +287,48 @@ public class BookLoaderScript : MonoBehaviour
         }
 
     }
-    private IEnumerator loadTextUi(SceneInfo sceneInfo)
-    {
-        Paragraph paragraph1 = sceneInfo.text[0];
-        string[] assetBundleMetaData= paragraph1.displayUI.Split(new string[]{"/"}, System.StringSplitOptions.RemoveEmptyEntries);
-        string commonAssetBundleName = assetBundleMetaData[0];
-        string asset = assetBundleMetaData[1];
-        AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync(commonAssetBundleName, asset, typeof(GameObject));
-        if (request == null)
-            yield break;
-        yield return StartCoroutine(request);
+    //private IEnumerator loadTextUi(SceneInfo sceneInfo)
+    //{
+    //    TextContent paragraph1 = sceneInfo.texts[0];
+    //    string[] assetBundleMetaData= paragraph1.displayUI.Split(new string[]{"/"}, System.StringSplitOptions.RemoveEmptyEntries);
+    //    string commonAssetBundleName = assetBundleMetaData[0];
+    //    string asset = assetBundleMetaData[1];
+    //    AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync(commonAssetBundleName, asset, typeof(GameObject));
+    //    if (request == null)
+    //        yield break;
+    //    yield return StartCoroutine(request);
 
-        // Get the asset.
-        GameObject prefab = request.GetAsset<GameObject>();
+    //    // Get the asset.
+    //    GameObject prefab = request.GetAsset<GameObject>();
 
-        if (prefab != null)
-        {
-            GameObject uiGameobject=(GameObject)GameObject.Instantiate(prefab, mainCanvas.transform, false); 
+    //    if (prefab != null)
+    //    {
+    //        GameObject uiGameobject=(GameObject)GameObject.Instantiate(prefab, mainCanvas.transform, false); 
 
-            request = AssetBundleManager.LoadAssetAsync(assetBundleName + ".metadata", paragraph1.textFile, typeof(TextAsset));
-            if (request == null)
-                yield break;
-            yield return StartCoroutine(request);
-            TextAsset textContent = request.GetAsset<TextAsset>();
-            Debug.Log("textContent=" + textContent);
+    //        request = AssetBundleManager.LoadAssetAsync(assetBundleName + ".metadata", paragraph1.textFile, typeof(TextAsset));
+    //        if (request == null)
+    //            yield break;
+    //        yield return StartCoroutine(request);
+    //        TextAsset textContent = request.GetAsset<TextAsset>();
+    //        Debug.Log("textContent=" + textContent);
 
-            // Text txtTile = uiGameobject.transform.Find("Object").Find("titleBox").Find("txt_title").gameObject.GetComponent<Text>();
-           // Text txtTile = uiGameobject.GetComponentInChildren<Text>();
-            Text[] textUis = uiGameobject.GetComponentsInChildren<Text>();
-            foreach (Text textUi in textUis)
-            {
-                if(textUi.gameObject.name == "txt_title")
-                {
-                    textUi.text = paragraph1.header;
-                }
-                else if(textUi.gameObject.name == "txt_info")
-                {
-                    textUi.text = textContent.text;
-                }
-            }
+    //        // Text txtTile = uiGameobject.transform.Find("Object").Find("titleBox").Find("txt_title").gameObject.GetComponent<Text>();
+    //       // Text txtTile = uiGameobject.GetComponentInChildren<Text>();
+    //        Text[] textUis = uiGameobject.GetComponentsInChildren<Text>();
+    //        foreach (Text textUi in textUis)
+    //        {
+    //            if(textUi.gameObject.name == "txt_title")
+    //            {
+    //                textUi.text = paragraph1.header;
+    //            }
+    //            else if(textUi.gameObject.name == "txt_info")
+    //            {
+    //                textUi.text = textContent.text;
+    //            }
+    //        }
           
-        }
+    //    }
 
-    }
+    //}
 
 }
