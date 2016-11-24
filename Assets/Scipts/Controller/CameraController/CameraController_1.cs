@@ -81,20 +81,14 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 	void OnTouchMoveAnyWhere()
 	{
 		if (Input.touchCount == 1) {
-			BoxCollider[] myColliders = gameObject.GetComponents<BoxCollider>();
-			foreach(BoxCollider bc in myColliders) bc.enabled = true;
-			Vector2 _deltaPosition = -Input.GetTouch (0).deltaPosition; // deltaPosition khoang cach giua vi tri cuoi cung va vi tri gan day nhat
-			DragCamera (_deltaPosition);
+//			BoxCollider[] myColliders = gameObject.GetComponents<BoxCollider>();
+//			foreach(BoxCollider bc in myColliders) bc.enabled = true;
+//			Vector2 _deltaPosition = -Input.GetTouch (0).deltaPosition; // deltaPosition khoang cach giua vi tri cuoi cung va vi tri gan day nhat
+//			DragCamera (_deltaPosition);
 		} else if (Input.touchCount == 2) {
 			BoxCollider[] myColliders = gameObject.GetComponents<BoxCollider>();
 			foreach(BoxCollider bc in myColliders) bc.enabled = true;
 			ZoomCamera ();
-		} else if (Input.touchCount >= 3) {
-			BoxCollider[] myColliders = gameObject.GetComponents<BoxCollider>();
-			foreach(BoxCollider bc in myColliders) bc.enabled = false;
-			RotationCamera (); // camera rotaion round its
-			// camera rotaion round object
-			//transform.RotateAround(Vector3.zero, Vector3.down, 5 * Time.deltaTime);
 		}
 	}
 
