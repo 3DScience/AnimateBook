@@ -31,26 +31,21 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 	private float flagCameraExitDrag = 0;
 	private float flagCameraDrag = 0;
 
-	// rotation camera
-//	private Vector3 origRot;
-//	private Touch initTouch = new Touch();
-
-	public float rotSpeed = 0.2f;
-	public float dir =-1;
 	public int currTouch = 0;
 
-	Vector2?[] oldTouchPositions = {
-		null,
-		null
-	};
-	Vector2 oldTouchVector;
-	float oldTouchDistance;
+	// rotation camera
+	public Transform lookAt;
+
+	private float distance = 1000.0f;
+	private float currentX = 0.0f;
+	private float currentY = 0.0f;
+
+	private float sensitiveX = 1.0f;
+	private float sensitiveY = 1.0f;
 
 	void Start() {
 		cachedTransform = transform;
 		startingPos = cachedTransform.position;
-		//DebugOnScreen.Log ("fieldOfView: " + Camera.main.fieldOfView.ToString());
-//		origRot = transform.eulerAngles;
 	}
 
 	public void OnTouchs()
@@ -80,11 +75,12 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 
 	void OnTouchMoveAnyWhere()
 	{
+		if (flagCameraExitZoom == 1) {
+			cachedTransform.position = lastCameraPos;
+		}
+
 		if (Input.touchCount == 1) {
-//			BoxCollider[] myColliders = gameObject.GetComponents<BoxCollider>();
-//			foreach(BoxCollider bc in myColliders) bc.enabled = true;
-//			Vector2 _deltaPosition = -Input.GetTouch (0).deltaPosition; // deltaPosition khoang cach giua vi tri cuoi cung va vi tri gan day nhat
-//			DragCamera (_deltaPosition);
+			RotationCamera ();
 		} else if (Input.touchCount == 2) {
 			BoxCollider[] myColliders = gameObject.GetComponents<BoxCollider>();
 			foreach(BoxCollider bc in myColliders) bc.enabled = true;
@@ -94,48 +90,39 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 
 	void OnTouchStayAnyWhere()
 	{
+		if (flagCameraExitZoom == 1) {
+			cachedTransform.position = lastCameraPos;
+		}
 	}
 
 	void OnTouchEndedAnyWhere () {
-		if (flagCameraExitDrag == 1 || flagCameraExitZoom == 1) {
+		if (flagCameraExitZoom == 1) {
 			cachedTransform.position = lastCameraPos;
 		}
 	}
 		
 	void RotationCamera ()
 	{	
-		if (oldTouchPositions[1] == null) {
-			oldTouchPositions[0] = Input.GetTouch(0).position;
-			oldTouchPositions[1] = Input.GetTouch(1).position;
-			oldTouchVector = (Vector2)(oldTouchPositions[0] - oldTouchPositions[1]);
-			oldTouchDistance = oldTouchVector.magnitude;
+		Vector3 offset = transform.position - lookAt.position;
+		distance = offset.magnitude;
+
+		if  (Input.touchCount == 1) {
+
+			Touch touch = Input.GetTouch(0);
+			if (Input.GetTouch(0).phase == TouchPhase.Moved) {
+				Debug.Log("Start begin" + gameObject.transform.position);
+				currentX += touch.deltaPosition.x;
+				currentY -= touch.deltaPosition.y;
+
+				//				currentY = Mathf.Clamp (currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
+
+				Vector3 dir = new Vector3 (0,0, -distance);
+				Quaternion rotation = Quaternion.Euler (currentY, currentX, 0);
+				cachedTransform.position = lookAt.position + rotation*dir;
+				cachedTransform.LookAt (lookAt.position);
+
+			}
 		}
-		else {
-				//Vector2 screen = new Vector2(GetComponent<Camera>().pixelWidth, GetComponent<Camera>().pixelHeight);
-
-			Vector2[] newTouchPositions = {
-				Input.GetTouch(0).position,
-				Input.GetTouch(1).position
-			};
-			Vector2 newTouchVector = newTouchPositions[0] - newTouchPositions[1];
-			float newTouchDistance = newTouchVector.magnitude;
-
-			//transform.position += transform.TransformDirection((Vector3)((oldTouchPositions[0] + oldTouchPositions[1] - screen) * GetComponent<Camera>().orthographicSize / screen.y));
-			//transform.localRotation *= Quaternion.Euler(new Vector3(0, Mathf.Asin(Mathf.Clamp((oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y) / oldTouchDistance / newTouchDistance, -1f, 1f)) / 0.0174532924f, 0));
-			//GetComponent<Camera>().orthographicSize *= oldTouchDistance / newTouchDistance;
-			//transform.position -= transform.TransformDirection((newTouchPositions[0] + newTouchPositions[1] - screen) * GetComponent<Camera>().orthographicSize / screen.y);
-			transform.RotateAround(Vector3.zero, new Vector3(0, Mathf.Asin(Mathf.Clamp((oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y) / oldTouchDistance / newTouchDistance, -2f, 2f)) / 0.0174532924f, 0), 50 * Time.deltaTime);
-
-//			Debug.Log ("transform.localRotation 1 : " + transform.localRotation);
-//			Debug.Log ("transform.localRotation 2 : " + (oldTouchVector.y * newTouchVector.x - oldTouchVector.x * newTouchVector.y));
-
-			oldTouchPositions[0] = newTouchPositions[0];
-			oldTouchPositions[1] = newTouchPositions[1];
-			oldTouchVector = newTouchVector;
-			oldTouchDistance = newTouchDistance;
-		}
-
-
 	}
 		
 	void ZoomCamera ()
@@ -176,70 +163,13 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 			Camera.main.transform.Translate(Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime);
 		}
 
-		//RotationCamera ();
-
 	}
-
-	void DragCamera(Vector2 deltaPosition)
-	{
-		_plane = GameObject.Find ("Plane");
-
-		if (_plane == null) {
-			return;
-		}
-
-		Vector3 _planceScare = _plane.transform.localScale;
-		Renderer planeMesh = _plane.GetComponent<Renderer>();
-		Bounds bounds = planeMesh.bounds;
-
-		float cameraFieldofview = Camera.main.fieldOfView;
-		float cameraRotationX = Camera.main.transform.eulerAngles.x;
-		float cachedFieldofview  = cameraFieldofview / 2;	// ung voi cachedRotationCameraX = 90
-
-		float deltaCameraRotationX = 90 - cameraRotationX;
-
-		conorA1 = cachedFieldofview - deltaCameraRotationX;
-		conorA2 = cameraFieldofview - conorA1;
-
-//		Debug.Log ("conorA1:" + conorA1);
-//		Debug.Log ("conorA2:" + conorA2);
-//		Debug.Log ("cameraRotationX:" + cameraRotationX);
-//		Debug.Log ("deltaCameraRotationX:" + deltaCameraRotationX);
-//		Debug.Log ("cameraFieldofview:" + cameraFieldofview);
-//		Debug.Log ("position.y:" + Camera.main.transform.position.y);
-		float limitCameraZ1 = (float)Camera.main.transform.position.y * Mathf.Tan ((conorA1)*Mathf.PI/180);
-		float limitCameraZ2 = (float)Camera.main.transform.position.y * Mathf.Tan ((conorA2)*Mathf.PI/180);
-//		Debug.Log ("deafaultMaxCameraZ:" + limitCameraZ1);
-		float limitCameraX1 = limitCameraZ1 * Screen.width / Screen.height;	// + bb
-		float limitCameraX2 = limitCameraZ2 * Screen.width / Screen.height;	// - aa
-		float cc = (limitCameraX1 + limitCameraX2)/2 + 0.1f;
-		limitCameraX1 = cc;
-		limitCameraX2 = cc;
-
-		float a = Camera.main.transform.position.y / limitCameraX1;	//ty le toc do a zoom tuong ung voi quang duong zoom Y anh huong toc do di chuyen quang duong X, Z di chuyen dc
-		float b = Camera.main.transform.position.y / limitCameraX2;
-
-		float aX = Mathf.Clamp ((deltaPosition.x * dragSpeed * Time.deltaTime) + cachedTransform.position.x,
-			-bounds.size.x, bounds.size.x);
-		float aY = Mathf.Clamp ((deltaPosition.y * dragSpeed* Time.deltaTime) + cachedTransform.position.y,-bounds.size.y, bounds.size.y);
-
-		if (flagCameraExitDrag == 1 & flagCameraDrag == 0 & (aX > 0 || aY > 0)) {
-			//Debug.Log ("khong move x+ :" + aX + "khong move Z+ :" + aZ);
-		} else if (flagCameraExitDrag == 1 & flagCameraDrag == 0 & (aX < 0 || aY < 0)) {
-			//Debug.Log ("khong move x- :" + aX + "khong move Z- :" + aZ);
-		} else {
-			//cachedTransform.position = new Vector3 (aX, cachedTransform.position.y, aZ);
-			cachedTransform.position = new Vector3 (aX, aY, cachedTransform.position.z);
-
-		}
-	}
+		
 
 	Vector3 lastCameraPos;
-	void OnTriggerExit(Collider other) {	// OnTriggerEnter su kien se xay ra khi doi tuong xay ra va cham voi doi tuong khac
-		// tich Is trigger trong Box Collier cua doi tuong Pick Up de kich hoat nhan su kien OnTriggerEnter
-		//Debug.Log("OnTriggerExit Camera FUCK FUCK FUCK FUCK");
+	void OnTriggerExit(Collider other) {
 		if(other.gameObject.CompareTag("BackGround"))	// xac dinh doi tuong va cham la doi tuong Pick Up
-			Debug.Log("OnTriggerExit Camera FUCK FUCK FUCK FUCK");
+			Debug.Log("OnTriggerExit Camera");
 		{
 			if (Input.touchCount == 1) {
 				flagCameraExitDrag = 1;
@@ -251,10 +181,7 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 	}
 
 
-	void OnTriggerStay(Collider other) {	// OnTriggerEnter su kien se xay ra khi doi tuong xay ra va cham voi doi tuong khac
-		// tich Is trigger trong Box Collier cua doi tuong Pick Up de kich hoat nhan su kien OnTriggerEnter
-		//Debug.Log ("Stop zoom in camera OnTriggerStay" );
-		//Debug.Log("OnTriggerStay Camera FUCK FUCK FUCK FUCK");
+	void OnTriggerStay(Collider other) {
 		lastCameraPos = cachedTransform.position;
 			flagCameraExitDrag = 0;
 			flagCameraExitZoom = 0;
