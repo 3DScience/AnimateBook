@@ -35,13 +35,15 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 
 	// rotation camera
 	public Transform lookAt;
+	private const float Y_ANGLE_MIN = -80;
+	private const float Y_ANGLE_MAX = 80;
 
 	private float distance = 1000.0f;
 	private float currentX = 0.0f;
 	private float currentY = 0.0f;
 
-	private float sensitiveX = 1.0f;
-	private float sensitiveY = 1.0f;
+	private float sensitiveX = 0.2f;
+	private float sensitiveY = 0.2f;
 
 	void Start() {
 		cachedTransform = transform;
@@ -111,10 +113,10 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 			Touch touch = Input.GetTouch(0);
 			if (Input.GetTouch(0).phase == TouchPhase.Moved) {
 				Debug.Log("Start begin" + gameObject.transform.position);
-				currentX += touch.deltaPosition.x;
-				currentY -= touch.deltaPosition.y;
+				currentX += touch.deltaPosition.x * sensitiveX;
+				currentY -= touch.deltaPosition.y * sensitiveY;
 
-				//				currentY = Mathf.Clamp (currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
+				currentY = Mathf.Clamp (currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
 
 				Vector3 dir = new Vector3 (0,0, -distance);
 				Quaternion rotation = Quaternion.Euler (currentY, currentX, 0);
