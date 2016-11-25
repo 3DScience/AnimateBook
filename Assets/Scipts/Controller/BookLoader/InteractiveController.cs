@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public delegate void InteractiveCallBack(Action action);
 public class InteractiveController : MonoBehaviour,TouchEventInterface {
 
-
     public InteractiveCallBack interactiveCallBack;
+    public DisplayTextUiController displayTextUiController;
     public MainObject mainObject;
     private bool isITweenPlaying = false;
     private bool isDraging = false;
@@ -44,6 +44,12 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
             }
 
         }
+        if (listInteractives.ContainsKey(INTERACTIVE_EVENT.ONLOAD))
+        {
+            Interactive interactive = listInteractives[INTERACTIVE_EVENT.ONLOAD];
+            doActions(interactive);
+        }
+
     }
 	
     // -http://forum.unity3d.com/threads/add-component-to-3d-object-with-parameters-to-constructor.334757/
@@ -164,6 +170,14 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
             doActions(interactive);
         }
     }
+    protected void onExplorerButtonClick()
+    {
+        if (listInteractives.ContainsKey(INTERACTIVE_EVENT.EXPLORER_BUTTON_CLICK))
+        {
+            Interactive interactive = listInteractives[INTERACTIVE_EVENT.EXPLORER_BUTTON_CLICK];
+            doActions(interactive);
+        }
+    }
     protected void doActions(Interactive interactive)
     {
         foreach (Action action in interactive.actions)
@@ -181,11 +195,11 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
                     doDrag(interactive);
                     break;
                 case INTERACTIVE_ACTION.CHANGE_SCENE:
-                    //interactiveCallBack(action_, action.actionParams);
+                    doChangeScene(action);
                     break;
                 case INTERACTIVE_ACTION.SHOW_TEXT:
-                   
-                    interactiveCallBack(action);
+                    doShowtext(action);
+                   // interactiveCallBack(action);
                     break;
                 case INTERACTIVE_ACTION.NONE:
                     break;
@@ -195,9 +209,13 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
 
         }
     }
+    protected void doShowtext(Action action)
+    {
+        StartCoroutine(displayTextUiController.showTextUi(mainObject, bool.Parse(action.getDictionaryActionParam()["hideOnTouchNothing"]), onExplorerButtonClick));
+    }
     protected void doChangeScene(Action action)
     {
-        Debug.Log("doChangeScene .............................");
+        //Debug.Log("doChangeScene .............................");
         if(interactiveCallBack!=null)
         {
             interactiveCallBack(action);
@@ -265,5 +283,8 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
         isITweenPlaying = true;
     }
 
- 
+    void OnDestroy()
+    {
+        print("InteractiveController Script was destroyed <====================");
+    }
 }

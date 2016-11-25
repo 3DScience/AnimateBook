@@ -11,6 +11,8 @@ namespace Entities
         public string ObjectName;
         public string movePath;
         public string defaultAnimation;
+        public TextContent[] texts;
         public Interactive[] interactives;
+        public int currentTextIndex = 0;
     }
 }

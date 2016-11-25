@@ -2,7 +2,7 @@
 namespace Entities
 {
     [Serializable]
-    public class Paragraph
+    public class TextContent
     {
         public string displayUI;
         public string header;
