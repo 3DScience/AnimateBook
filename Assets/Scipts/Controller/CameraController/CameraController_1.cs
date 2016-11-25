@@ -108,11 +108,13 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 		Vector3 offset = transform.position - lookAt.position;
 		distance = offset.magnitude;
 
+		Debug.Log("distance : " + distance);
+
 		if  (Input.touchCount == 1) {
 
 			Touch touch = Input.GetTouch(0);
 			if (Input.GetTouch(0).phase == TouchPhase.Moved) {
-				Debug.Log("Start begin" + gameObject.transform.position);
+				//Debug.Log("Start begin" + gameObject.transform.position);
 				currentX += touch.deltaPosition.x * sensitiveX;
 				currentY -= touch.deltaPosition.y * sensitiveY;
 
@@ -129,6 +131,9 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 		
 	void ZoomCamera ()
 	{
+		Vector3 offset = transform.position - lookAt.position;
+		distance = offset.magnitude;
+
 		switch (currTouch) 
 		{
 		case 0:	// firt touch
@@ -161,6 +166,7 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 
 		if (flagCameraExitZoom == 1 & flagCameraZoom == 0 & zoomFactor > 0) {
 		} else if (flagCameraExitZoom == 1 & flagCameraZoom == 0 & zoomFactor < 0) {
+		} else if (distance < 500 & zoomFactor < 0) {
 		} else {
 			Camera.main.transform.Translate(Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime);
 		}
