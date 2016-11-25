@@ -20,7 +20,7 @@ public class BookLoaderScript : MonoBehaviour
     private AssetBundleInfo assetBundleInfo;
     private AssetBunderHelper assetBunderHelper;
     private Dictionary<string, GameObject> loadedPrefab = new Dictionary<string, GameObject>();
-    private GameObject currentTextUIGameObject=null;
+
     private DisplayTextUiController displayTextUiController;
     // Use this for initialization
     IEnumerator Start()
@@ -61,16 +61,6 @@ public class BookLoaderScript : MonoBehaviour
 
 
     }
-    private void handleOnTouchNothing()
-    {
-        if (Debug.isDebugBuild)
-            Debug.Log("handleOnTouchNothing.");
-
-        if (currentTextUIGameObject != null && currentTextUIGameObject.activeSelf)
-        {
-            currentTextUIGameObject.SetActive(false);
-        }
-    }
     protected IEnumerator loadAssetBundleMetaData()
     {
         yield return assetBunderHelper.LoadAsset<TextAsset>(metadataAssetBundleName, jsonAssetBundleMetaDataFileName, textAssetLoaded => {
@@ -98,7 +88,7 @@ public class BookLoaderScript : MonoBehaviour
     }
     protected IEnumerator LoadScence(SceneInfo sceneInfo)
     {
-       
+        displayTextUiController.onChangeScene();
         LoadingEffect loadingEffect = gLoadingEffect.GetComponent<LoadingEffect>();
         loadingEffect.loading = true;
 
@@ -182,13 +172,6 @@ public class BookLoaderScript : MonoBehaviour
             InteractiveController interactiveController = InteractiveController.addToGameObject(mainObject);
             interactiveController.interactiveCallBack = interactiveCallBack;
             interactiveController.displayTextUiController = displayTextUiController;
-            //if( mainObject.interactives!=null && mainObject.interactives.Length > 0)
-            //{
-            //    if (Debug.isDebugBuild)
-            //        Debug.Log("interactive "+ mainObject.interactives[0].actions[0].getDictionaryActionParam()["header"]);
-
-
-            //}
         }
     }
     public void interactiveCallBack(Action action)
@@ -197,74 +180,6 @@ public class BookLoaderScript : MonoBehaviour
         if (action_ == INTERACTIVE_ACTION.CHANGE_SCENE)
         {
             changeScense(action.actionParams[0].paramValue);
-        }
-        else if(action_ == INTERACTIVE_ACTION.SHOW_TEXT)
-        {
-            StartCoroutine(showTextUi(action.getDictionaryActionParam()));
-        }
-
-    }
-
-    protected IEnumerator showTextUi(Dictionary<string,string> actionParams)
-    {
-
-        GameObject uiGameobject = null;
-        string textui = actionParams["displayUI"];
-        if (loadedPrefab.ContainsKey(textui))
-        {
-            uiGameobject = loadedPrefab[textui];
-        }
-        else
-        {
-            GameObject prefab = null;
-            string[] assetBundleMetaData = textui.Split(new string[] { "/" }, System.StringSplitOptions.RemoveEmptyEntries);
-            string commonAssetBundleName = assetBundleMetaData[0];
-            string assetName = assetBundleMetaData[1];
-
-            yield return assetBunderHelper.LoadAsset<GameObject>(commonAssetBundleName, assetName, prefabLoaded =>
-            {
-                prefab = prefabLoaded;
-            });
-            if (prefab != null)
-            {
-                uiGameobject = (GameObject)GameObject.Instantiate(prefab, mainCanvas.transform, false);
-                loadedPrefab.Add(textui, uiGameobject);
-            }
-        }
-        if (uiGameobject != null)
-        {
-            currentTextUIGameObject = uiGameobject;
-            uiGameobject.SetActive(true);
-            TextAsset textContent = null;
-            yield return assetBunderHelper.LoadAsset<TextAsset>(metadataAssetBundleName, actionParams["textFile"], textAssetLoaded => {
-                textContent = textAssetLoaded;
-            });
-            Debug.Log("textContent=" + textContent);
-
-            // Text txtTile = uiGameobject.transform.Find("Object").Find("titleBox").Find("txt_title").gameObject.GetComponent<Text>();
-            // Text txtTile = uiGameobject.GetComponentInChildren<Text>();
-            Text[] textUis = uiGameobject.GetComponentsInChildren<Text>();
-            foreach (Text textUi in textUis)
-            {
-                if (textUi.gameObject.name == "txt_title")
-                {
-                    textUi.text = actionParams["header"];
-                }
-                else if (textUi.gameObject.name == "txt_info")
-                {
-                    textUi.text = textContent.text;
-                }
-            }
-            // now we add eventtrigger for explorerButton
-            GameObject explorerButton = uiGameobject.transform.FindChild("explorerButton").gameObject;
-            EventTrigger explorerButtonEvenTrigger= explorerButton.GetComponent<EventTrigger>();
-            EventTrigger.Entry entry = new EventTrigger.Entry();
-            entry.callback.RemoveAllListeners();
-            entry.eventID = EventTriggerType.PointerClick;
-            entry.callback = new EventTrigger.TriggerEvent();
-            entry.callback.AddListener((eventData) => { OnExplorerButtonClicked(actionParams["explorerSceneIndex"]); });
-            explorerButtonEvenTrigger.triggers.Clear();
-            explorerButtonEvenTrigger.triggers.Add(entry);
         }
     }
     private void OnExplorerButtonClicked(string sceneIndex)
@@ -277,6 +192,7 @@ public class BookLoaderScript : MonoBehaviour
     {
         try
         {
+            
             SceneManager.UnloadScene(currentScene.name);
             currentSceneIdx = int.Parse(sceneIndex);
             string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();

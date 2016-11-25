@@ -79,16 +79,32 @@ public class DisplayTextUiController : MonoBehaviour {
                 }
             }
             // now we add eventtrigger for explorerButton
-            GameObject explorerButton = uiGameobject.transform.FindChild("explorerButton").gameObject;
-            EventTrigger explorerButtonEvenTrigger = explorerButton.GetComponent<EventTrigger>();
-            EventTrigger.Entry entry = new EventTrigger.Entry();
-            entry.callback.RemoveAllListeners();
-            entry.eventID = EventTriggerType.PointerClick;
-            entry.callback = new EventTrigger.TriggerEvent();
-            entry.callback.AddListener((eventData) => { explorerButtonClick(); });
-            explorerButtonEvenTrigger.triggers.Clear();
-            explorerButtonEvenTrigger.triggers.Add(entry);
+            Transform tranform_explorerButton = uiGameobject.transform.FindChild("explorerButton");
+            if( tranform_explorerButton != null)
+            {
+                GameObject explorerButton = tranform_explorerButton.gameObject;
+                EventTrigger explorerButtonEvenTrigger = explorerButton.GetComponent<EventTrigger>();
+                EventTrigger.Entry entry = new EventTrigger.Entry();
+                entry.callback.RemoveAllListeners();
+                entry.eventID = EventTriggerType.PointerClick;
+                entry.callback = new EventTrigger.TriggerEvent();
+                entry.callback.AddListener((eventData) => { explorerButtonClick(); });
+                explorerButtonEvenTrigger.triggers.Clear();
+                explorerButtonEvenTrigger.triggers.Add(entry);
+            }
+
         }
     }
-
+    public void onChangeScene()
+    {
+        if (currentTextUIGameObject != null && currentTextUIGameObject.activeSelf)
+        {
+            currentTextUIGameObject.SetActive(false);
+        }
+    }
+    //private void addEventTrigger
+    void OnDestroy()
+    {
+        print("Script was destroyed*********************************************************");
+    }
 }

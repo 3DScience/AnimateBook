@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public delegate void InteractiveCallBack(Action action);
 public class InteractiveController : MonoBehaviour,TouchEventInterface {
 
-
     public InteractiveCallBack interactiveCallBack;
     public DisplayTextUiController displayTextUiController;
     public MainObject mainObject;
@@ -173,7 +172,11 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     }
     protected void onExplorerButtonClick()
     {
-
+        if (listInteractives.ContainsKey(INTERACTIVE_EVENT.EXPLORER_BUTTON_CLICK))
+        {
+            Interactive interactive = listInteractives[INTERACTIVE_EVENT.EXPLORER_BUTTON_CLICK];
+            doActions(interactive);
+        }
     }
     protected void doActions(Interactive interactive)
     {
@@ -192,7 +195,7 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
                     doDrag(interactive);
                     break;
                 case INTERACTIVE_ACTION.CHANGE_SCENE:
-                    //interactiveCallBack(action_, action.actionParams);
+                    doChangeScene(action);
                     break;
                 case INTERACTIVE_ACTION.SHOW_TEXT:
                     doShowtext(action);
@@ -212,7 +215,7 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     }
     protected void doChangeScene(Action action)
     {
-        Debug.Log("doChangeScene .............................");
+        //Debug.Log("doChangeScene .............................");
         if(interactiveCallBack!=null)
         {
             interactiveCallBack(action);
@@ -280,5 +283,8 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
         isITweenPlaying = true;
     }
 
- 
+    void OnDestroy()
+    {
+        print("InteractiveController Script was destroyed <====================");
+    }
 }
