@@ -27,7 +27,7 @@ public class TouchEventControler : MonoBehaviour {
                     return;
                 }
                    
-                Ray ray = Camera.current.ScreenPointToRay(firstTouch.position);
+				Ray ray = Camera.main.ScreenPointToRay(firstTouch.position);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit))
                 {
@@ -48,7 +48,7 @@ public class TouchEventControler : MonoBehaviour {
                 }
                 else
                 {
-                    currentTouchGameObject = Camera.current.gameObject;
+					currentTouchGameObject = Camera.main.gameObject;
                     if (Debug.isDebugBuild)
                         Debug.Log("nothing " );
                     if(deledateOnTouchNothing != null)
