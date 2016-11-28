@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using AssetBundles;
-public class AssetBunderHelper {
-    MonoBehaviour context;
-    public AssetBunderHelper(MonoBehaviour context)
+public class AssetBundleHelper {
+    private MonoBehaviour context;
+    private string assetBundleName=null;
+    public AssetBundleHelper(MonoBehaviour context)
     {
         this.context = context;
     }
     public IEnumerator InitializeAssetBunder(string assetBundleName)
     {
+
         // Don't destroy this gameObject as we depend on it to run the loading script.
         //DontDestroyOnLoad(context.gameObject);
         // With this code, when in-editor or using a development builds: Always use the AssetBundle Server
@@ -24,7 +26,7 @@ public class AssetBunderHelper {
                 //AssetBundleManager.SetSourceAssetBundleURL("http://www.MyWebsite/MyAssetBundles");
         #endif
 
-
+        this.assetBundleName=assetBundleName;
         // Initialize AssetBundleManifest which loads the AssetBundleManifest object.
         var request = AssetBundleManager.Initialize();
 
@@ -46,5 +48,11 @@ public class AssetBunderHelper {
         if (request == null)
             yield break;
         yield return context.StartCoroutine(request);
+    }
+    public void unLoadAssetBundleManager()
+    {
+        AssetBundleManager.UnloadAssetBundle(assetBundleName);
+        GameObject assetBundleManager= GameObject.Find("AssetBundleManager");
+        AssetBundleManager.DestroyObject(assetBundleManager);
     }
 }

@@ -10,7 +10,7 @@ public class BookLoaderScript : MonoBehaviour
 {
     public GameObject gLoadingEffect;
     public Canvas mainCanvas;
-    public static  string assetBundleName;
+    public static string assetBundleName;
     private string metadataAssetBundleName;
     public string jsonAssetBundleMetaDataFileName = "AssetBundleMetaData";
     public string jsonSceneDataFileName = "Scene";
@@ -18,7 +18,7 @@ public class BookLoaderScript : MonoBehaviour
     public SceneInfo currentScene;
     private UiEventHandler uiEventHandler;
     private AssetBundleInfo assetBundleInfo;
-    private AssetBunderHelper assetBunderHelper;
+    private AssetBundleHelper assetBundleHelper;
     private Dictionary<string, GameObject> loadedPrefab = new Dictionary<string, GameObject>();
 
     private DisplayTextUiController displayTextUiController;
@@ -26,18 +26,18 @@ public class BookLoaderScript : MonoBehaviour
     IEnumerator Start()
     {
         if (Debug.isDebugBuild)
-            Debug.Log("BookLoaderScript Start assetBundleName="+ assetBundleName);
-        assetBunderHelper = new AssetBunderHelper(this);
+            Debug.Log("BookLoaderScript Start assetBundleName=" + assetBundleName);
+        assetBundleHelper = new AssetBundleHelper(this);
         uiEventHandler = gameObject.GetComponent<UiEventHandler>();
-        if (assetBundleName==null || assetBundleName == "")
+        if (assetBundleName == null || assetBundleName == "")
         {
-              //assetBundleName = "test_book"; 
-                assetBundleName = "solar_system_book"; 
+            //assetBundleName = "test_book"; 
+            assetBundleName = "solar_system_book";
         }
         metadataAssetBundleName = assetBundleName + ".metadata";
         // Add DisplayTextUiController 
         displayTextUiController = gameObject.AddComponent<DisplayTextUiController>();
-        displayTextUiController.assetBunderHelper = assetBunderHelper;
+        displayTextUiController.assetBundleHelper = assetBundleHelper;
         displayTextUiController.mainCanvas = mainCanvas;
         displayTextUiController.metadataAssetBundleName = metadataAssetBundleName;
         TouchEventControler touchEventControler = gameObject.GetComponent<TouchEventControler>();
@@ -47,7 +47,7 @@ public class BookLoaderScript : MonoBehaviour
         }
         //end
         //DontDestroyOnLoad(gameObject);
-        yield return StartCoroutine(assetBunderHelper.InitializeAssetBunder(assetBundleName));
+        yield return StartCoroutine(assetBundleHelper.InitializeAssetBunder(assetBundleName));
         yield return StartCoroutine(loadAssetBundleMetaData());
 
         string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
@@ -63,7 +63,8 @@ public class BookLoaderScript : MonoBehaviour
     }
     protected IEnumerator loadAssetBundleMetaData()
     {
-        yield return assetBunderHelper.LoadAsset<TextAsset>(metadataAssetBundleName, jsonAssetBundleMetaDataFileName, textAssetLoaded => {
+        yield return assetBundleHelper.LoadAsset<TextAsset>(metadataAssetBundleName, jsonAssetBundleMetaDataFileName, textAssetLoaded =>
+        {
             assetBundleInfo = JsonUtility.FromJson<AssetBundleInfo>(textAssetLoaded.text);
             string dependenciesAsset = "";
             foreach (string depend in assetBundleInfo.dependenciesAsset)
@@ -77,12 +78,13 @@ public class BookLoaderScript : MonoBehaviour
     }
     protected IEnumerator loadSceneMetaData(string jsonFileName)
     {
-        yield return assetBunderHelper.LoadAsset<TextAsset>(metadataAssetBundleName, jsonFileName, textAssetLoaded => {
+        yield return assetBundleHelper.LoadAsset<TextAsset>(metadataAssetBundleName, jsonFileName, textAssetLoaded =>
+        {
             if (Debug.isDebugBuild)
                 Debug.Log("json string= " + textAssetLoaded.text);
             currentScene = JsonUtility.FromJson<SceneInfo>(textAssetLoaded.text);
             if (Debug.isDebugBuild)
-                Debug.Log("Finished loading currentScene name= " + currentScene.name + ", title=" + currentScene.title + ", info= " + currentScene.info);  
+                Debug.Log("Finished loading currentScene name= " + currentScene.name + ", title=" + currentScene.title + ", info= " + currentScene.info);
         });
         yield return StartCoroutine(LoadScence(currentScene));
     }
@@ -96,7 +98,7 @@ public class BookLoaderScript : MonoBehaviour
         {
             uiEventHandler.ButtonToBegin();
         }
-        else if (currentSceneIdx == assetBundleInfo.totalScenes) 
+        else if (currentSceneIdx == assetBundleInfo.totalScenes)
         {
             uiEventHandler.ButtonToEnd();
         }
@@ -105,7 +107,7 @@ public class BookLoaderScript : MonoBehaviour
 
         float startTime = Time.realtimeSinceStartup;
         // Load level from assetBundle.
-        yield return assetBunderHelper.LoadScene(assetBundleName, sceneInfo.name, true);
+        yield return assetBundleHelper.LoadScene(assetBundleName, sceneInfo.name, true);
 
         uiEventHandler.OndoneLoadScene();
         // Calculate and display the elapsed time.
@@ -116,55 +118,64 @@ public class BookLoaderScript : MonoBehaviour
         loadingEffect.loading = false;
         //gLoadingEffect.GetComponent<Renderer>().enabled = false;
     }
-    public void OnPlay() {
-		SceneManager.UnloadScene(currentScene.name);
-		currentSceneIdx = 2;
+    public void OnPlay()
+    {
+        SceneManager.UnloadScene(currentScene.name);
+        currentSceneIdx = 2;
         string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
         StartCoroutine(loadSceneMetaData(jsonFileName));
-	}
+    }
 
-	public void OnHome() {
-		DestroyObject (gameObject);
-		SceneManager.UnloadScene(GlobalConfig.BOOK_LOADER_SCENE);
-		SceneManager.LoadScene (GlobalConfig.MAINSCENE);
-	}
+    public void OnHome()
+    {
+        DestroyObject(gameObject);
+        SceneManager.UnloadScene(GlobalConfig.BOOK_LOADER_SCENE);
+        SceneManager.LoadScene(GlobalConfig.MAINSCENE);
+    }
 
-	public void OnNext() {
-		if (currentSceneIdx < assetBundleInfo.totalScenes) {
-			SceneManager.UnloadScene(currentScene.name);
-			currentSceneIdx++;
+    public void OnNext()
+    {
+        if (currentSceneIdx < assetBundleInfo.totalScenes)
+        {
+            SceneManager.UnloadScene(currentScene.name);
+            currentSceneIdx++;
             string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
             StartCoroutine(loadSceneMetaData(jsonFileName));
-		}
-	}
+        }
+    }
 
-	public void OnBack() {
-		if (currentSceneIdx > 0) {
-			SceneManager.UnloadScene(currentScene.name);
-			currentSceneIdx--;
+    public void OnBack()
+    {
+        if (currentSceneIdx > 0)
+        {
+            SceneManager.UnloadScene(currentScene.name);
+            currentSceneIdx--;
             string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
             StartCoroutine(loadSceneMetaData(jsonFileName));
-		}
-	}
+        }
+    }
 
-	public void OnPause() {
-		Time.timeScale = 0;
+    public void OnPause()
+    {
+        Time.timeScale = 0;
         uiEventHandler.ButtonToPause();
 
     }
 
-	public void OnResume() {
-		Time.timeScale = 1;
+    public void OnResume()
+    {
+        Time.timeScale = 1;
         uiEventHandler.ButtonToPause();
 
     }
 
-    public void OnReplay() {
-		SceneManager.UnloadScene(currentScene.name);
+    public void OnReplay()
+    {
+        SceneManager.UnloadScene(currentScene.name);
         string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
         StartCoroutine(loadSceneMetaData(jsonFileName));
-	}
-		
+    }
+
     protected void interactiveProcessing(SceneInfo sceneInfo)
     {
         foreach (MainObject mainObject in sceneInfo.mainObjects)
@@ -185,14 +196,14 @@ public class BookLoaderScript : MonoBehaviour
     private void OnExplorerButtonClicked(string sceneIndex)
     {
 
-            changeScense(sceneIndex);
-     
+        changeScense(sceneIndex);
+
     }
     private void changeScense(string sceneIndex)
     {
         try
         {
-            
+
             SceneManager.UnloadScene(currentScene.name);
             currentSceneIdx = int.Parse(sceneIndex);
             string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
@@ -203,48 +214,11 @@ public class BookLoaderScript : MonoBehaviour
         }
 
     }
-    //private IEnumerator loadTextUi(SceneInfo sceneInfo)
-    //{
-    //    TextContent paragraph1 = sceneInfo.texts[0];
-    //    string[] assetBundleMetaData= paragraph1.displayUI.Split(new string[]{"/"}, System.StringSplitOptions.RemoveEmptyEntries);
-    //    string commonAssetBundleName = assetBundleMetaData[0];
-    //    string asset = assetBundleMetaData[1];
-    //    AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync(commonAssetBundleName, asset, typeof(GameObject));
-    //    if (request == null)
-    //        yield break;
-    //    yield return StartCoroutine(request);
-
-    //    // Get the asset.
-    //    GameObject prefab = request.GetAsset<GameObject>();
-
-    //    if (prefab != null)
-    //    {
-    //        GameObject uiGameobject=(GameObject)GameObject.Instantiate(prefab, mainCanvas.transform, false); 
-
-    //        request = AssetBundleManager.LoadAssetAsync(assetBundleName + ".metadata", paragraph1.textFile, typeof(TextAsset));
-    //        if (request == null)
-    //            yield break;
-    //        yield return StartCoroutine(request);
-    //        TextAsset textContent = request.GetAsset<TextAsset>();
-    //        Debug.Log("textContent=" + textContent);
-
-    //        // Text txtTile = uiGameobject.transform.Find("Object").Find("titleBox").Find("txt_title").gameObject.GetComponent<Text>();
-    //       // Text txtTile = uiGameobject.GetComponentInChildren<Text>();
-    //        Text[] textUis = uiGameobject.GetComponentsInChildren<Text>();
-    //        foreach (Text textUi in textUis)
-    //        {
-    //            if(textUi.gameObject.name == "txt_title")
-    //            {
-    //                textUi.text = paragraph1.header;
-    //            }
-    //            else if(textUi.gameObject.name == "txt_info")
-    //            {
-    //                textUi.text = textContent.text;
-    //            }
-    //        }
-          
-    //    }
-
-    //}
-
+    void OnDestroy()
+    {
+     
+        if (Debug.isDebugBuild)
+            Debug.Log("BookLoaderScript  was destroyed <====================");
+        assetBundleHelper.unLoadAssetBundleManager();
+    }
 }
