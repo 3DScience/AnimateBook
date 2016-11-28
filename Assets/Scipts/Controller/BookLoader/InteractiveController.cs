@@ -285,6 +285,8 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
 
     void OnDestroy()
     {
-        print("InteractiveController Script was destroyed <====================");
+        if (Debug.isDebugBuild)
+            Debug.Log("InteractiveController Script was destroyed <====================");
+      
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 public class DisplayTextUiController : MonoBehaviour {
 
-    public AssetBunderHelper assetBunderHelper;
+    public AssetBundleHelper assetBundleHelper;
     private static Dictionary<string, GameObject> loadedPrefab = new Dictionary<string, GameObject>();
     public string metadataAssetBundleName;
     public Canvas mainCanvas;
@@ -35,16 +35,20 @@ public class DisplayTextUiController : MonoBehaviour {
         string textui = textContent.displayUI;
         if (loadedPrefab.ContainsKey(textui))
         {
+            if(Debug.isDebugBuild)
+              Debug.Log("[DisplayTextUiController-showTextUi] Got uiGameobject from Dictionary");
             uiGameobject = loadedPrefab[textui];
         }
         else
         {
+            if (Debug.isDebugBuild)
+                Debug.Log("[DisplayTextUiController-showTextUi] Load uiGameobject from assetBundle!");
             GameObject prefab = null;
             string[] assetBundleMetaData = textui.Split(new string[] { "/" }, System.StringSplitOptions.RemoveEmptyEntries);
             string commonAssetBundleName = assetBundleMetaData[0];
             string assetName = assetBundleMetaData[1];
 
-            yield return assetBunderHelper.LoadAsset<GameObject>(commonAssetBundleName, assetName, prefabLoaded =>
+            yield return assetBundleHelper.LoadAsset<GameObject>(commonAssetBundleName, assetName, prefabLoaded =>
             {
                 prefab = prefabLoaded;
             });
@@ -59,7 +63,7 @@ public class DisplayTextUiController : MonoBehaviour {
             currentTextUIGameObject = uiGameobject;
             uiGameobject.SetActive(true);
             TextAsset textAsset = null;
-            yield return assetBunderHelper.LoadAsset<TextAsset>(metadataAssetBundleName, textContent.textFile, textAssetLoaded => {
+            yield return assetBundleHelper.LoadAsset<TextAsset>(metadataAssetBundleName, textContent.textFile, textAssetLoaded => {
                 textAsset = textAssetLoaded;
             });
             Debug.Log("textContent=" + textContent);
@@ -105,6 +109,8 @@ public class DisplayTextUiController : MonoBehaviour {
     //private void addEventTrigger
     void OnDestroy()
     {
-        print("Script was destroyed*********************************************************");
+        if (Debug.isDebugBuild)
+            Debug.Log("DisplayTextUiController Script was destroyed <====================");
+        loadedPrefab.Clear();
     }
 }
