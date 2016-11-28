@@ -3,16 +3,16 @@ using System.Collections;
 
 public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 
-	private float dragSpeed = 10.0f;
-	private float cameraY = 0.0f;
-
-	private float conorA1 = 0;
-	private float conorA2 = 0;
-	private float zoomSpeed = 150.0f;
+//	private float dragSpeed = 10.0f;
+//	private float cameraY = 0.0f;
+//
+//	private float conorA1 = 0;
+//	private float conorA2 = 0;
+	private float zoomSpeed = 50.0f;
 	private float currDist = 0.0f,
 	lastDist = 0.0f,
 	zoomFactor = 0.0f;
-	private float _scare =0.0f;
+//	private float _scare =0.0f;
 
 	public Vector2 ObjectPostionSart = Vector2.zero;
 	public Vector2 currDistVector = Vector2.zero;
@@ -29,7 +29,7 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 	private float flagCameraExitZoom = 0;
 	private float flagCameraZoom = 0;	// 0 normal, 1 camera exit when zoomOut, 0 camea exit when zoomIN
 	private float flagCameraExitDrag = 0;
-	private float flagCameraDrag = 0;
+//	private float flagCameraDrag = 0;
 
 	public int currTouch = 0;
 
@@ -72,7 +72,9 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 	}
 		
 	void OnTouchBeganAnyWhere() {
-		
+		if (flagCameraExitZoom == 1) {
+			cachedTransform.position = lastCameraPos;
+		}
 	}
 
 	void OnTouchMoveAnyWhere()
@@ -134,6 +136,8 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 		Vector3 offset = transform.position - lookAt.position;
 		distance = offset.magnitude;
 
+		Debug.Log ("distance distance distance : " + distance);
+
 		switch (currTouch) 
 		{
 		case 0:	// firt touch
@@ -166,7 +170,8 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 
 		if (flagCameraExitZoom == 1 & flagCameraZoom == 0 & zoomFactor > 0) {
 		} else if (flagCameraExitZoom == 1 & flagCameraZoom == 0 & zoomFactor < 0) {
-		} else if (distance < 500 & zoomFactor < 0) {
+		} else if (zoomFactor < 0 & distance <= 130) {
+		} else if (zoomFactor > 0 & distance >=1000) {
 		} else {
 			Camera.main.transform.Translate(Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime);
 		}
