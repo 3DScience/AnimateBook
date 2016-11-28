@@ -20,7 +20,7 @@ public class TouchEventControler : MonoBehaviour {
             {
                 //DebugOnScreen.Log("on touch "+Time.deltaTime);
                 Debug.Log("EventSystem.current.currentSelectedGameObject="+ EventSystem.current.IsPointerOverGameObject(0)+ "Camera.current ="+ Camera.current);
-                if (Camera.current == null|| EventSystem.current.IsPointerOverGameObject(0))
+                if (Camera.main == null|| EventSystem.current.IsPointerOverGameObject(0))
                 {
                     currentTouchGameObject = null;
                     Debug.Log("Camera.current =null or touch on some ui");

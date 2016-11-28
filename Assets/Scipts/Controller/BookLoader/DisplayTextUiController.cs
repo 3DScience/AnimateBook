@@ -5,6 +5,12 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 public class DisplayTextUiController : MonoBehaviour {
+    private string NAME_BUTTON_LAYOUT = "buttonLayout";
+    private string NAME_EXPLORER_BUTTON = "explorerButton";
+    private string NAME_BACK_BUTTON = "backButton";
+    private string NAME_TEXT_TITLE = "txt_title";
+    private string NAME_TEXT_BODY = "txt_info";
+    private string NAME_SCROLL_BAR = "infomationBox/Scrollbar";
 
     public AssetBundleHelper assetBundleHelper;
     private static Dictionary<string, GameObject> loadedPrefab = new Dictionary<string, GameObject>();
@@ -66,24 +72,25 @@ public class DisplayTextUiController : MonoBehaviour {
             yield return assetBundleHelper.LoadAsset<TextAsset>(metadataAssetBundleName, textContent.textFile, textAssetLoaded => {
                 textAsset = textAssetLoaded;
             });
-            Debug.Log("textContent=" + textContent);
+            if (Debug.isDebugBuild)
+                Debug.Log("[DisplayTextUiController-showTextUi] textContent=" + textContent);
 
             // Text txtTile = uiGameobject.transform.Find("Object").Find("titleBox").Find("txt_title").gameObject.GetComponent<Text>();
             // Text txtTile = uiGameobject.GetComponentInChildren<Text>();
             Text[] textUis = uiGameobject.GetComponentsInChildren<Text>();
             foreach (Text textUi in textUis)
             {
-                if (textUi.gameObject.name == "txt_title")
+                if (textUi.gameObject.name == NAME_TEXT_TITLE)
                 {
                     textUi.text = textContent.header;
                 }
-                else if (textUi.gameObject.name == "txt_info")
+                else if (textUi.gameObject.name == NAME_TEXT_BODY)
                 {
                     textUi.text = textAsset.text;
                 }
             }
             // now we add eventtrigger for explorerButton
-            Transform tranform_explorerButton = uiGameobject.transform.FindChild("explorerButton");
+            Transform tranform_explorerButton = uiGameobject.transform.FindChild(NAME_BUTTON_LAYOUT+"/"+NAME_EXPLORER_BUTTON);
             if( tranform_explorerButton != null)
             {
                 GameObject explorerButton = tranform_explorerButton.gameObject;
@@ -97,6 +104,9 @@ public class DisplayTextUiController : MonoBehaviour {
                 explorerButtonEvenTrigger.triggers.Add(entry);
             }
 
+            GameObject panel = uiGameobject.transform.Find(NAME_SCROLL_BAR).gameObject;
+            panel.GetComponent<Scrollbar>().value = 1;
+            Canvas.ForceUpdateCanvases();
         }
     }
     public void onChangeScene()
@@ -110,7 +120,7 @@ public class DisplayTextUiController : MonoBehaviour {
     void OnDestroy()
     {
         if (Debug.isDebugBuild)
-            Debug.Log("DisplayTextUiController Script was destroyed <====================");
+            Debug.Log("[DisplayTextUiController] Script was destroyed <====================");
         loadedPrefab.Clear();
     }
 }

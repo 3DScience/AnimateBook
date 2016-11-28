@@ -14,11 +14,11 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     // Use this for initialization
     void Start () {
         if (Debug.isDebugBuild)
-            Debug.Log("InteractiveController start with mainObject=" + mainObject + "...");
+            Debug.Log("[InteractiveController] start with mainObject=" + mainObject + "...");
         if (mainObject.movePath != null)
         {
             if (Debug.isDebugBuild)
-                Debug.Log("processing for mainObject name=" + mainObject.ObjectName + ", movePath=" + mainObject.movePath);
+                Debug.Log("[InteractiveController] processing for mainObject name=" + mainObject.ObjectName + ", movePath=" + mainObject.movePath);
 
             iTween.MoveFrom(GameObject.Find(mainObject.ObjectName), iTween.Hash("path", iTweenPath.GetPath(mainObject.movePath), "orienttopath", true,"time", 20, "easetype", iTween.EaseType.linear, "looptype", "loop"));
             if(mainObject.defaultAnimation!=null && !mainObject.defaultAnimation.Equals(""))
@@ -99,14 +99,14 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
         fingerStartPos = Input.touches[0].position;
         startTouchTime = Time.time;
         if (Debug.isDebugBuild)
-            Debug.Log("OnTouchDown!"+ System.DateTime.Now.Millisecond);
+            Debug.Log("[InteractiveController] OnTouchDown!" + System.DateTime.Now.Millisecond);
 
     }
     void OnTouchMoved()
     {
         float time = (Time.time - startTouchTime);
         if (Debug.isDebugBuild)
-            Debug.Log("OnTouchMoved!"+ time+"/"+ System.DateTime.Now.Millisecond);
+            Debug.Log("[InteractiveController] OnTouchMoved!" + time+"/"+ System.DateTime.Now.Millisecond);
         if (time >=0)
         {
             float gestureDist = (Input.touches[0].position - fingerStartPos).magnitude;
@@ -129,7 +129,7 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     void OnTouchUp()
     {
         if (Debug.isDebugBuild)
-            Debug.Log("OnTouchUp!"+isDraging);
+            Debug.Log("[InteractiveController] OnTouchUp!" + isDraging);
         // iTween.Resume(gameObject);
         if (!isDraging)
         {
@@ -172,6 +172,8 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     }
     protected void onExplorerButtonClick()
     {
+        if (Debug.isDebugBuild)
+            Debug.Log("[InteractiveController] onExplorerButtonClick");
         if (listInteractives.ContainsKey(INTERACTIVE_EVENT.EXPLORER_BUTTON_CLICK))
         {
             Interactive interactive = listInteractives[INTERACTIVE_EVENT.EXPLORER_BUTTON_CLICK];
@@ -286,7 +288,7 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     void OnDestroy()
     {
         if (Debug.isDebugBuild)
-            Debug.Log("InteractiveController Script was destroyed <====================");
+            Debug.Log("[InteractiveController] Script was destroyed <====================");
       
     }
 }
