@@ -18,6 +18,7 @@ public class DisplayTextUiController : MonoBehaviour {
     public Canvas mainCanvas;
     private bool hideOnTouchNothing=true;
     private GameObject currentTextUIGameObject;
+    private MainObject currentManinObject;
     // Use this for initialization
     void Start () {
         
@@ -35,6 +36,14 @@ public class DisplayTextUiController : MonoBehaviour {
     }
     public  IEnumerator showTextUi(MainObject mainObject,bool hideOnTouchNothing, System.Action explorerButtonClick)
     {
+        
+        if(currentManinObject!=null && currentManinObject.Equals(mainObject) && currentTextUIGameObject.activeSelf)
+        {
+            if (Debug.isDebugBuild)
+                Debug.Log("[DisplayTextUiController-showTextUi] show text already!");
+            yield break;
+        }
+        currentManinObject = mainObject;
         this.hideOnTouchNothing = hideOnTouchNothing;
         TextContent textContent = mainObject.texts[mainObject.currentTextIndex];
         GameObject uiGameobject = null;
