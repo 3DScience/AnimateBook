@@ -126,7 +126,7 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 				Quaternion rotation = Quaternion.Euler (currentY, currentX, 0);
 				cachedTransform.position = lookAt.position + rotation*dir;
 				cachedTransform.LookAt (lookAt.position);
-
+				//cachedTransform.LookAt (Camera.main.ScreenToWorldPoint(new Vector3(Screen.width/3,Screen.height/2,lookAt.position.z)));
 			}
 		}
 	}
@@ -193,11 +193,40 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 		}
 	}
 
-
 	void OnTriggerStay(Collider other) {
 		lastCameraPos = cachedTransform.position;
 			flagCameraExitDrag = 0;
 			flagCameraExitZoom = 0;
+	}
+
+	public void OnMainObjectTouched() {
+		float x = cachedTransform.eulerAngles.x;
+		float y = cachedTransform.eulerAngles.y;
+		float z = cachedTransform.eulerAngles.z;
+		if (x >= 69 & x < 100) {
+			cachedTransform.eulerAngles = new Vector3 (x + 5, y + 70, z);
+		} else if (x >= 50 & x < 69) {
+			cachedTransform.eulerAngles = new Vector3 (x + 1, y + 20, z);
+		} else if (x >= 40 & x < 50) {
+			cachedTransform.eulerAngles = new Vector3 (x, y + 17, z);
+		} else if (x > 260 & x <= 284) {
+				cachedTransform.eulerAngles = new Vector3 (x - 7, y + 70, z);
+		} else if (x > 284 & x <= 290) {
+			cachedTransform.eulerAngles = new Vector3 (x - 7, y + 50, z);
+		} else if (x > 290 & x <= 297) { // < - 69
+			cachedTransform.eulerAngles = new Vector3 (x - 3, y + 30, z);
+		} else if (x > 297 & x <= 310) { // -69 -> -50
+			cachedTransform.eulerAngles = new Vector3 (x - 3, y + 20, z);
+		} else if (x > 310 & x <= 320) {
+			cachedTransform.eulerAngles = new Vector3 (x - 2, y + 17, z);
+		} else {
+			cachedTransform.eulerAngles = new Vector3 (x, y + 12, z);
+		}
+
+	}
+
+	public void OnMainObjectUnTouched() {
+		cachedTransform.LookAt (lookAt.position);
 	}
 		
 }

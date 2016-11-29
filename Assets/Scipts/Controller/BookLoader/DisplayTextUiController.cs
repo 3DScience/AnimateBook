@@ -32,6 +32,7 @@ public class DisplayTextUiController : MonoBehaviour {
         if (currentTextUIGameObject != null && currentTextUIGameObject.activeSelf)
         {
             currentTextUIGameObject.SetActive(false);
+			Camera.main.GetComponent<CameraController_1> ().OnMainObjectUnTouched();
         }
     }
     public  IEnumerator showTextUi(MainObject mainObject,bool hideOnTouchNothing, System.Action explorerButtonClick)
@@ -116,6 +117,7 @@ public class DisplayTextUiController : MonoBehaviour {
             GameObject panel = uiGameobject.transform.Find(NAME_SCROLL_BAR).gameObject;
             panel.GetComponent<Scrollbar>().value = 1;
             Canvas.ForceUpdateCanvases();
+			Camera.main.GetComponent<CameraController_1> ().OnMainObjectTouched ();
         }
     }
     public void onChangeScene()
