@@ -208,25 +208,39 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 		float x = cachedTransform.eulerAngles.x;
 		float y = cachedTransform.eulerAngles.y;
 		float z = cachedTransform.eulerAngles.z;
+		Vector3 eulerAngles;
+
 		if (x >= 69 & x < 100) {
-			cachedTransform.eulerAngles = new Vector3 (x + 5, y + 70, z);
+			eulerAngles = new Vector3 (x + 5, y + 70, z);
+
 		} else if (x >= 50 & x < 69) {
-			cachedTransform.eulerAngles = new Vector3 (x + 1, y + 20, z);
+			eulerAngles = new Vector3 (x + 1, y + 20, z);
+
 		} else if (x >= 40 & x < 50) {
-			cachedTransform.eulerAngles = new Vector3 (x, y + 17, z);
+			eulerAngles = new Vector3 (x, y + 17, z);
+
 		} else if (x > 260 & x <= 284) {
-				cachedTransform.eulerAngles = new Vector3 (x - 7, y + 70, z);
+			eulerAngles = new Vector3 (x - 7, y + 70, z);
+
 		} else if (x > 284 & x <= 290) {
-			cachedTransform.eulerAngles = new Vector3 (x - 7, y + 50, z);
+			eulerAngles = new Vector3 (x - 7, y + 50, z);
+
 		} else if (x > 290 & x <= 297) { // < - 69
-			cachedTransform.eulerAngles = new Vector3 (x - 3, y + 30, z);
+			eulerAngles = new Vector3 (x - 3, y + 30, z);
+
 		} else if (x > 297 & x <= 310) { // -69 -> -50
-			cachedTransform.eulerAngles = new Vector3 (x - 3, y + 20, z);
+			eulerAngles = new Vector3 (x - 3, y + 20, z);
+
 		} else if (x > 310 & x <= 320) {
-			cachedTransform.eulerAngles = new Vector3 (x - 2, y + 17, z);
+			eulerAngles = new Vector3 (x - 2, y + 17, z);
+
 		} else {
-			cachedTransform.eulerAngles = new Vector3 (x, y + 12, z);
+			eulerAngles = new Vector3 (x, y + 12, z);
 		}
+		Debug.Log ("Test");
+		cachedTransform.eulerAngles = Vector3.Lerp (cachedTransform.eulerAngles, eulerAngles, 1*Time.deltaTime);
+//		Quaternion newRotation = Quaternion.Euler (eulerAngles);
+//		cachedTransform.rotation = Quaternion.Lerp (cachedTransform.rotation, newRotation, 20*Time.deltaTime);
 	}
 
 	public void OnMainObjectUnTouched() {
