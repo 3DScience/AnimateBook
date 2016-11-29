@@ -200,21 +200,33 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 	}
 
 	public void OnMainObjectTouched() {
-		Debug.Log ("OnMainObjectTouched " + cachedTransform.eulerAngles.x);
-		if (cachedTransform.eulerAngles.x >= 69 &  cachedTransform.eulerAngles.x  < 100 ) {
-			cachedTransform.eulerAngles = new Vector3 (cachedTransform.eulerAngles.x + 5, cachedTransform.eulerAngles.y + 70, cachedTransform.eulerAngles.z);
-		} else if (cachedTransform.eulerAngles.x >= 50 & cachedTransform.eulerAngles.x < 69) {
-			cachedTransform.eulerAngles = new Vector3 (cachedTransform.eulerAngles.x + 1, cachedTransform.eulerAngles.y + 20, cachedTransform.eulerAngles.z);
-		} else if (cachedTransform.eulerAngles.x >= 40 & cachedTransform.eulerAngles.x < 50) {
-			cachedTransform.eulerAngles = new Vector3 (cachedTransform.eulerAngles.x, cachedTransform.eulerAngles.y + 17, cachedTransform.eulerAngles.z);
-		} else if (cachedTransform.eulerAngles.x > 270 &  cachedTransform.eulerAngles.x <= 310) {
-			cachedTransform.eulerAngles = new Vector3 (cachedTransform.eulerAngles.x - 5, cachedTransform.eulerAngles.y + 70, cachedTransform.eulerAngles.z);
-		} else if (cachedTransform.eulerAngles.x  > 310 &  cachedTransform.eulerAngles.x <= 329) {
-			cachedTransform.eulerAngles = new Vector3 (cachedTransform.eulerAngles.x - 1, cachedTransform.eulerAngles.y + 20, cachedTransform.eulerAngles.z);
-		} else if (cachedTransform.eulerAngles.x  > 329 &  cachedTransform.eulerAngles.x <= 339) {
-			cachedTransform.eulerAngles = new Vector3 (cachedTransform.eulerAngles.x, cachedTransform.eulerAngles.y + 17, cachedTransform.eulerAngles.z);
-		}else {
-			cachedTransform.eulerAngles = new Vector3 (cachedTransform.eulerAngles.x, cachedTransform.eulerAngles.y + 12, cachedTransform.eulerAngles.z);
+		float x = cachedTransform.eulerAngles.x;
+		float y = cachedTransform.eulerAngles.y;
+		float z = cachedTransform.eulerAngles.z;
+		if (x >= 69 & x < 100) {
+			cachedTransform.eulerAngles = new Vector3 (x + 5, y + 70, z);
+		} else if (x >= 50 & x < 69) {
+			cachedTransform.eulerAngles = new Vector3 (x + 1, y + 20, z);
+		} else if (x >= 40 & x < 50) {
+			cachedTransform.eulerAngles = new Vector3 (x, y + 17, z);
+		} else if (x > 260 & x <= 284) {
+				cachedTransform.eulerAngles = new Vector3 (x - 7, y + 70, z);
+		} else if (x > 284 & x <= 290) {
+			cachedTransform.eulerAngles = new Vector3 (x - 7, y + 50, z);
+		} else if (x > 290 & x <= 297) { // < - 69
+			cachedTransform.eulerAngles = new Vector3 (x - 3, y + 30, z);
+		} else if (x > 297 & x <= 310) { // -69 -> -50
+			cachedTransform.eulerAngles = new Vector3 (x - 3, y + 20, z);
+		} else if (x > 310 & x <= 320) {
+			cachedTransform.eulerAngles = new Vector3 (x - 2, y + 17, z);
+		} else {
+			cachedTransform.eulerAngles = new Vector3 (x, y + 12, z);
 		}
+
 	}
+
+	public void OnMainObjectUnTouched() {
+		cachedTransform.LookAt (lookAt.position);
+	}
+		
 }
