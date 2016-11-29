@@ -126,7 +126,7 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 				Quaternion rotation = Quaternion.Euler (currentY, currentX, 0);
 				cachedTransform.position = lookAt.position + rotation*dir;
 				cachedTransform.LookAt (lookAt.position);
-
+				//cachedTransform.LookAt (Camera.main.ScreenToWorldPoint(new Vector3(Screen.width/3,Screen.height/2,lookAt.position.z)));
 			}
 		}
 	}
@@ -193,11 +193,28 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 		}
 	}
 
-
 	void OnTriggerStay(Collider other) {
 		lastCameraPos = cachedTransform.position;
 			flagCameraExitDrag = 0;
 			flagCameraExitZoom = 0;
 	}
-		
+
+	public void OnMainObjectTouched() {
+		Debug.Log ("OnMainObjectTouched " + cachedTransform.eulerAngles.x);
+		if (cachedTransform.eulerAngles.x >= 69 &  cachedTransform.eulerAngles.x  < 100 ) {
+			cachedTransform.eulerAngles = new Vector3 (cachedTransform.eulerAngles.x + 5, cachedTransform.eulerAngles.y + 70, cachedTransform.eulerAngles.z);
+		} else if (cachedTransform.eulerAngles.x >= 50 & cachedTransform.eulerAngles.x < 69) {
+			cachedTransform.eulerAngles = new Vector3 (cachedTransform.eulerAngles.x + 1, cachedTransform.eulerAngles.y + 20, cachedTransform.eulerAngles.z);
+		} else if (cachedTransform.eulerAngles.x >= 40 & cachedTransform.eulerAngles.x < 50) {
+			cachedTransform.eulerAngles = new Vector3 (cachedTransform.eulerAngles.x, cachedTransform.eulerAngles.y + 17, cachedTransform.eulerAngles.z);
+		} else if (cachedTransform.eulerAngles.x > 270 &  cachedTransform.eulerAngles.x <= 310) {
+			cachedTransform.eulerAngles = new Vector3 (cachedTransform.eulerAngles.x - 5, cachedTransform.eulerAngles.y + 70, cachedTransform.eulerAngles.z);
+		} else if (cachedTransform.eulerAngles.x  > 310 &  cachedTransform.eulerAngles.x <= 329) {
+			cachedTransform.eulerAngles = new Vector3 (cachedTransform.eulerAngles.x - 1, cachedTransform.eulerAngles.y + 20, cachedTransform.eulerAngles.z);
+		} else if (cachedTransform.eulerAngles.x  > 329 &  cachedTransform.eulerAngles.x <= 339) {
+			cachedTransform.eulerAngles = new Vector3 (cachedTransform.eulerAngles.x, cachedTransform.eulerAngles.y + 17, cachedTransform.eulerAngles.z);
+		}else {
+			cachedTransform.eulerAngles = new Vector3 (cachedTransform.eulerAngles.x, cachedTransform.eulerAngles.y + 12, cachedTransform.eulerAngles.z);
+		}
+	}
 }
