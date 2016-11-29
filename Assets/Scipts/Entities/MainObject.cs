@@ -9,6 +9,7 @@ namespace Entities
     public class MainObject
     {
         public string ObjectName;
+        public string Title;
         public string movePath;
         public string defaultAnimation;
         public TextContent[] texts;
