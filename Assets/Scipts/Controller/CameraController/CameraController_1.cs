@@ -45,6 +45,8 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 	private float sensitiveX = 0.2f;
 	private float sensitiveY = 0.2f;
 
+	private bool flagShowtxt = false;
+
 	void Start() {
 		cachedTransform = transform;
 		startingPos = cachedTransform.position;
@@ -200,6 +202,9 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 	}
 
 	public void OnMainObjectTouched() {
+		if (flagShowtxt == true)
+			return;
+		flagShowtxt = true;
 		float x = cachedTransform.eulerAngles.x;
 		float y = cachedTransform.eulerAngles.y;
 		float z = cachedTransform.eulerAngles.z;
@@ -222,10 +227,10 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 		} else {
 			cachedTransform.eulerAngles = new Vector3 (x, y + 12, z);
 		}
-
 	}
 
 	public void OnMainObjectUnTouched() {
+		flagShowtxt = false;
 		cachedTransform.LookAt (lookAt.position);
 	}
 		
