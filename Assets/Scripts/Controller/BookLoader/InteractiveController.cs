@@ -180,6 +180,16 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
             doActions(interactive);
         }
     }
+    protected void onMoveCameraEnd()
+    {
+        if (Debug.isDebugBuild)
+            Debug.Log("[InteractiveController] onMoveCameraEnd");
+        if (listInteractives.ContainsKey(INTERACTIVE_EVENT.MOVE_CAMERA_END))
+        {
+            Interactive interactive = listInteractives[INTERACTIVE_EVENT.MOVE_CAMERA_END];
+            doActions(interactive);
+        }
+    }
     protected void doActions(Interactive interactive)
     {
         foreach (Action action in interactive.actions)
@@ -203,6 +213,10 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
                     doShowtext(action);
                    // interactiveCallBack(action);
                     break;
+                case INTERACTIVE_ACTION.MOVE_CAMERA:
+                    doMoveCamera(action);
+                    // interactiveCallBack(action);
+                    break;
                 case INTERACTIVE_ACTION.NONE:
                     break;
                 default:
@@ -210,6 +224,23 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
             }
 
         }
+    }
+    protected void doMoveCamera(Action action)
+    {
+        if(Camera.main == null)
+        {
+            if (Debug.isDebugBuild)
+                Debug.Log("[InteractiveController] Got camera is null");
+            return;
+        }
+        MovingCam movingCam = Camera.main.gameObject.AddComponent<MovingCam>();
+        Transform startMarker = Camera.main.transform.FindChild(action.getDictionaryActionParam()["startMarker"]);
+        Transform endMarker = Camera.main.transform.FindChild(action.getDictionaryActionParam()["endMarker"]);
+        movingCam.startMarker = startMarker;
+        movingCam.endMarker = endMarker;
+        movingCam.onMoveCameraEnd = onMoveCameraEnd;
+        if (Debug.isDebugBuild)
+            Debug.Log("[InteractiveController] doMoveCamera <===================="+ endMarker);
     }
     protected void doShowtext(Action action)
     {
