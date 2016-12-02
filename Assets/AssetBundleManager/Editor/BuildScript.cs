@@ -19,10 +19,22 @@ namespace AssetBundles
 			string outputPath = Path.Combine(Utility.AssetBundlesOutputPath,  Utility.GetPlatformName());
 			if (!Directory.Exists(outputPath) )
 				Directory.CreateDirectory (outputPath);
-	
-			//@TODO: use append hash... (Make sure pipeline works correctly with it.)
-			BuildPipeline.BuildAssetBundles (outputPath, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
-		}
+            string[] str = AssetDatabase.GetAllAssetBundleNames();
+            foreach (string item in str)
+            {
+                Debug.Log("Asset Name="+item+"");
+            }
+
+            AssetBundleBuild[] buildMap = new AssetBundleBuild[2];
+            buildMap[0].assetBundleName = "solar_system_book";
+            buildMap[0].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("solar_system_book");
+            buildMap[1].assetBundleName = "solar_system_book.metadata";
+            buildMap[1].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("solar_system_book.metadata");
+            BuildPipeline.BuildAssetBundles(outputPath, buildMap, BuildAssetBundleOptions.UncompressedAssetBundle, EditorUserBuildSettings.activeBuildTarget); ;
+            //AssetDatabase.
+            //@TODO: use append hash... (Make sure pipeline works correctly with it.)
+            //BuildPipeline.BuildAssetBundles (outputPath, BuildAssetBundleOptions.UncompressedAssetBundle, EditorUserBuildSettings.activeBuildTarget);
+        }
 	
 		public static void WriteServerURL()
 		{
