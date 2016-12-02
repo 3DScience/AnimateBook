@@ -25,11 +25,13 @@ namespace AssetBundles
                 Debug.Log("Asset Name="+item+"");
             }
 
-            AssetBundleBuild[] buildMap = new AssetBundleBuild[2];
+            AssetBundleBuild[] buildMap = new AssetBundleBuild[3];
             buildMap[0].assetBundleName = "solar_system_book";
             buildMap[0].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("solar_system_book");
             buildMap[1].assetBundleName = "solar_system_book.metadata";
             buildMap[1].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("solar_system_book.metadata");
+			buildMap[2].assetBundleName = "common_asset_bundle";
+			buildMap[2].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("common_asset_bundle");
             BuildPipeline.BuildAssetBundles(outputPath, buildMap, BuildAssetBundleOptions.UncompressedAssetBundle, EditorUserBuildSettings.activeBuildTarget); ;
             //AssetDatabase.
             //@TODO: use append hash... (Make sure pipeline works correctly with it.)
