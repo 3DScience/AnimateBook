@@ -52,6 +52,7 @@ public class AssetBundleHelper {
     public void unLoadAssetBundleManager()
     {
         AssetBundleManager.UnloadAssetBundle(assetBundleName);
+        AssetBundleManager.UnloadAssetBundle(assetBundleName+".metadata");
         GameObject assetBundleManager= GameObject.Find("AssetBundleManager");
         AssetBundleManager.DestroyObject(assetBundleManager);
     }
