@@ -117,6 +117,13 @@ public class DisplayTextUiController : MonoBehaviour {
                 textUi.text = textAsset.text;
             }
         }
+        //yield return forceScrollTop(uiGameobject);
+        uiGameobject.AddComponent<ScrollBarFixScrollToTop>(); // workground error some time scroll not to top
+    }
+    IEnumerator forceScrollTop(GameObject uiGameobject)
+    {
+        yield return new WaitForSeconds(0.1f);
+        Canvas.ForceUpdateCanvases();
         GameObject panel = uiGameobject.transform.Find(NAME_SCROLL_BAR).gameObject;
         panel.GetComponent<Scrollbar>().value = 1;
         Canvas.ForceUpdateCanvases();
