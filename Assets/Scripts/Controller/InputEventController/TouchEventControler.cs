@@ -43,7 +43,10 @@ public class TouchEventControler : MonoBehaviour {
                     }
                     else 
                     {
-                        currentTouchGameObject = touchedGameObject;
+                        if (Debug.isDebugBuild)
+                            Debug.Log("Touch on a main gameObject, it will handle by itself!");
+                        currentTouchGameObject = null;
+                        return;
                     }
                 }
                 else

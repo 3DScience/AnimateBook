@@ -55,9 +55,9 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 	public void OnTouchs()
 	{
 		for (int i = 0; i < Input.touchCount; i++) {
-			Debug.Log (i); // kiem tra xem co may touch dang cham vao man hinh 
+			
 			currTouch = i;
-			Debug.Log ("OnTouchsOnTouchsOnTouchs");
+			//Debug.Log ("OnTouchsOnTouchsOnTouchs");
 			if (Input.GetTouch (i).phase == TouchPhase.Began) {	// khi bat dau cham vao man hinh
 				OnTouchBeganAnyWhere ();
 			}
@@ -112,7 +112,7 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 		Vector3 offset = transform.position - lookAt.position;
 		distance = offset.magnitude;
 
-		Debug.Log("distance : " + distance);
+
 
 		if  (Input.touchCount == 1) {
 
