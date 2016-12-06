@@ -15,5 +15,6 @@ namespace Entities
         public TextContent[] texts;
         public Interactive[] interactives;
         public int currentTextIndex = 0;
+        public bool skipAnimation = false;
     }
 }

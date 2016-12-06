@@ -11,7 +11,7 @@ namespace Entities
         DRAG,
         DROP,
         EXPLORER_BUTTON_CLICK,
-        MOVE_CAMERA_END,
+        ANIMATE_CAMERA_END,
         TOUCH_ON_NOTHING
     }
     public enum INTERACTIVE_ACTION
@@ -22,7 +22,9 @@ namespace Entities
         CHANGE_SCENE,
         SHOW_TEXT,
         HIDE_DISPLAY_TEXT_UI,
+        ANIMATE_CAMERA,
         MOVE_CAMERA,
+        ROTATE,
         NONE
     }
     [Serializable]

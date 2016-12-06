@@ -105,8 +105,8 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     void OnTouchMoved()
     {
         float time = (Time.time - startTouchTime);
-        if (Debug.isDebugBuild)
-            Debug.Log("[InteractiveController] OnTouchMoved!" + time+"/"+ System.DateTime.Now.Millisecond);
+        //if (Debug.isDebugBuild)
+        //    Debug.Log("[InteractiveController] OnTouchMoved!" + time+"/"+ System.DateTime.Now.Millisecond);
         if (time >=0)
         {
             float gestureDist = (Input.touches[0].position - fingerStartPos).magnitude;
@@ -184,9 +184,9 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     {
         if (Debug.isDebugBuild)
             Debug.Log("[InteractiveController] onMoveCameraEnd");
-        if (listInteractives.ContainsKey(INTERACTIVE_EVENT.MOVE_CAMERA_END))
+        if (listInteractives.ContainsKey(INTERACTIVE_EVENT.ANIMATE_CAMERA_END))
         {
-            Interactive interactive = listInteractives[INTERACTIVE_EVENT.MOVE_CAMERA_END];
+            Interactive interactive = listInteractives[INTERACTIVE_EVENT.ANIMATE_CAMERA_END];
             doActions(interactive);
         }
     }
@@ -206,12 +206,19 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
                 case INTERACTIVE_ACTION.MOVE:
                     doDrag(interactive);
                     break;
+                case INTERACTIVE_ACTION.ROTATE:
+                    doRotate(interactive);
+                    break;
                 case INTERACTIVE_ACTION.CHANGE_SCENE:
                     doChangeScene(action);
                     break;
                 case INTERACTIVE_ACTION.SHOW_TEXT:
                     doShowtext(action);
                    // interactiveCallBack(action);
+                    break;
+                case INTERACTIVE_ACTION.ANIMATE_CAMERA:
+                    doAnimateCamera(action);
+                    // interactiveCallBack(action);
                     break;
                 case INTERACTIVE_ACTION.MOVE_CAMERA:
                     doMoveCamera(action);
@@ -227,20 +234,45 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     }
     protected void doMoveCamera(Action action)
     {
-        if(Camera.main == null)
+        if (Debug.isDebugBuild)
+            Debug.Log("[InteractiveController] doMoveCamera");
+        if (Camera.main == null)
         {
             if (Debug.isDebugBuild)
-                Debug.Log("[InteractiveController] Got camera is null");
+                Debug.Log("[InteractiveController-doMoveCamera] Got camera is null");
             return;
         }
-        MovingCam movingCam = Camera.main.gameObject.AddComponent<MovingCam>();
-        Transform startMarker = Camera.main.transform.FindChild(action.getDictionaryActionParam()["startMarker"]);
-        Transform endMarker = Camera.main.transform.FindChild(action.getDictionaryActionParam()["endMarker"]);
-        movingCam.startMarker = startMarker;
-        movingCam.endMarker = endMarker;
-        movingCam.onMoveCameraEnd = onMoveCameraEnd;
+        TouchEventInterface camControler= Camera.main.GetComponent<TouchEventInterface>();
+        camControler.OnTouchs();
+    }
+    void OnMouseDrag()
+    {
         if (Debug.isDebugBuild)
-            Debug.Log("[InteractiveController] doMoveCamera <===================="+ endMarker);
+            Debug.Log("OnMouseDrag^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+    }
+    protected void doAnimateCamera(Action action)
+    {
+        if (!mainObject.skipAnimation)
+        {
+            if (Camera.main == null)
+            {
+                if (Debug.isDebugBuild)
+                    Debug.Log("[InteractiveController-doAnimateCamera] Got camera is null");
+                return;
+            }
+            MovingCam movingCam = Camera.main.gameObject.AddComponent<MovingCam>();
+            Transform startMarker = Camera.main.transform.FindChild(action.getDictionaryActionParam()["startMarker"]);
+            Transform endMarker = Camera.main.transform.FindChild(action.getDictionaryActionParam()["endMarker"]);
+            movingCam.startMarker = startMarker;
+            movingCam.endMarker = endMarker;
+            movingCam.onMoveCameraEnd = onMoveCameraEnd;
+            if (action.getDictionaryActionParam()["playOneTime"].Equals("true") ){
+                mainObject.skipAnimation = true;
+            }
+        }
+
+        if (Debug.isDebugBuild)
+            Debug.Log("[InteractiveController] doAnimateCamera.");
     }
     protected void doShowtext(Action action)
     {
@@ -269,6 +301,7 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     }
     protected void doDrag(Interactive interactive)
     {
+   
         UnityEngine.Cursor.visible = true;
 
         Vector3 cursorPoint = new Vector3(Input.touches[0].position.x, Input.touches[0].position.y, screenPoint.z);
@@ -277,6 +310,15 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
         Debug.Log("offset=" + cursorPosition);
         cursorPosition.y = gameObject.transform.position.y;
         gameObject.transform.position = cursorPosition;
+
+    }
+    protected void doRotate(Interactive interactive)
+    {
+        int rotateSpeed = 20;
+        if (Debug.isDebugBuild)
+            Debug.Log("[InteractiveController] doRotate <====================");
+        transform.RotateAround(transform.position, new Vector3(0, 1, 0), -Input.touches[0].deltaPosition.x);
+        transform.RotateAround(transform.position, new Vector3(1, 0, 0), Input.touches[0].deltaPosition.y);
 
     }
     protected void doScale(Interactive interactive,Action action)

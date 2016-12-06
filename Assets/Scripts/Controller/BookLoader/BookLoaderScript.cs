@@ -19,7 +19,7 @@ public class BookLoaderScript : MonoBehaviour
     private UiEventHandler uiEventHandler;
     private AssetBundleInfo assetBundleInfo;
     private AssetBundleHelper assetBundleHelper;
-    private Dictionary<string, GameObject> loadedPrefab = new Dictionary<string, GameObject>();
+    private Dictionary<string, SceneInfo> loadedSceneInfo = new Dictionary<string, SceneInfo>();
 
     private DisplayTextUiController displayTextUiController;
     // Use this for initialization
@@ -78,14 +78,25 @@ public class BookLoaderScript : MonoBehaviour
     }
     protected IEnumerator loadSceneMetaData(string jsonFileName)
     {
-        yield return assetBundleHelper.LoadAsset<TextAsset>(metadataAssetBundleName, jsonFileName, textAssetLoaded =>
+       
+        if (!loadedSceneInfo.ContainsKey(jsonFileName))
         {
+            yield return assetBundleHelper.LoadAsset<TextAsset>(metadataAssetBundleName, jsonFileName, textAssetLoaded =>
+            {
+                if (Debug.isDebugBuild)
+                    Debug.Log("json string= " + textAssetLoaded.text);
+                currentScene = JsonUtility.FromJson<SceneInfo>(textAssetLoaded.text);
+                loadedSceneInfo.Add(jsonFileName, currentScene);
+                if (Debug.isDebugBuild)
+                    Debug.Log("Finished loading currentScene name= " + currentScene.name + ", title=" + currentScene.title + ", info= " + currentScene.info);
+            });
+        }
+        else
+        {
+            currentScene = loadedSceneInfo[jsonFileName];
             if (Debug.isDebugBuild)
-                Debug.Log("json string= " + textAssetLoaded.text);
-            currentScene = JsonUtility.FromJson<SceneInfo>(textAssetLoaded.text);
-            if (Debug.isDebugBuild)
-                Debug.Log("Finished loading currentScene name= " + currentScene.name + ", title=" + currentScene.title + ", info= " + currentScene.info);
-        });
+                Debug.Log("Loaded from catch currentScene name= " + currentScene.name + ", title=" + currentScene.title + ", info= " + currentScene.info);
+        }
         yield return StartCoroutine(LoadScence(currentScene));
     }
     protected IEnumerator LoadScence(SceneInfo sceneInfo)
@@ -173,7 +184,9 @@ public class BookLoaderScript : MonoBehaviour
     {
         SceneManager.UnloadScene(currentScene.name);
         string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
+        loadedSceneInfo.Remove(jsonFileName);
         StartCoroutine(loadSceneMetaData(jsonFileName));
+        
     }
 
     protected void interactiveProcessing(SceneInfo sceneInfo)
