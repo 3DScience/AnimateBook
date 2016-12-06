@@ -3,13 +3,19 @@ using System.Collections;
 using Entities;
 using System.Collections.Generic;
 public delegate void InteractiveCallBack(Action action);
-public class InteractiveController : MonoBehaviour,TouchEventInterface {
+public class InteractiveController : MonoBehaviour {
 
     public InteractiveCallBack interactiveCallBack;
     public DisplayTextUiController displayTextUiController;
     public MainObject mainObject;
     private bool isITweenPlaying = false;
     private bool isDraging = false;
+    private Vector3 screenPoint;
+    private Vector3 offset;
+    private float startTouchTime;
+    private Vector2 fingerStartPos;
+    private float minDragDistance = 20.0f;
+
     protected Dictionary<INTERACTIVE_EVENT, Interactive> listInteractives = new Dictionary<INTERACTIVE_EVENT, Interactive>();
     // Use this for initialization
     void Start () {
@@ -39,8 +45,7 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
             }
             catch (System.Exception exx)
             {
-
-                throw new System.Exception("Outer", exx);
+                DebugOnScreen.Log(exx.ToString());
             }
 
         }
@@ -51,7 +56,6 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
         }
 
     }
-	
     // -http://forum.unity3d.com/threads/add-component-to-3d-object-with-parameters-to-constructor.334757/
     public static InteractiveController addToGameObject(MainObject mainObject)
     {
@@ -62,36 +66,7 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     }
     
 
-	private Vector3 screenPoint;
-	private Vector3 offset;
-    private float startTouchTime;
-    private Vector2 fingerStartPos;
-    private float minDragDistance = 20.0f;
-    public void OnTouchs()
-    {
-        Touch firstTouch = Input.touches[0];
-        if (firstTouch.phase == TouchPhase.Began)
-        {
-            OnTouchDown();
-        }
-        else if (firstTouch.phase == TouchPhase.Moved)
-        {
-            OnTouchMoved();
-        }
-        else if (firstTouch.phase == TouchPhase.Stationary)
-        {
-            OnTouchStay();
-        }
-        else if (firstTouch.phase == TouchPhase.Ended)
-        {
-            OnTouchUp();
-        }
-        else if (firstTouch.phase == TouchPhase.Canceled)
-        {
-            //OnTouchExit();
-        }
-    }
-    void OnTouchDown()
+    void OnMouseDown()
     {
         isDraging = false;
         screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
@@ -99,14 +74,14 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
         fingerStartPos = Input.touches[0].position;
         startTouchTime = Time.time;
         if (Debug.isDebugBuild)
-            Debug.Log("[InteractiveController] OnTouchDown!" + System.DateTime.Now.Millisecond);
+            Debug.Log("[InteractiveController] OnMouseDown!.");
 
     }
-    void OnTouchMoved()
+    void OnMouseDrag()
     {
         float time = (Time.time - startTouchTime);
-        if (Debug.isDebugBuild)
-            Debug.Log("[InteractiveController] OnTouchMoved!" + time+"/"+ System.DateTime.Now.Millisecond);
+        //if (Debug.isDebugBuild)
+        //    Debug.Log("[InteractiveController] OnTouchMoved!" + time+"/"+ System.DateTime.Now.Millisecond);
         if (time >=0)
         {
             float gestureDist = (Input.touches[0].position - fingerStartPos).magnitude;
@@ -120,16 +95,14 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
         }
 
     }
-    void OnTouchStay()
-    {
+    //void OnMouseOver()
+    //{
 
-        float time = (Time.time - startTouchTime);
-        //Debug.Log("OnTouchStay!" + time);
-    }
-    void OnTouchUp()
+    //}
+    void OnMouseUp()
     {
         if (Debug.isDebugBuild)
-            Debug.Log("[InteractiveController] OnTouchUp!" + isDraging);
+            Debug.Log("[InteractiveController] OnMouseUp, isDraging=" + isDraging);
         // iTween.Resume(gameObject);
         if (!isDraging)
         {
@@ -141,10 +114,6 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
             onInteractiveDrop();
         }
             
-    }
-    void Canceled()
-    {
-
     }
     protected void onInteractiveTouch()
     {
@@ -184,9 +153,9 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     {
         if (Debug.isDebugBuild)
             Debug.Log("[InteractiveController] onMoveCameraEnd");
-        if (listInteractives.ContainsKey(INTERACTIVE_EVENT.MOVE_CAMERA_END))
+        if (listInteractives.ContainsKey(INTERACTIVE_EVENT.ANIMATE_CAMERA_END))
         {
-            Interactive interactive = listInteractives[INTERACTIVE_EVENT.MOVE_CAMERA_END];
+            Interactive interactive = listInteractives[INTERACTIVE_EVENT.ANIMATE_CAMERA_END];
             doActions(interactive);
         }
     }
@@ -206,12 +175,19 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
                 case INTERACTIVE_ACTION.MOVE:
                     doDrag(interactive);
                     break;
+                case INTERACTIVE_ACTION.ROTATE:
+                    doRotate(interactive);
+                    break;
                 case INTERACTIVE_ACTION.CHANGE_SCENE:
                     doChangeScene(action);
                     break;
                 case INTERACTIVE_ACTION.SHOW_TEXT:
                     doShowtext(action);
                    // interactiveCallBack(action);
+                    break;
+                case INTERACTIVE_ACTION.ANIMATE_CAMERA:
+                    doAnimateCamera(action);
+                    // interactiveCallBack(action);
                     break;
                 case INTERACTIVE_ACTION.MOVE_CAMERA:
                     doMoveCamera(action);
@@ -227,20 +203,41 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     }
     protected void doMoveCamera(Action action)
     {
-        if(Camera.main == null)
+        //if (Debug.isDebugBuild)
+        //    Debug.Log("[InteractiveController] doMoveCamera");
+        if (Camera.main == null)
         {
             if (Debug.isDebugBuild)
-                Debug.Log("[InteractiveController] Got camera is null");
+                Debug.Log("[InteractiveController-doMoveCamera] Got camera is null");
             return;
         }
-        MovingCam movingCam = Camera.main.gameObject.AddComponent<MovingCam>();
-        Transform startMarker = Camera.main.transform.FindChild(action.getDictionaryActionParam()["startMarker"]);
-        Transform endMarker = Camera.main.transform.FindChild(action.getDictionaryActionParam()["endMarker"]);
-        movingCam.startMarker = startMarker;
-        movingCam.endMarker = endMarker;
-        movingCam.onMoveCameraEnd = onMoveCameraEnd;
+        TouchEventInterface camControler= Camera.main.GetComponent<TouchEventInterface>();
+        camControler.OnTouchs();
+        displayTextUiController.hideTextUi();
+    }
+    protected void doAnimateCamera(Action action)
+    {
+        if (!mainObject.skipAnimation)
+        {
+            if (Camera.main == null)
+            {
+                if (Debug.isDebugBuild)
+                    Debug.Log("[InteractiveController-doAnimateCamera] Got camera is null");
+                return;
+            }
+            MovingCam movingCam = Camera.main.gameObject.AddComponent<MovingCam>();
+            Transform startMarker = Camera.main.transform.FindChild(action.getDictionaryActionParam()["startMarker"]);
+            Transform endMarker = Camera.main.transform.FindChild(action.getDictionaryActionParam()["endMarker"]);
+            movingCam.startMarker = startMarker;
+            movingCam.endMarker = endMarker;
+            movingCam.onMoveCameraEnd = onMoveCameraEnd;
+            if (action.getDictionaryActionParam()["playOneTime"].Equals("true") ){
+                mainObject.skipAnimation = true;
+            }
+        }
+
         if (Debug.isDebugBuild)
-            Debug.Log("[InteractiveController] doMoveCamera <===================="+ endMarker);
+            Debug.Log("[InteractiveController] doAnimateCamera.");
     }
     protected void doShowtext(Action action)
     {
@@ -269,6 +266,7 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
     }
     protected void doDrag(Interactive interactive)
     {
+   
         UnityEngine.Cursor.visible = true;
 
         Vector3 cursorPoint = new Vector3(Input.touches[0].position.x, Input.touches[0].position.y, screenPoint.z);
@@ -277,6 +275,15 @@ public class InteractiveController : MonoBehaviour,TouchEventInterface {
         Debug.Log("offset=" + cursorPosition);
         cursorPosition.y = gameObject.transform.position.y;
         gameObject.transform.position = cursorPosition;
+
+    }
+    protected void doRotate(Interactive interactive)
+    {
+        //int rotateSpeed = 20;
+        if (Debug.isDebugBuild)
+            Debug.Log("[InteractiveController] doRotate <====================");
+        transform.RotateAround(transform.position, new Vector3(0, 1, 0), -Input.touches[0].deltaPosition.x);
+        transform.RotateAround(transform.position, new Vector3(1, 0, 0), Input.touches[0].deltaPosition.y);
 
     }
     protected void doScale(Interactive interactive,Action action)

@@ -32,10 +32,14 @@ public class DisplayTextUiController : MonoBehaviour {
         if (Debug.isDebugBuild)
             Debug.Log("handleOnTouchNothing.");
 
+        hideTextUi();
+    }
+    public void hideTextUi()
+    {
         if (currentTextUIGameObject != null && currentTextUIGameObject.activeSelf)
         {
             currentTextUIGameObject.SetActive(false);
-			Camera.main.GetComponent<CameraController_1> ().OnMainObjectUnTouched();
+            Camera.main.GetComponent<CameraController_1>().OnMainObjectUnTouched();
         }
     }
     public  IEnumerator showTextUi(MainObject mainObject,bool hideOnTouchNothing, System.Action explorerButtonClick)
@@ -45,6 +49,7 @@ public class DisplayTextUiController : MonoBehaviour {
         {
             if (Debug.isDebugBuild)
                 Debug.Log("[DisplayTextUiController-showTextUi] show text already!");
+            hideTextUi();
             yield break;
         }
         currentManinObject = mainObject;
