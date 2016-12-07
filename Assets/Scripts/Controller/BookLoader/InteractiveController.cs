@@ -2,10 +2,9 @@
 using System.Collections;
 using Entities;
 using System.Collections.Generic;
-public delegate void InteractiveCallBack(Action action);
 public class InteractiveController : MonoBehaviour {
 
-    public InteractiveCallBack interactiveCallBack;
+    public System.Action<Action> interactiveCallBack;
     public DisplayTextUiController displayTextUiController;
     public MainObject mainObject;
     private bool isITweenPlaying = false;
@@ -169,8 +168,8 @@ public class InteractiveController : MonoBehaviour {
                 case INTERACTIVE_ACTION.SCALE:
                     doScale(interactive, action);
                     break;
-                case INTERACTIVE_ACTION.ANIMATION:
-                    doAnimation(action);
+                case INTERACTIVE_ACTION.ANIMATE:
+                    doAnimate(action);
                     break;
                 case INTERACTIVE_ACTION.MOVE:
                     doDrag(interactive);
@@ -252,7 +251,7 @@ public class InteractiveController : MonoBehaviour {
         }
         //SceneHelper.ChangeScene(action.actionParam);
     }
-    protected void doAnimation(Action action)
+    protected void doAnimate(Action action)
     {
         string animationName;
         if (isITweenPlaying)
@@ -281,7 +280,7 @@ public class InteractiveController : MonoBehaviour {
     {
         //int rotateSpeed = 20;
         if (Debug.isDebugBuild)
-            Debug.Log("[InteractiveController] doRotate <====================");
+            Debug.Log("[InteractiveController] doRotate.");
         transform.RotateAround(transform.position, new Vector3(0, 1, 0), -Input.touches[0].deltaPosition.x);
         transform.RotateAround(transform.position, new Vector3(1, 0, 0), Input.touches[0].deltaPosition.y);
 

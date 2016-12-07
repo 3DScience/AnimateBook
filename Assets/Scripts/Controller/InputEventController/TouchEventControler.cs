@@ -5,16 +5,13 @@ public interface TouchEventInterface
 {
     void OnTouchs();
 }
-public delegate void onTouchNothing();
 public class TouchEventControler : MonoBehaviour {
 
-    public onTouchNothing deledateOnTouchNothing;
+    public System.Action onTouchNothing;
     private GameObject currentTouchGameObject;
-    private 
 	// Update is called once per frame
 	void Update() {
         if (Input.touchCount > 0){
-    
             Touch firstTouch= Input.touches[0];
             if( firstTouch.phase== TouchPhase.Began)
             {
@@ -54,12 +51,11 @@ public class TouchEventControler : MonoBehaviour {
 					currentTouchGameObject = Camera.main.gameObject;
                     if (Debug.isDebugBuild)
                         Debug.Log("nothing " );
-                    if(deledateOnTouchNothing != null)
+                    if(onTouchNothing != null)
                     {
-                        deledateOnTouchNothing();
+                        onTouchNothing();
                     }
                 }
-                //currentTouchGameObject.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
                 TouchEventInterface touchEventInterface = currentTouchGameObject.GetComponent<TouchEventInterface>();
                 if (touchEventInterface != null)
                 {
@@ -71,7 +67,6 @@ public class TouchEventControler : MonoBehaviour {
             {
                 if (currentTouchGameObject != null)
                 {
-                    //currentTouchGameObject.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
                     TouchEventInterface touchEventInterface = currentTouchGameObject.GetComponent<TouchEventInterface>();
                     if (touchEventInterface != null)
                     {
@@ -83,7 +78,6 @@ public class TouchEventControler : MonoBehaviour {
             {
                 if (currentTouchGameObject != null)
                 {
-                    //currentTouchGameObject.SendMessage("OnTouchs", SendMessageOptions.DontRequireReceiver);
                     TouchEventInterface touchEventInterface = currentTouchGameObject.GetComponent<TouchEventInterface>();
                     if (touchEventInterface != null)
                     {

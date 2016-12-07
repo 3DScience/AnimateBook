@@ -40,11 +40,6 @@ public class BookLoaderScript : MonoBehaviour
         displayTextUiController.assetBundleHelper = assetBundleHelper;
         displayTextUiController.mainCanvas = mainCanvas;
         displayTextUiController.metadataAssetBundleName = metadataAssetBundleName;
-        TouchEventControler touchEventControler = gameObject.GetComponent<TouchEventControler>();
-        if (touchEventControler != null)
-        {
-            touchEventControler.deledateOnTouchNothing = displayTextUiController.onTouchNothing;
-        }
         //end
         //DontDestroyOnLoad(gameObject);
         yield return StartCoroutine(assetBundleHelper.InitializeAssetBunder(assetBundleName));
@@ -206,12 +201,7 @@ public class BookLoaderScript : MonoBehaviour
             changeScense(action.actionParams[0].paramValue);
         }
     }
-    private void OnExplorerButtonClicked(string sceneIndex)
-    {
 
-        changeScense(sceneIndex);
-
-    }
     private void changeScense(string sceneIndex)
     {
         try
@@ -233,5 +223,6 @@ public class BookLoaderScript : MonoBehaviour
         if (Debug.isDebugBuild)
             Debug.Log("BookLoaderScript  was destroyed <====================");
         assetBundleHelper.unLoadAssetBundleManager();
+        loadedSceneInfo.Clear();
     }
 }
