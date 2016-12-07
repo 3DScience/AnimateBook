@@ -17,6 +17,7 @@ public class DisplayTextUiController : MonoBehaviour {
 
     public AssetBundleHelper assetBundleHelper;
     private static Dictionary<string, GameObject> loadedPrefab = new Dictionary<string, GameObject>();
+    private static Dictionary<string, string> loadedTexfile = new Dictionary<string, string>();
     public string metadataAssetBundleName;
     public Canvas mainCanvas;
     private bool hideOnTouchNothing=true;
@@ -24,7 +25,11 @@ public class DisplayTextUiController : MonoBehaviour {
     private MainObject currentManinObject;
     // Use this for initialization
     void Start () {
-        
+        TouchEventControler touchEventControler = gameObject.GetComponent<TouchEventControler>();
+        if (touchEventControler != null)
+        {
+            touchEventControler.onTouchNothing = onTouchNothing;
+        }
 
     }
     public void onTouchNothing()
@@ -60,7 +65,7 @@ public class DisplayTextUiController : MonoBehaviour {
         if (loadedPrefab.ContainsKey(textui))
         {
             if(Debug.isDebugBuild)
-              Debug.Log("[DisplayTextUiController-showTextUi] Got uiGameobject from Dictionary");
+              Debug.Log("[DisplayTextUiController-showTextUi] Got uiGameobject from cache!");
             uiGameobject = loadedPrefab[textui];
         }
         else
@@ -97,13 +102,21 @@ public class DisplayTextUiController : MonoBehaviour {
     private IEnumerator loadTextToUi(GameObject uiGameobject,TextContent textContent)
     {
         uiGameobject.SetActive(true);
-        TextAsset textAsset = null;
-        yield return assetBundleHelper.LoadAsset<TextAsset>(metadataAssetBundleName, textContent.textFile, textAssetLoaded => {
-            textAsset = textAssetLoaded;
-        });
-        if (Debug.isDebugBuild)
-            Debug.Log("[DisplayTextUiController-showTextUi] textContent=" + textContent);
-
+        string text = null;
+        if (loadedTexfile.ContainsKey(textContent.textFile))
+        {
+            if (Debug.isDebugBuild)
+                Debug.Log("[DisplayTextUiController-loadTextToUi] load text from cache." );
+            text = loadedTexfile[textContent.textFile];
+        }
+        else
+        {
+            yield return assetBundleHelper.LoadAsset<TextAsset>(metadataAssetBundleName, textContent.textFile, textAssetLoaded =>
+            {
+                text = textAssetLoaded.text;
+                loadedTexfile.Add(textContent.textFile, text);
+            });
+        }
         // Text txtTile = uiGameobject.transform.Find("Object").Find("titleBox").Find("txt_title").gameObject.GetComponent<Text>();
         // Text txtTile = uiGameobject.GetComponentInChildren<Text>();
         Text[] textUis = uiGameobject.GetComponentsInChildren<Text>();
@@ -119,13 +132,13 @@ public class DisplayTextUiController : MonoBehaviour {
             }
             else if (textUi.gameObject.name == NAME_TEXT_BODY)
             {
-                textUi.text = textAsset.text;
+                textUi.text = text;
             }
         }
         //yield return forceScrollTop(uiGameobject);
         uiGameobject.AddComponent<ScrollBarFixScrollToTop>(); // workground error some time scroll not to top
     }
-    IEnumerator forceScrollTop(GameObject uiGameobject)
+    IEnumerator forceScrollTop(GameObject uiGameobject) // it work, but we not sure wait how many time
     {
         yield return new WaitForSeconds(0.1f);
         Canvas.ForceUpdateCanvases();
@@ -220,5 +233,6 @@ public class DisplayTextUiController : MonoBehaviour {
         if (Debug.isDebugBuild)
             Debug.Log("[DisplayTextUiController] Script was destroyed <====================");
         loadedPrefab.Clear();
+        loadedTexfile.Clear();
     }
 }

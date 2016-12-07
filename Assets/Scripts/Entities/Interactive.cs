@@ -17,7 +17,7 @@ namespace Entities
     public enum INTERACTIVE_ACTION
     {
         SCALE,
-        ANIMATION,
+        ANIMATE,
         MOVE,
         CHANGE_SCENE,
         SHOW_TEXT,
