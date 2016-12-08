@@ -16,7 +16,7 @@ public class SwipeController : MonoBehaviour
         TOUCH
     }
 
-    public OnSwipe deledateOnSwipe;
+    public OnSwipe onSwipeCallBack;
 
     private float fingerStartTime = 0.0f;
     private Vector2 fingerStartPos = Vector2.zero;
@@ -110,15 +110,15 @@ public class SwipeController : MonoBehaviour
                     if (swipeType.x > 0.0f)
                     {
                         // MOVE RIGHT
-                        if (deledateOnSwipe != null)
-                            deledateOnSwipe(SwipeType.RIGT);
+                        if (onSwipeCallBack != null)
+                            onSwipeCallBack(SwipeType.RIGT);
                         //Debug.Log("MOVE RIGHT");
                     }
                     else
                     {
                         // MOVE LEFT
-                        if (deledateOnSwipe != null)
-                            deledateOnSwipe(SwipeType.LEFT);
+                        if (onSwipeCallBack != null)
+                            onSwipeCallBack(SwipeType.LEFT);
                         //Debug.Log("MOVE LEFT");
                     }
                 }
@@ -128,22 +128,22 @@ public class SwipeController : MonoBehaviour
                     if (swipeType.y > 0.0f)
                     {
                         // MOVE UP
-                        if (deledateOnSwipe != null)
-                            deledateOnSwipe(SwipeType.UP);
+                        if (onSwipeCallBack != null)
+                            onSwipeCallBack(SwipeType.UP);
                        // Debug.Log("MOVE UP");
                     }
                     else
                     {
                         // MOVE DOWN
-                        if (deledateOnSwipe != null)
-                            deledateOnSwipe(SwipeType.DOWN);
+                        if (onSwipeCallBack != null)
+                            onSwipeCallBack(SwipeType.DOWN);
                         //Debug.Log("MOVE DOWN");
                     }
                 }
             }else
             {
-                if (deledateOnSwipe != null)
-                    deledateOnSwipe(SwipeType.TOUCH);
+                if (onSwipeCallBack != null)
+                    onSwipeCallBack(SwipeType.TOUCH);
                 //Debug.Log("TOUCH ONLY");
             }
         }

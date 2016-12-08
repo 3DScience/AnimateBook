@@ -107,6 +107,8 @@ public class BookLoaderScript : MonoBehaviour
         else if (currentSceneIdx == assetBundleInfo.totalScenes)
         {
             uiEventHandler.ButtonToEnd();
+            //add ads
+            gameObject.AddComponent<AdsController>();
         }
         else
             uiEventHandler.ButtonToPage();

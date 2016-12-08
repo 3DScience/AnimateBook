@@ -1,19 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BookInfo : MonoBehaviour {
+public class CategoryInfo : MonoBehaviour {
     public int index;
-    public string bookName;
+    public string categoryName;
+    public System.Action<int> callback;
 	// Use this for initialization
 	void Start () {
         if (Debug.isDebugBuild)
-            Debug.Log("BookInfo Start...");
+            Debug.Log("CategoryInfo Start...");
     }
     void OnMouseDown()
     {
         if (Debug.isDebugBuild)
-            Debug.Log("BookInfo-OnMouseDown...");
-        GameObject.Find("Loader").SendMessage("OnSelectedBook",index,SendMessageOptions.DontRequireReceiver);
+            Debug.Log("CategoryInfo-OnMouseDown...");
+        if (callback != null)
+        {
+            callback(index);
+        }
     }
 
 }
