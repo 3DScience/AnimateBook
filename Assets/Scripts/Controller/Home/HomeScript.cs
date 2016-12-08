@@ -8,44 +8,45 @@ public class HomeScript : MonoBehaviour {
 	void Start () {
         if (Debug.isDebugBuild)
             Debug.Log("HomeScript Start...");
-        loadAllBook();
+        loadAllCategory();
     }
-    void loadAllBook()
+    void loadAllCategory()
     {
         GameObject animal_book = GameObject.Find("animal_book");
-        BookInfo book1 = animal_book.AddComponent<BookInfo>();
-        book1.index = 0;
-        book1.bookName = "solar_system_book";
-        listBookInfo.Add(book1);
+        CategoryInfo cat1 = animal_book.AddComponent<CategoryInfo>();
+        cat1.index = 0;
+        cat1.categoryName = "solar_system_book";
+        cat1.callback = OnSelectedBook;
+        listBookInfo.Add(cat1);
 
         GameObject fairy_book = GameObject.Find("fairy_book");
-        BookInfo book2 = fairy_book.AddComponent<BookInfo>();
-        book2.index = 1;
-        book2.bookName = "solar_system_book";
-        listBookInfo.Add(book2);
+        CategoryInfo cat2 = fairy_book.AddComponent<CategoryInfo>();
+        cat2.index = 1;
+        cat2.categoryName = "solar_system_book";
+        cat2.callback = OnSelectedBook;
+        listBookInfo.Add(cat2);
 
         GameObject science_book = GameObject.Find("science_book");
-        BookInfo book3 = science_book.AddComponent<BookInfo>();
-        book3.index = 2;
-        book3.bookName = "solar_system_book";
-        listBookInfo.Add(book3);
+        CategoryInfo cat3 = science_book.AddComponent<CategoryInfo>();
+        cat3.index = 2;
+        cat3.categoryName = "solar_system_book";
+        cat3.callback = OnSelectedBook;
+        listBookInfo.Add(cat3);
 
         GameObject fiction_book = GameObject.Find("fiction_book");
-        BookInfo book4 = fiction_book.AddComponent<BookInfo>();
-        book4.index = 3;
-        book4.bookName = "solar_system_book";
-        listBookInfo.Add(book4);
+        CategoryInfo cat4 = fiction_book.AddComponent<CategoryInfo>();
+        cat4.index = 3;
+        cat4.categoryName = "solar_system_book";
+        cat4.callback = OnSelectedBook;
+        listBookInfo.Add(cat4);
 
     }
     void OnSelectedBook(int index)
     {
         if (Debug.isDebugBuild)
             Debug.Log("OnSelectedBook "+ index);
-        BookInfo bookInfo = (BookInfo)listBookInfo[index];
-        LoadBookSelected(bookInfo.bookName);
-
-
-
+        CategoryInfo categoryInfo = (CategoryInfo)listBookInfo[index];
+        LoadBookSelected(categoryInfo.categoryName);
     }
     public void ButtonClick(string assetBundleName)
     {
@@ -56,13 +57,13 @@ public class HomeScript : MonoBehaviour {
         }
             
     }
-    public void LoadBookSelected(string assetBundleName)
+    public void LoadBookSelected(string categoryName)
     {
-
-        StartCoroutine(loadScene(GlobalConfig.CATEGORY_SCENE));
+        Category.categoryName = categoryName;
+        StartCoroutine(loadSceneWithAnimation(GlobalConfig.CATEGORY_SCENE));
 
     }
-    IEnumerator loadScene(string senceName)
+    IEnumerator loadSceneWithAnimation(string senceName)
     {
  
         GameObject dbook = GameObject.Find("3dbook");

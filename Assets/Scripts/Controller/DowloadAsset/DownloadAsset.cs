@@ -5,7 +5,7 @@ using ProgressBar;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class DownloadAsset : MonoBehaviour {
-    public string assetBundleName;
+    public static string assetBundleName;
     private string assetDataFolder = "";
     private WWW www;
     private string url;

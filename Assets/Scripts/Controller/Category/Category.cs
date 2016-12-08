@@ -10,6 +10,7 @@ public enum ChangingPageType
     BACK
 }
 public class Category :GameObjectTouchedEvent {
+    public static string categoryName;
     public GameObject book, page_left, page_right, flip_pageleft, flip_pageright;
     public GameObject contexUiPanel;
     // Use this for initialization
@@ -21,7 +22,7 @@ public class Category :GameObjectTouchedEvent {
         flip_pageright = GameObject.Find("flip_pageright");
 
         SwipeController sw = gameObject.GetComponent<SwipeController>();
-        sw.deledateOnSwipe = OnSwipe;
+        sw.onSwipeCallBack = OnSwipe;
     }
     void OnSwipe(SwipeController.SwipeType type)
     {
@@ -52,7 +53,7 @@ public class Category :GameObjectTouchedEvent {
         String assetBundleName= "solar_system_book";
         if (checkIsDownloadedAsset(assetBundleName))
         {
-            // BookLoaderScript.assetBundleName = assetBundleName;
+            BookLoaderScript.assetBundleName = assetBundleName;
             SceneManager.LoadScene(GlobalConfig.BOOK_LOADER_SCENE);
         }
         else
