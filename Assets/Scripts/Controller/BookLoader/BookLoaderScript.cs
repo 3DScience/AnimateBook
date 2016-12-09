@@ -99,20 +99,7 @@ public class BookLoaderScript : MonoBehaviour
         displayTextUiController.onChangeScene();
         LoadingEffect loadingEffect = gLoadingEffect.GetComponent<LoadingEffect>();
         loadingEffect.loading = true;
-
-        if (currentSceneIdx == 1)
-        {
-            uiEventHandler.ButtonToBegin();
-        }
-        else if (currentSceneIdx == assetBundleInfo.totalScenes)
-        {
-            uiEventHandler.ButtonToEnd();
-            //add ads
-            gameObject.AddComponent<AdsController>();
-        }
-        else
-            uiEventHandler.ButtonToPage();
-
+		uiEventHandler.onSceneChange (currentSceneIdx,assetBundleInfo.totalScenes);
         float startTime = Time.realtimeSinceStartup;
         // Load level from assetBundle.
         yield return assetBundleHelper.LoadScene(assetBundleName, sceneInfo.name, true);
@@ -185,6 +172,14 @@ public class BookLoaderScript : MonoBehaviour
         StartCoroutine(loadSceneMetaData(jsonFileName));
         
     }
+
+	public void OnSystemSolar()
+	{
+		SceneManager.UnloadScene(currentScene.name);
+		currentSceneIdx = 2;
+		string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
+		StartCoroutine(loadSceneMetaData(jsonFileName));
+	}
 
     protected void interactiveProcessing(SceneInfo sceneInfo)
     {
