@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 
-	private float zoomSpeed = 50.0f;
+	public float zoomSpeed = 50.0f;
 	private float currDist = 0.0f,
 	lastDist = 0.0f,
 	zoomFactor = 0.0f;

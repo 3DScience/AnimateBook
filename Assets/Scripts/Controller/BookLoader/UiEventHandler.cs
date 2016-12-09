@@ -9,30 +9,38 @@ public class UiEventHandler : MonoBehaviour {
 
 	public int timePause;
 
-	private GameObject RePlay;
-	private GameObject Home;
-	private GameObject Pause;
-	private GameObject Back;
-	private GameObject Next;
-	private GameObject Play;
-	private GameObject Camera;
-	private GameObject CameraMain;
-	private GameObject CameraMoveFollowObjects;
-	private GameObject animationText;
+	public GameObject RePlay;
+	public GameObject Home;
+	public GameObject Pause;
+	public GameObject Back;
+	public GameObject Next;
+	public GameObject Play;
+	public GameObject Camera;
+	public GameObject CameraMain;
+	public GameObject solarSystem;
 
+	private GameObject animationText;
+	private GameObject CameraMoveFollowObjects;
     private BookLoaderScript bookLoaderScript;
 
     void Start() {
         bookLoaderScript = gameObject.GetComponent<BookLoaderScript>();
         timePause = 0;
-		RePlay = GameObject.Find ("Replay");
-		Home = GameObject.Find ("Home");
-		Pause = GameObject.Find ("Pause");
-		Back = GameObject.Find ("Back");
-		Next = GameObject.Find ("Next");
-		Play = GameObject.Find ("Play");
-		Camera = GameObject.Find ("Camera");
-		CameraMain = GameObject.Find ("MainCamera");
+	}
+
+	public void onSceneChange(int index, int totalScenes){
+		if (index == 1)
+        {
+            ButtonToBegin();
+        }
+		else if (index == totalScenes)
+        {
+            ButtonToEnd();
+            //add ads
+            gameObject.AddComponent<AdsController>();
+        }
+        else
+            ButtonToPage();
 	}
 
 	public void ButtonToBegin() {
@@ -42,6 +50,7 @@ public class UiEventHandler : MonoBehaviour {
 		Next.SetActive(false);
 		Camera.SetActive (false);
 		Play.SetActive(true);
+		solarSystem.SetActive (false);
 	}
 
     public void ButtonToPage() {
@@ -50,7 +59,8 @@ public class UiEventHandler : MonoBehaviour {
 		Pause.SetActive(true);
 		Back.SetActive(true);
 		Next.SetActive(true);
-		Camera.SetActive (true);
+		Camera.SetActive (false);
+		solarSystem.SetActive (true);
 	}
 
     public void ButtonToEnd() {
@@ -60,7 +70,7 @@ public class UiEventHandler : MonoBehaviour {
 		Next.SetActive(false);
 		Play.SetActive(false);
 		Camera.SetActive (false);
-
+		solarSystem.SetActive (true);
 	}
 
     public void ButtonToPause() {
@@ -173,4 +183,8 @@ public class UiEventHandler : MonoBehaviour {
         bookLoaderScript.OnNext();
 
     }
+
+	public void systemSolar() {
+		bookLoaderScript.OnSystemSolar ();
+	}
 }
