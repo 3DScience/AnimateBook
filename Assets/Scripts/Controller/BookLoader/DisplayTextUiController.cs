@@ -13,7 +13,7 @@ public class DisplayTextUiController : MonoBehaviour {
     private string NAME_TEXT_TITLE = "txt_title";
     private string NAME_TEXT_HEADER = "txtHeader";
     private string NAME_TEXT_BODY = "txt_info";
-    private string NAME_SCROLL_BAR = "infomationBox/Scrollbar";
+    private string NAME_SCROLL_REC = "infomationBox/ScroolRect";
 
     public AssetBundleHelper assetBundleHelper;
     private static Dictionary<string, GameObject> loadedPrefab = new Dictionary<string, GameObject>();
@@ -135,15 +135,14 @@ public class DisplayTextUiController : MonoBehaviour {
                 textUi.text = text;
             }
         }
-        //yield return forceScrollTop(uiGameobject);
-        uiGameobject.AddComponent<ScrollBarFixScrollToTop>(); // workground error some time scroll not to top
+        forceScrollTop(uiGameobject);
     }
-    IEnumerator forceScrollTop(GameObject uiGameobject) // it work, but we not sure wait how many time
+    void forceScrollTop(GameObject uiGameobject) 
     {
-        yield return new WaitForSeconds(0.1f);
+      //  yield return new WaitForSeconds(0.1f);
         Canvas.ForceUpdateCanvases();
-        GameObject panel = uiGameobject.transform.Find(NAME_SCROLL_BAR).gameObject;
-        panel.GetComponent<Scrollbar>().value = 1;
+        Transform panel = uiGameobject.transform.Find(NAME_SCROLL_REC);
+        panel.GetComponent<ScrollRect>().normalizedPosition = new Vector2(0, 1);
         Canvas.ForceUpdateCanvases();
     }
     private void AddEventTrigeerToExplorerButton(GameObject uiGameobject, System.Action explorerButtonClick)
