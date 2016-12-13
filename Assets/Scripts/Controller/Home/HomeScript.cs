@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
 public class HomeScript : MonoBehaviour {
     ArrayList listBookInfo = new ArrayList();
 	// Use this for initialization
@@ -9,6 +10,13 @@ public class HomeScript : MonoBehaviour {
         if (Debug.isDebugBuild)
             Debug.Log("HomeScript Start...");
         loadAllCategory();
+
+        Analytics.CustomEvent("Scene", new Dictionary<string, object>
+      {
+        { "user", "user1" },
+        { "scene", "Home" }
+      });
+
     }
     void loadAllCategory()
     {
