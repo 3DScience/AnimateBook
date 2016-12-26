@@ -15,7 +15,7 @@ public class DisplayTextUiController : MonoBehaviour {
     private string NAME_TEXT_BODY = "txt_info";
     private string NAME_SCROLL_REC = "infomationBox/ScroolRect";
 
-    public AssetBundleHelper assetBundleHelper;
+
     private static Dictionary<string, GameObject> loadedPrefab = new Dictionary<string, GameObject>();
     private static Dictionary<string, string> loadedTexfile = new Dictionary<string, string>();
     public string metadataAssetBundleName;
@@ -44,7 +44,7 @@ public class DisplayTextUiController : MonoBehaviour {
         if (currentTextUIGameObject != null && currentTextUIGameObject.activeSelf)
         {
             currentTextUIGameObject.SetActive(false);
-            Camera.main.GetComponent<CameraController_1>().OnMainObjectUnTouched();
+            Camera.main.GetComponent<CameraController_1>().OnHideUi();
         }
     }
     public  IEnumerator showTextUi(MainObject mainObject,bool hideOnTouchNothing, System.Action explorerButtonClick)
@@ -77,7 +77,7 @@ public class DisplayTextUiController : MonoBehaviour {
             string commonAssetBundleName = assetBundleMetaData[0];
             string assetName = assetBundleMetaData[1];
 
-            yield return assetBundleHelper.LoadAsset<GameObject>(commonAssetBundleName, assetName, prefabLoaded =>
+            yield return AssetBundleHelper.getInstance().LoadAsset<GameObject>(commonAssetBundleName, assetName, prefabLoaded =>
             {
                 prefab = prefabLoaded;
             });
@@ -96,7 +96,7 @@ public class DisplayTextUiController : MonoBehaviour {
             yield return loadTextToUi(uiGameobject, textContent);
  
             if(Camera.main.GetComponent<CameraController_1>())
-                Camera.main.GetComponent<CameraController_1> ().OnMainObjectTouched ();
+                Camera.main.GetComponent<CameraController_1> ().OnShowUi ();
         }
     }
     private IEnumerator loadTextToUi(GameObject uiGameobject,TextContent textContent)
@@ -111,7 +111,7 @@ public class DisplayTextUiController : MonoBehaviour {
         }
         else
         {
-            yield return assetBundleHelper.LoadAsset<TextAsset>(metadataAssetBundleName, textContent.textFile, textAssetLoaded =>
+            yield return AssetBundleHelper.getInstance().LoadAsset<TextAsset>(metadataAssetBundleName, textContent.textFile, textAssetLoaded =>
             {
                 text = textAssetLoaded.text;
                 loadedTexfile.Add(textContent.textFile, text);

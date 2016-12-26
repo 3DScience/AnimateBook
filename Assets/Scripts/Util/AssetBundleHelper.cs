@@ -2,11 +2,20 @@
 using System.Collections;
 using AssetBundles;
 public class AssetBundleHelper {
-    private MonoBehaviour context;
+    private static AssetBundleHelper _instance=null;
     private string assetBundleName=null;
-    public AssetBundleHelper(MonoBehaviour context)
+    private MonoBehaviour context;
+    private AssetBundleHelper()
     {
-        this.context = context;
+        context = GlobalVar.shareContext;
+    }
+    public static AssetBundleHelper getInstance() 
+    {
+        if(_instance == null)
+        {
+            _instance = new AssetBundleHelper();
+        }
+        return _instance;
     }
     public IEnumerator InitializeAssetBunder(string assetBundleName)
     {
@@ -21,7 +30,7 @@ public class AssetBundleHelper {
         #else
                 // Use the following code if AssetBundles are embedded in the project for example via StreamingAssets folder etc:
                 //AssetBundleManager.SetSourceAssetBundleURL("http://192.168.0.201/unity3d/3dbook_test/");
-                AssetBundleManager.SetSourceAssetBundleURL("file://" + GlobalConfig.DATA_PATH + "/" + assetBundleName + "/");
+                AssetBundleManager.SetSourceAssetBundleURL("file://" + GlobalVar.DATA_PATH + "/" + assetBundleName + "/");
                 // Or customize the URL based on your deployment or configuration
                 //AssetBundleManager.SetSourceAssetBundleURL("http://www.MyWebsite/MyAssetBundles");
         #endif

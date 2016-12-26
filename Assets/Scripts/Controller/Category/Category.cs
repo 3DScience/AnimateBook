@@ -54,11 +54,11 @@ public class Category :GameObjectTouchedEvent {
         if (checkIsDownloadedAsset(assetBundleName))
         {
             BookLoaderScript.assetBundleName = assetBundleName;
-            SceneManager.LoadScene(GlobalConfig.BOOK_LOADER_SCENE);
+            SceneManager.LoadScene(GlobalVar.BOOK_LOADER_SCENE);
         }
         else
         {
-            SceneManager.LoadScene(GlobalConfig.DOWNLOAD_ASSET_SCENE);
+            SceneManager.LoadScene(GlobalVar.DOWNLOAD_ASSET_SCENE);
         }
     }
     void OnNavigationButtonClick(string param)
@@ -83,14 +83,14 @@ public class Category :GameObjectTouchedEvent {
         {
             if (Debug.isDebugBuild)
                 Debug.Log("navigationButtonClick, change page to HOME");
-            SceneManager.LoadScene(GlobalConfig.MAINSCENE);
+            SceneManager.LoadScene(GlobalVar.MAINSCENE);
         }
     }
     void OnBookClick(string param)
     {
         if (Debug.isDebugBuild)
             Debug.Log("bookClick param=" + param);
-        SceneManager.LoadScene(GlobalConfig.BOOK_LOADER_SCENE);
+        SceneManager.LoadScene(GlobalVar.BOOK_LOADER_SCENE);
     }
     public void OnButtonCick(String action)
     {
@@ -98,7 +98,7 @@ public class Category :GameObjectTouchedEvent {
             Debug.Log("OnButtonCick action=" + action);
         if (action.Equals("redownload"))
         {
-            SceneManager.LoadScene(GlobalConfig.DOWNLOAD_ASSET_SCENE);
+            SceneManager.LoadScene(GlobalVar.DOWNLOAD_ASSET_SCENE);
         }
         else if (action.Equals("deleteBook"))
         {
@@ -166,7 +166,7 @@ public class Category :GameObjectTouchedEvent {
 
     private bool checkIsDownloadedAsset(string assetBundleName)
     {
-        string assetDataFolder = GlobalConfig.DATA_PATH + "/" + assetBundleName;
+        string assetDataFolder = GlobalVar.DATA_PATH + "/" + assetBundleName;
         if (Directory.Exists(assetDataFolder))
         {
             return true;

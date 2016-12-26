@@ -24,9 +24,9 @@ public class DebugOnScreen : MonoBehaviour {
     }
     public static void Log(string str)
     {
-        if(Camera.main.gameObject.GetComponent<DebugOnScreen>()==null)
+        if(GlobalVar.shareContext.gameObject.GetComponent<DebugOnScreen>()==null)
         {
-            Camera.main.gameObject.AddComponent<DebugOnScreen>();
+            GlobalVar.shareContext.gameObject.AddComponent<DebugOnScreen>();
         }
         msg = true;
         msgStr =msgStr+"\n"+i+".    "+str ;

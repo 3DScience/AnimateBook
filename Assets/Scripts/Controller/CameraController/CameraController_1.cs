@@ -161,7 +161,7 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 		}
 	}
 
-	public void OnMainObjectTouched() {
+	public void OnShowUi() {
 		if (flagShowtxt == true)
 			return;
 		flagShowtxt = true;
@@ -204,7 +204,7 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 //		cachedTransform.rotation = Quaternion.Lerp (cachedTransform.rotation, newRotation, 20*Time.deltaTime);
 	}
 
-	public void OnMainObjectUnTouched() {
+	public void OnHideUi() {
 		flagShowtxt = false;
 		cachedTransform.LookAt (lookAt.position);
 	}

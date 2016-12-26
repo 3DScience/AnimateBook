@@ -1,0 +1,13 @@
+﻿{
+	"registerTypes" : [
+		"Fungus.LuaUtilsCustom",
+		"Fungus.LuaScript",
+		"CameraController_1",
+		"UnityEngine.UI.ScrollRect, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.Animation, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"UnityEngine.AnimationState, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+		"MovingCam",
+	],
+	"extensionTypes" : [
+	]
+}

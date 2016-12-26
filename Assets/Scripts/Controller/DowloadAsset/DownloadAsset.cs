@@ -29,7 +29,7 @@ public class DownloadAsset : MonoBehaviour {
         }
         try
         {
-            assetDataFolder = GlobalConfig.DATA_PATH + "/" + assetBundleName;
+            assetDataFolder = GlobalVar.DATA_PATH + "/" + assetBundleName;
             if (Directory.Exists(assetDataFolder))
             {
                 Directory.Delete(assetDataFolder,true);
@@ -40,7 +40,7 @@ public class DownloadAsset : MonoBehaviour {
             DebugOnScreen.Log(ex.ToString());
         }
 
-        url = GlobalConfig.BASE_ASSET_DOWNLOAD_URL +assetBundleName + "/" + platform + ".zip";
+        url = GlobalVar.BASE_ASSET_DOWNLOAD_URL +assetBundleName + "/" + platform + ".zip";
         DebugOnScreen.Log("url=" + url);
         www = new WWW(url);
     }
@@ -121,7 +121,7 @@ public class DownloadAsset : MonoBehaviour {
 
         barBehaviour.m_AttachedText.text = "DONE";
         BookLoaderScript.assetBundleName = assetBundleName;
-        SceneManager.LoadScene(GlobalConfig.BOOK_LOADER_SCENE);
+        SceneManager.LoadScene(GlobalVar.BOOK_LOADER_SCENE);
         yield return null;
     }
 }

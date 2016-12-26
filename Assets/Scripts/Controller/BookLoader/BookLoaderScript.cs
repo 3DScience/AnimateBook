@@ -18,7 +18,7 @@ public class BookLoaderScript : MonoBehaviour
     public SceneInfo currentScene;
     private UiEventHandler uiEventHandler;
     private AssetBundleInfo assetBundleInfo;
-    private AssetBundleHelper assetBundleHelper;
+
     private Dictionary<string, SceneInfo> loadedSceneInfo = new Dictionary<string, SceneInfo>();
 
     private DisplayTextUiController displayTextUiController;
@@ -27,7 +27,7 @@ public class BookLoaderScript : MonoBehaviour
     {
         if (Debug.isDebugBuild)
             Debug.Log("BookLoaderScript Start assetBundleName=" + assetBundleName);
-        assetBundleHelper = new AssetBundleHelper(this);
+
         uiEventHandler = gameObject.GetComponent<UiEventHandler>();
         if (assetBundleName == null || assetBundleName == "")
         {
@@ -37,12 +37,12 @@ public class BookLoaderScript : MonoBehaviour
         metadataAssetBundleName = assetBundleName + ".metadata";
         // Add DisplayTextUiController 
         displayTextUiController = gameObject.AddComponent<DisplayTextUiController>();
-        displayTextUiController.assetBundleHelper = assetBundleHelper;
+
         displayTextUiController.mainCanvas = mainCanvas;
         displayTextUiController.metadataAssetBundleName = metadataAssetBundleName;
         //end
         //DontDestroyOnLoad(gameObject);
-        yield return StartCoroutine(assetBundleHelper.InitializeAssetBunder(assetBundleName));
+        yield return StartCoroutine(AssetBundleHelper.getInstance().InitializeAssetBunder(assetBundleName));
         yield return StartCoroutine(loadAssetBundleMetaData());
 
         string jsonFileName = jsonSceneDataFileName + currentSceneIdx.ToString();
@@ -58,7 +58,7 @@ public class BookLoaderScript : MonoBehaviour
     }
     protected IEnumerator loadAssetBundleMetaData()
     {
-        yield return assetBundleHelper.LoadAsset<TextAsset>(metadataAssetBundleName, jsonAssetBundleMetaDataFileName, textAssetLoaded =>
+        yield return AssetBundleHelper.getInstance().LoadAsset<TextAsset>(metadataAssetBundleName, jsonAssetBundleMetaDataFileName, textAssetLoaded =>
         {
             assetBundleInfo = JsonUtility.FromJson<AssetBundleInfo>(textAssetLoaded.text);
             string dependenciesAsset = "";
@@ -76,7 +76,7 @@ public class BookLoaderScript : MonoBehaviour
        
         if (!loadedSceneInfo.ContainsKey(jsonFileName))
         {
-            yield return assetBundleHelper.LoadAsset<TextAsset>(metadataAssetBundleName, jsonFileName, textAssetLoaded =>
+            yield return AssetBundleHelper.getInstance().LoadAsset<TextAsset>(metadataAssetBundleName, jsonFileName, textAssetLoaded =>
             {
                 if (Debug.isDebugBuild)
                     Debug.Log("json string= " + textAssetLoaded.text);
@@ -102,7 +102,7 @@ public class BookLoaderScript : MonoBehaviour
 		uiEventHandler.onSceneChange (currentSceneIdx,assetBundleInfo.totalScenes);
         float startTime = Time.realtimeSinceStartup;
         // Load level from assetBundle.
-        yield return assetBundleHelper.LoadScene(assetBundleName, sceneInfo.name, true);
+        yield return AssetBundleHelper.getInstance().LoadScene(assetBundleName, sceneInfo.name, true);
 
         uiEventHandler.OndoneLoadScene();
         // Calculate and display the elapsed time.
@@ -124,8 +124,8 @@ public class BookLoaderScript : MonoBehaviour
     public void OnHome()
     {
         DestroyObject(gameObject);
-        SceneManager.UnloadScene(GlobalConfig.BOOK_LOADER_SCENE);
-        SceneManager.LoadScene(GlobalConfig.MAINSCENE);
+        SceneManager.UnloadScene(GlobalVar.BOOK_LOADER_SCENE);
+        SceneManager.LoadScene(GlobalVar.MAINSCENE);
     }
 
     public void OnNext()
@@ -219,7 +219,7 @@ public class BookLoaderScript : MonoBehaviour
      
         if (Debug.isDebugBuild)
             Debug.Log("BookLoaderScript  was destroyed <====================");
-        assetBundleHelper.unLoadAssetBundleManager();
+        AssetBundleHelper.getInstance().unLoadAssetBundleManager();
         loadedSceneInfo.Clear();
     }
 }

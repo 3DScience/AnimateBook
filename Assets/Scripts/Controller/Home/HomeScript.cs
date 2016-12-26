@@ -68,7 +68,7 @@ public class HomeScript : MonoBehaviour {
     public void LoadBookSelected(string categoryName)
     {
         Category.categoryName = categoryName;
-        StartCoroutine(loadSceneWithAnimation(GlobalConfig.CATEGORY_SCENE));
+        StartCoroutine(loadSceneWithAnimation(GlobalVar.CATEGORY_SCENE));
 
     }
     IEnumerator loadSceneWithAnimation(string senceName)
