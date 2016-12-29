@@ -8,6 +8,7 @@ namespace Fungus
     {
         public Camera getMainCamera()
         {
+            Debug.Log("rx getMainCamera command");
             return Camera.main;
 
         }
@@ -17,7 +18,7 @@ namespace Fungus
         }
         public Type getType(String type)
         {
-            Debug.Log("rx getType command");
+          //  Debug.Log("rx getType command");
             return Type.GetType(type);
         }
         public virtual GameObject Instantiate2(GameObject go,Transform parent)
