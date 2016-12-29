@@ -1,0 +1,253 @@
+fileFormatVersion: 2
+guid: e1c28a02c79ef4a6c8422c23e23ea3cf
+timeCreated: 1482739467
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: back
+    100002: //RootNode
+    100004: Book_Cover_base
+    100006: bottom
+    100008: joint1
+    100010: joint2
+    100012: joint3
+    100014: joint4
+    100016: joint5
+    100018: joint6
+    100020: joint7
+    100022: left
+    100024: Open_Book
+    100026: page1
+    100028: page_left
+    100030: page_right
+    100032: pCube5
+    100034: persp1
+    400000: back
+    400002: //RootNode
+    400004: Book_Cover_base
+    400006: bottom
+    400008: joint1
+    400010: joint2
+    400012: joint3
+    400014: joint4
+    400016: joint5
+    400018: joint6
+    400020: joint7
+    400022: left
+    400024: Open_Book
+    400026: page1
+    400028: page_left
+    400030: page_right
+    400032: pCube5
+    400034: persp1
+    4300000: Book_Cover_base
+    4300002: pCube5
+    4300004: page_left
+    4300006: page_right
+    4300008: page1
+    7400000: openBook
+    7400002: openPage
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: Book_Cover_base
+    13700002: page1
+    13700004: page_left
+    13700006: page_right
+    13700008: pCube5
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: openBook
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: back
+        weight: 1
+      - path: bottom
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2
+        weight: 1
+      - path: joint1/joint2/joint3
+        weight: 1
+      - path: joint1/joint4
+        weight: 1
+      - path: joint1/joint4/joint5
+        weight: 1
+      - path: joint1/joint6
+        weight: 1
+      - path: joint1/joint6/joint7
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/Book_Cover_base
+        weight: 1
+      - path: Open_Book/page_left
+        weight: 1
+      - path: Open_Book/page_right
+        weight: 1
+      - path: Open_Book/pCube5
+        weight: 1
+      - path: page1
+        weight: 1
+      - path: persp1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: openPage
+      takeName: Take 001
+      firstFrame: 80
+      lastFrame: 140
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: back
+        weight: 1
+      - path: bottom
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2
+        weight: 1
+      - path: joint1/joint2/joint3
+        weight: 1
+      - path: joint1/joint4
+        weight: 1
+      - path: joint1/joint4/joint5
+        weight: 1
+      - path: joint1/joint6
+        weight: 1
+      - path: joint1/joint6/joint7
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/Book_Cover_base
+        weight: 1
+      - path: Open_Book/page_left
+        weight: 1
+      - path: Open_Book/page_right
+        weight: 1
+      - path: Open_Book/pCube5
+        weight: 1
+      - path: page1
+        weight: 1
+      - path: persp1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
