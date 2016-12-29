@@ -68,13 +68,13 @@ public class UIDisplay : MonoBehaviour {
 		Debug.Log ("InitializeFirebase:  _databaseReference:" + _databaseReference);
 	}
 		
-	public IEnumerator LoadBookData(string nameImg, string nameText, int idBook)
+	public IEnumerator LoadBookData(string nameImg, string nameText, int idBook, string catName)
 	{
 		if (_databaseReference == null) {
 			initFizebase ();
 		}
 			
-		BookGetInfo bookInfoLeft = new BookGetInfo ("system",idBook);
+		BookGetInfo bookInfoLeft = new BookGetInfo (catName,idBook);
 		bookInfoLeft.getFromServer (_databaseReference,gettedData,nameText,nameImg);
 
 		yield return null;

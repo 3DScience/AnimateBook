@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using System.IO;
 
 public class BookController : MonoBehaviour {
 	public GameObject[] pages;
+	public static string catName;
 
 	private int isLoadPage = 0;
 	private int curPageNumber = 100001;
@@ -26,11 +29,10 @@ public class BookController : MonoBehaviour {
 
 	// Use this for initialization
 	IEnumerator Start () {
-		
 
 		uiDisplay = gameObject.GetComponent<UIDisplay> ();
-		yield return uiDisplay.LoadBookData("book/joint1/joint4/LeftItems/Quad","book/joint1/joint4/LeftItems/Canvas/Text",100001);
-		yield return uiDisplay.LoadBookData ("page/LeftItems/Quad", "page/LeftItems/Canvas/Text", 100002);
+		yield return uiDisplay.LoadBookData("book/joint1/joint4/LeftItems/Quad","book/joint1/joint4/LeftItems/Canvas/Text",100001,catName);
+		yield return uiDisplay.LoadBookData ("page/LeftItems/Quad", "page/LeftItems/Canvas/Text", 100002,catName);
 		//GameObject.Find ("book/joint1/joint2/RightItems/").SetActive(false);
 
 		if (pages.Length > 0) {
@@ -47,21 +49,21 @@ public class BookController : MonoBehaviour {
 	IEnumerator callLoadBookdataNextPage() {
 		Debug.Log("curPageNumber next:: " + curPageNumber );
 		Debug.Log("nextPageNumber next:: " + nextPageNumber );
-		yield return uiDisplay.LoadBookData("page/RightItems/Quad","page/RightItems/Canvas/Text",curPageNumber);
-		yield return uiDisplay.LoadBookData("book/joint1/joint2/RightItems/Quad","book/joint1/joint2/RightItems/Canvas/Text",nextPageNumber);
+		yield return uiDisplay.LoadBookData("page/RightItems/Quad","page/RightItems/Canvas/Text",curPageNumber,catName);
+		yield return uiDisplay.LoadBookData("book/joint1/joint2/RightItems/Quad","book/joint1/joint2/RightItems/Canvas/Text",nextPageNumber,catName);
 		yield return new WaitForSeconds(2f);
-		yield return uiDisplay.LoadBookData("book/joint1/joint4/LeftItems/Quad","book/joint1/joint4/LeftItems/Canvas/Text",curPageNumber);
-		yield return uiDisplay.LoadBookData ("page/LeftItems/Quad", "page/LeftItems/Canvas/Text", nextPageNumber);
+		yield return uiDisplay.LoadBookData("book/joint1/joint4/LeftItems/Quad","book/joint1/joint4/LeftItems/Canvas/Text",curPageNumber,catName);
+		yield return uiDisplay.LoadBookData ("page/LeftItems/Quad", "page/LeftItems/Canvas/Text", nextPageNumber,catName);
 	}
 
 	IEnumerator callLoadBookdataBackPage() {
 		Debug.Log("curPageNumber back:: " + curPageNumber );
 		Debug.Log("nextPageNumber back:: " + nextPageNumber );
-		yield return uiDisplay.LoadBookData("page/LeftItems/Quad","page/LeftItems/Canvas/Text",curPageNumber);
-		yield return uiDisplay.LoadBookData("book/joint1/joint4/LeftItems/Quad","book/joint1/joint4/LeftItems/Canvas/Text",nextPageNumber);
+		yield return uiDisplay.LoadBookData("page/LeftItems/Quad","page/LeftItems/Canvas/Text",curPageNumber,catName);
+		yield return uiDisplay.LoadBookData("book/joint1/joint4/LeftItems/Quad","book/joint1/joint4/LeftItems/Canvas/Text",nextPageNumber,catName);
 		yield return new WaitForSeconds(2f);
-		yield return uiDisplay.LoadBookData("book/joint1/joint2/RightItems/Quad","book/joint1/joint2/RightItems/Canvas/Text",curPageNumber);
-		yield return uiDisplay.LoadBookData ("page/RightItems/Quad", "page/RightItems/Canvas/Text", nextPageNumber);
+		yield return uiDisplay.LoadBookData("book/joint1/joint2/RightItems/Quad","book/joint1/joint2/RightItems/Canvas/Text",curPageNumber,catName);
+		yield return uiDisplay.LoadBookData ("page/RightItems/Quad", "page/RightItems/Canvas/Text", nextPageNumber,catName);
 	}
 
 	IEnumerator delayAddPage() {
@@ -114,6 +116,31 @@ public class BookController : MonoBehaviour {
 	public void resetAnimationFlag () {
 		Debug.Log("resetAnimationFlag");
 		animationAvailable = true;
+	}
+
+	private void loadBook()
+	{
+		//String assetBundleName= "test_book";
+		string assetBundleName= "solar_system_book";
+		if (checkIsDownloadedAsset(assetBundleName))
+		{
+			BookLoaderScript.assetBundleName = assetBundleName;
+			SceneManager.LoadScene(GlobalVar.BOOK_LOADER_SCENE);
+		}
+		else
+		{
+			SceneManager.LoadScene(GlobalVar.DOWNLOAD_ASSET_SCENE);
+		}
+	}
+
+	private bool checkIsDownloadedAsset(string assetBundleName)
+	{
+		string assetDataFolder = GlobalVar.DATA_PATH + "/" + assetBundleName;
+		if (Directory.Exists(assetDataFolder))
+		{
+			return true;
+		}
+		return false;
 	}
 
 }

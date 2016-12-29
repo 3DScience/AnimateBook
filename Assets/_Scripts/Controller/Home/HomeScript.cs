@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.Analytics;
 public class HomeScript : MonoBehaviour {
-    ArrayList listBookInfo = new ArrayList();
+	ArrayList listBookInfo = new ArrayList();
 	// Use this for initialization
 	void Start () {
         if (Debug.isDebugBuild)
@@ -23,7 +23,7 @@ public class HomeScript : MonoBehaviour {
         GameObject animal_book = GameObject.Find("animal_book");
         CategoryInfo cat1 = animal_book.AddComponent<CategoryInfo>();
         cat1.index = 0;
-		cat1.catId = 1;
+		cat1.catName = "nature";
         cat1.categoryName = "solar_system_book";
         cat1.callback = OnSelectedBook;
         listBookInfo.Add(cat1);
@@ -31,6 +31,7 @@ public class HomeScript : MonoBehaviour {
         GameObject fairy_book = GameObject.Find("fairy_book");
         CategoryInfo cat2 = fairy_book.AddComponent<CategoryInfo>();
         cat2.index = 1;
+		cat2.catName = "fairytale";
         cat2.categoryName = "solar_system_book";
         cat2.callback = OnSelectedBook;
         listBookInfo.Add(cat2);
@@ -38,6 +39,7 @@ public class HomeScript : MonoBehaviour {
         GameObject science_book = GameObject.Find("science_book");
         CategoryInfo cat3 = science_book.AddComponent<CategoryInfo>();
         cat3.index = 2;
+		cat3.catName = "science";
         cat3.categoryName = "solar_system_book";
         cat3.callback = OnSelectedBook;
         listBookInfo.Add(cat3);
@@ -45,6 +47,7 @@ public class HomeScript : MonoBehaviour {
         GameObject fiction_book = GameObject.Find("fiction_book");
         CategoryInfo cat4 = fiction_book.AddComponent<CategoryInfo>();
         cat4.index = 3;
+		cat4.catName = "fiction";
         cat4.categoryName = "solar_system_book";
         cat4.callback = OnSelectedBook;
         listBookInfo.Add(cat4);
@@ -55,6 +58,7 @@ public class HomeScript : MonoBehaviour {
         if (Debug.isDebugBuild)
             Debug.Log("OnSelectedBook "+ index);
         CategoryInfo categoryInfo = (CategoryInfo)listBookInfo[index];
+		BookController.catName = categoryInfo.catName;
         LoadBookSelected(categoryInfo.categoryName);
     }
     public void ButtonClick(string assetBundleName)
