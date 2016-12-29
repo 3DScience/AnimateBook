@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "9479294475",
+    "firebase_url": "https://filebasetest-7c55d.firebaseio.com",
+    "project_id": "filebasetest-7c55d",
+    "storage_bucket": "filebasetest-7c55d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9479294475:android:096a7629d556f407",
+        "android_client_info": {
+          "package_name": "com.itp.AnimationBook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9479294475-6utei5l6ll12seiihn752silh1a46h2s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQwIyh0TqOBtSV5Y6_YY6XDCR7yCvCZFw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
