@@ -23,6 +23,7 @@ public class HomeScript : MonoBehaviour {
         GameObject animal_book = GameObject.Find("animal_book");
         CategoryInfo cat1 = animal_book.AddComponent<CategoryInfo>();
         cat1.index = 0;
+		cat1.catId = 1;
         cat1.categoryName = "solar_system_book";
         cat1.callback = OnSelectedBook;
         listBookInfo.Add(cat1);
