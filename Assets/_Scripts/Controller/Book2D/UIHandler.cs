@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Book.RTDatabase;
+using UnityEngine.SceneManagement;
 
 // Handler for UI buttons on the scene.  Also performs some
 // necessary setup (initializing the firebase app, etc) on
@@ -228,11 +229,11 @@ public class UIHandler : MonoBehaviour
 	{
 		Debug.Log ("getInfo from Data: start");
 		BookGetInfo bookInfo = new BookGetInfo ("system",100001);
-		bookInfo.getFromServer (_databaseReference,gettedData,null,null);
+		bookInfo.getFromServer (_databaseReference,gettedData,null,null,false);
 
 	}
 
-	private void gettedData(List<BookGetInfo.BookGetInfoDetail> data, string textObject, string imgObject)
+	private void gettedData(List<BookGetInfo.BookGetInfoDetail> data, string textObject, string imgObject, bool isLeftPage)
 	{
 		DebugLog ("getInfo from Data: " + data.Count);
 		DebugLog ("description: " + data[0].description);
@@ -334,6 +335,11 @@ public class UIHandler : MonoBehaviour
 				AddScore ();
 			}
 			*/
+			if (GUILayout.Button ("Home")) {
+				SceneManager.LoadScene ("Home");
+			}
+			GUILayout.Space (20);
+
 			if (GUILayout.Button ("Push BookProteect")) {
 				pushBookProtectInfo ();
 			}
@@ -398,7 +404,7 @@ public class UIHandler : MonoBehaviour
 			logArea = new Rect (Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.5f, Screen.height * 0.5f);
 		} else {
 			// Landscape mode
-			controlArea = new Rect (0.0f, 0.0f, Screen.width * 0.25f, Screen.height);
+			controlArea = new Rect (0.0f, 0.0f, Screen.width * 0.2f, Screen.height);
 //			leaderBoardArea = new Rect (Screen.width * 0.5f, 0, Screen.width * 0.5f, Screen.height * 0.5f);
 			logArea = new Rect (Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.5f, Screen.height * 0.5f);
 		}
