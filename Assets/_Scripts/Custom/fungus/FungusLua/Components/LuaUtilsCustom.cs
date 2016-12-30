@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 namespace Fungus
 {
@@ -25,5 +26,21 @@ namespace Fungus
         {
             return GameObject.Instantiate(go,parent);
         }
+        public void pauseGame()
+        {
+            Time.timeScale =0;
+        }
+
+        public void resumeGame()
+        {
+            Time.timeScale = 1;
+        }
+
+        public void LoadHomeScene()
+        {
+            SceneManager.UnloadScene(GlobalVar.BOOK_LOADER_SCENE);
+            SceneManager.LoadScene(GlobalVar.MAINSCENE);
+        }
+
     }
 }

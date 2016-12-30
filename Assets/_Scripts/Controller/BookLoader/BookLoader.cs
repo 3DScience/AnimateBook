@@ -21,7 +21,7 @@ public class BookLoader : MonoBehaviour {
         try
         {
 
-            DebugOnScreen.Log("BookLoader Start assetBundleName=" + assetBundleName);
+            //DebugOnScreen.Log("BookLoader Start assetBundleName=" + assetBundleName);
             BookSceneLoader sceneLoader = gameObject.AddComponent<BookSceneLoader>();
             sceneLoader.assetBundleName = assetBundleName;
             sceneLoader.sceneName = "page1";
