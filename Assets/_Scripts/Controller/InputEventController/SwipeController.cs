@@ -112,14 +112,14 @@ public class SwipeController : MonoBehaviour
                         // MOVE RIGHT
                         if (onSwipeCallBack != null)
                             onSwipeCallBack(SwipeType.RIGT);
-                        //Debug.Log("MOVE RIGHT");
+                        Debug.Log("MOVE RIGHT");
                     }
                     else
                     {
                         // MOVE LEFT
                         if (onSwipeCallBack != null)
                             onSwipeCallBack(SwipeType.LEFT);
-                        //Debug.Log("MOVE LEFT");
+                        Debug.Log("MOVE LEFT");
                     }
                 }
 
