@@ -41,6 +41,9 @@ namespace Fungus
             SceneManager.UnloadScene(GlobalVar.BOOK_LOADER_SCENE);
             SceneManager.LoadScene(GlobalVar.MAINSCENE);
         }
-
+        public void DontDestroyGo(GameObject go)
+        {
+            GameObject.DontDestroyOnLoad(go);
+        }
     }
 }
