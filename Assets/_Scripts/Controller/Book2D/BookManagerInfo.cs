@@ -26,7 +26,7 @@ namespace Book.RTDatabase
 			public string min_app_version;
 		}
 
-		public delegate void BookGetInfoDeleGate(List<BookGetInfoDetail> callback, string textObject, string imgObject);
+		public delegate void BookGetInfoDeleGate(List<BookGetInfoDetail> callback, string textObject, string imgObject, bool isLeftPage);
 
 		public BookGetInfo(string category, int id) 
 		{
@@ -35,7 +35,7 @@ namespace Book.RTDatabase
 
 		}
 
-		public void getFromServer(DatabaseReference databaseReference, BookGetInfoDeleGate callback, string textObject, string imgObject)
+		public void getFromServer(DatabaseReference databaseReference, BookGetInfoDeleGate callback, string textObject, string imgObject, bool isLeftPage)
 		{
 			databaseReference.Child("public").Child("books").Child(category).Child(id.ToString()).ValueChanged += (object sender, ValueChangedEventArgs args) => {
 				if (args.DatabaseError != null) {
@@ -62,7 +62,7 @@ namespace Book.RTDatabase
 //					Debug.Log("getFromServer name: " + data[0].name );
 //					Debug.Log("getFromServer description: " + data[0].description );
 
-					callback(data,textObject,imgObject);
+					callback(data,textObject,imgObject,isLeftPage);
 				}
 			};
 		}
