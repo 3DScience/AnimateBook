@@ -4,6 +4,8 @@ using System.Collections;
 public class CategoryInfo : MonoBehaviour {
     public int index;
     public string categoryName;
+	public string catName;
+
     public System.Action<int> callback;
 	// Use this for initialization
 	void Start () {
