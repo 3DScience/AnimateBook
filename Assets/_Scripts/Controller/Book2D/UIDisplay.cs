@@ -20,6 +20,7 @@ public class UIDisplay : MonoBehaviour {
 	public GameObject bookActiveLeft;
 	public GameObject bookActiveRight;
 
+	private bool isLeftPage = true; 
 	private string myString;
 	private string url = "http://hstatic.net/846/1000030846/10/2015/9-24/cute-child-pictures.jpg";
 	private DatabaseReference _databaseReference;
@@ -88,6 +89,20 @@ public class UIDisplay : MonoBehaviour {
 		yield return null;
 	}
 
+	private string countBook;
+	public void getCountData(string categoryName, System.Action<int> callbackCountBook) {
+		
+		if (_databaseReference == null) {
+			initFizebase ();
+		}
+
+		_databaseReference.Child ("public").Child ("books").Child (categoryName).ValueChanged += (object sender, ValueChangedEventArgs args) => {
+			countBook = args.Snapshot.ChildrenCount.ToString();
+			callbackCountBook(int.Parse(countBook));
+			Debug.Log ("BookController2D.countBook : " + countBook);
+		};
+	}
+
 	private void gettedData(List<BookGetInfo.BookGetInfoDetail> data, string textObject, string imgObject, bool isLeftPage)
 	{
 		
@@ -130,6 +145,7 @@ public class UIDisplay : MonoBehaviour {
 		if (Time.time - lastClickTimeLeft < 1) {
 			if (leftData != null) {
 				if (leftData.status == 1) {
+					isLeftPage = true;
 					loadBook ();
 				} else {
 					Debug.Log ("onLeftItemClick: " + leftData.name);
@@ -150,6 +166,7 @@ public class UIDisplay : MonoBehaviour {
 			if (rightData != null) {
 				Debug.Log ("onRightItemClick: " + rightData.name);
 				if (rightData.status == 1) {
+					isLeftPage = false;
 					loadBook ();
 				} else {
 					bookActiveRight.SetActive (true);
@@ -162,15 +179,23 @@ public class UIDisplay : MonoBehaviour {
 
 	private void loadBook()
 	{
-		//String assetBundleName= "test_book";
-		string assetBundleName= "solar_system_book";
+		string assetBundleName = "";
+		if (isLeftPage == true) {
+			assetBundleName = leftData.name;
+		} else {
+			assetBundleName = rightData.name;
+		}
+
+		Debug.Log ("assetBundleName UiDisplay: " + assetBundleName);
+
 		if (checkIsDownloadedAsset(assetBundleName))
 		{
-			BookLoaderScript.assetBundleName = assetBundleName;
+			BookLoader.assetBundleName = assetBundleName;
 			SceneManager.LoadScene(GlobalVar.BOOK_LOADER_SCENE);
-		}
+		} 
 		else
 		{
+			DownloadAsset.assetBundleName = assetBundleName;
 			SceneManager.LoadScene(GlobalVar.DOWNLOAD_ASSET_SCENE);
 		}
 	}
