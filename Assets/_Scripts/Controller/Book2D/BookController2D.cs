@@ -75,26 +75,16 @@ public class BookController2D : MonoBehaviour {
 		Debug.Log("nextPageNumber next:: " + nextPageNumber );
 		yield return uiDisplay.LoadBookData(pageRightImg,pageRightText,curPageNumber,catName,true);
 		yield return uiDisplay.LoadBookData(bookRightImg,bookRightText,nextPageNumber,catName,false);
-		//yield return new WaitForSeconds(2f);
-//		yield return uiDisplay.LoadBookData(bookLeftImg,bookLeftText,curPageNumber,catName,true);
-//		yield return uiDisplay.LoadBookData (pageLeftImg, pageLeftText, nextPageNumber,catName,false);
-	}
-
-	IEnumerator callLoadBookdataNextPageMax() {
-		Debug.Log("curPageNumber next:: " + curPageNumber );
-		Debug.Log("nextPageNumber next:: " + nextPageNumber );
-		yield return uiDisplay.LoadBookData(pageLeftImg,pageLeftText,curPageNumber-1,catName,true);
-		yield return uiDisplay.LoadBookData(bookRightImg,bookRightText,nextPageNumber,catName,false);
-		//yield return new WaitForSeconds(1f);
-		yield return uiDisplay.LoadBookData(pageRightImg,pageRightText,curPageNumber,catName,true);
-		yield return uiDisplay.LoadBookData(bookLeftImg,bookLeftText,curPageNumber-2,catName,true);
+		yield return new WaitForSeconds(2f);
+		yield return uiDisplay.LoadBookData(bookLeftImg,bookLeftText,curPageNumber,catName,true);
+		yield return uiDisplay.LoadBookData(pageLeftImg,pageLeftText,nextPageNumber,catName,false);
 	}
 
 	IEnumerator callLoadBookdataBackPage() {
 		Debug.Log("curPageNumber back:: " + curPageNumber );
 		Debug.Log("nextPageNumber back:: " + nextPageNumber );
-		yield return uiDisplay.LoadBookData (pageRightImg, pageRightText, nextPageNumber+2,catName,true);
-		yield return uiDisplay.LoadBookData(bookRightImg,bookRightText,nextPageNumber+3,catName,false);
+//		yield return uiDisplay.LoadBookData (pageRightImg, pageRightText, nextPageNumber+2,catName,true);
+//		yield return uiDisplay.LoadBookData(bookRightImg,bookRightText,nextPageNumber+3,catName,false);
 		yield return uiDisplay.LoadBookData(pageLeftImg,pageLeftText,curPageNumber,catName,false);
 		yield return uiDisplay.LoadBookData(bookLeftImg,bookLeftText,nextPageNumber,catName,true);
 		yield return new WaitForSeconds(2f);
@@ -113,39 +103,21 @@ public class BookController2D : MonoBehaviour {
 			i = 0;
 			if (animationAvailable == true) {
 
-//				if (nextPageNumber < curPageNumber) {
-//					curPageNumber = nextPageNumber;
-//					nextPageNumber = curPageNumber + 1;
-//				}
+				if (nextPageNumber < curPageNumber) {
+					curPageNumber = nextPageNumber;
+					nextPageNumber = curPageNumber + 1;
+				}
 
-//				if (nextPageNumber < maxPage && nextPageNumber > curPageNumber) {
-//					animationAvailable = false;
-//					curPageNumber = nextPageNumber + 1;
-//					nextPageNumber = curPageNumber + 1;
-//					StartCoroutine (callLoadBookdataNextPage ());
-//					StartCoroutine (delayAddPage ());
-//					GameObject.Find ("book/page").GetComponent<Animation> ().Play ("flip");
-//				} else {
-//				}
-
-				Debug.Log ("nextPageNumber: --- " + nextPageNumber);
-
-				if (nextPageNumber < minPage + 3) {
+				if (nextPageNumber < maxPage && nextPageNumber > curPageNumber) {
 					animationAvailable = false;
 					curPageNumber = nextPageNumber + 1;
 					nextPageNumber = curPageNumber + 1;
 					StartCoroutine (callLoadBookdataNextPage ());
 					StartCoroutine (delayAddPage ());
 					GameObject.Find ("book/page").GetComponent<Animation> ().Play ("flip");
-				}else if (nextPageNumber >= minPage + 3 && nextPageNumber <= maxPage) {
-					animationAvailable = false;
-					Debug.Log ("BBBBBBBBBBB nextPageNumber: " + nextPageNumber);
-					curPageNumber = nextPageNumber + 1;
-					nextPageNumber = curPageNumber + 1;
-					StartCoroutine (callLoadBookdataNextPageMax ());
-					StartCoroutine (delayAddPage ());
-					GameObject.Find ("book/page").GetComponent<Animation> ().Play ("flip");
+				} else {
 				}
+
 			}
 		}
 
