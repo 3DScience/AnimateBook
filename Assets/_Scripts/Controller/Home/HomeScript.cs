@@ -58,7 +58,7 @@ public class HomeScript : MonoBehaviour {
         if (Debug.isDebugBuild)
             Debug.Log("OnSelectedBook "+ index);
         CategoryInfo categoryInfo = (CategoryInfo)listBookInfo[index];
-		BookController.catName = categoryInfo.catName;
+		BookController2D.catName = categoryInfo.catName;
         LoadBookSelected(categoryInfo.categoryName);
     }
     public void ButtonClick(string assetBundleName)

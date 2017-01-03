@@ -8,7 +8,7 @@ public class AnimationController : MonoBehaviour {
 		GameObject parent = (GameObject)gameObject.transform.parent.gameObject;
 //		GameObject parentOfParent = (GameObject)parent.transform.parent.gameObject;
 
-		BookController t = parent.GetComponent<BookController>();
+		BookController2D t = parent.GetComponent<BookController2D>();
 
 		t.resetAnimationFlag();
 	}
