@@ -1,0 +1,33 @@
+﻿Current Version : 1.5.2
+
+1.5.2 : 2016-11-30
+		-	Added dithering to particles to eliminate banding in low-light conditions
+		-	Added secondary particle system option. Right now only rain uses this for a torrential rain effect. Other precipitation will get secondary particle systems soon.
+		-	Added mesh creation properties for particle systems for 3D mode. You can determine the near and far width and depth of the mesh the particles fall from if you desire.
+		-	Lots of bug fixes!
+
+1.5.1 : 2016-11-28
+		-	Added a prefab for volumetric fog cube. I'm still working on getting the noise just right, but it's a good start :)
+
+1.5 : 2016-11-17
+		-	Added full screen fog effect. This has lots of configuration options, so be sure to watch the tutorial video specified in the readme.txt file
+		-	Moved weather maker prefabs into a prefab sub folder
+		-	Fix banding in sky sphere in procedural modes
+
+1.4 : 2016-10-16
+		-	Added procedural sky and procedural textured sky options to sky sphere, see details in the sky sphere section.
+		-	Added a sun option to sky sphere - high quality, fast or none, see details in the sky sphere section.
+
+1.3 : 2016-9-24
+		-	Change how time of day works - it is now a property (seconds) on the day night cycle script. Sun rotation is based on time of day instead of time of day being based off sun rotation now.
+		-	Added lat / lon, timezone and day/month/year properties to day night cycle for accurate sun positions and seasons. See "WeatherMakerDayNightCycleScript.cs" for more details.
+		-	Small tweaks to make asset easier to jump right into.
+		-	Fade directional light in/out as it dips below or above the horizon.
+
+1.2		-	Added a dawn / dusk texture and fade degrees to the sky sphere script.
+1.1.3	-	Added a volume property to globally change the volume of all precipitation, wind and thunder sounds.
+1.1.2	-	Fixes for particle emission : each precipitation has a new emission rate property that is multiplied by intensity.
+1.1.1	-	Small bug fix to 2D particle collisions.
+			Toggle the configuration panel with Ctrl-`.
+1.1		-	Added day / night cycle with time of day, and sun texture.
+1.0		-	Initial Release.
