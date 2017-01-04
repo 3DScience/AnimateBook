@@ -4,12 +4,13 @@ using System.Collections;
 public class GlobalVar {
     public static ShareContext shareContext;
     public static string DATA_PATH;
-	public static string BASE_ASSET_DOWNLOAD_URL = "http://192.168.0.201/unity3d/3dbook_test/vn/books/";
+	public static string BASE_ASSET_DOWNLOAD_URL = "http://192.168.0.201/unity3d/3dbook_test/";
     //public static string BASE_ASSET_DOWNLOAD_URL = "http://10.11.0.14//unity3d/3dbook_test/";
     public static string BOOK_LOADER_SCENE = "BookLoader";
     public static string DOWNLOAD_ASSET_SCENE = "DownloadAsset";
     public static string CATEGORY_SCENE = "Book2D";
     public static string MAINSCENE = "Home";
+	public static string LANGUAGE = "vn";
     static GlobalVar()
     {
         DATA_PATH = Application.persistentDataPath;

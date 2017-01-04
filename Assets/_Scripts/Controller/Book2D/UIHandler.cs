@@ -215,7 +215,7 @@ public class UIHandler : MonoBehaviour
 
 	public void pushBookInfo()
 	{
-		BookGeneralInfo bookInfo = new BookGeneralInfo ("fairytale",220001,"fishingman",1,1.0f, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEoOTTJ-xlSHTUCuDFISgZC05VzanwVY7LwKftRDegfwxgUHkZ","fishingman","1.0.0","1.0.0");
+		BookGeneralInfo bookInfo = new BookGeneralInfo ("fairytale",220001,"fishingman",1,1.0f, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEoOTTJ-xlSHTUCuDFISgZC05VzanwVY7LwKftRDegfwxgUHkZ","fishingman","1.0.0","1.0.0","","");
 		bookInfo.pushToServer (_databaseReference);
 	}
 

@@ -36,6 +36,8 @@ public class UIDisplay : MonoBehaviour {
 	private float price;
 	private int status;
 	private string version;
+	private string assetbundle;
+	private string download_url;
 
 	private string nameObject;
 	private BookGetInfo.BookGetInfoDetail leftData;
@@ -83,20 +85,20 @@ public class UIDisplay : MonoBehaviour {
 			initFizebase ();
 		}
 			
-		BookGetInfo bookInfoLeft = new BookGetInfo (catName,idBook);
-		bookInfoLeft.getFromServer (_databaseReference,gettedData,nameText,nameImg,isLeftPage);
+		BookGetInfo bookInfo = new BookGetInfo (catName,idBook);
+		bookInfo.getFromServer (_databaseReference,gettedData,nameText,nameImg,isLeftPage);
 
 		yield return null;
 	}
 
 	private string countBook;
 	public void getCountData(string categoryName, System.Action<int> callbackCountBook) {
-		
+
 		if (_databaseReference == null) {
 			initFizebase ();
 		}
 
-		_databaseReference.Child ("public").Child ("books").Child (categoryName).ValueChanged += (object sender, ValueChangedEventArgs args) => {
+		_databaseReference.Child ("public").Child(GlobalVar.LANGUAGE).Child ("books").Child (categoryName).ValueChanged += (object sender, ValueChangedEventArgs args) => {
 			countBook = args.Snapshot.ChildrenCount.ToString();
 			callbackCountBook(int.Parse(countBook));
 			Debug.Log ("BookController2D.countBook : " + countBook);
@@ -113,6 +115,8 @@ public class UIDisplay : MonoBehaviour {
 			status = data [0].status;
 			picture_url = data [0].picture_url;
 			version = data [0].version;
+			download_url = data [0].download_url;
+			assetbundle = data [0].assetbundle;
 
 			if (isLeftPage) {
 				leftData = data [0];
@@ -177,13 +181,18 @@ public class UIDisplay : MonoBehaviour {
 		lastClickTime = Time.time;
 	}
 
+
 	private void loadBook()
 	{
 		string assetBundleName = "";
+		BookGetInfo.BookGetInfoDetail dataBook;
 		if (isLeftPage == true) {
-			assetBundleName = leftData.name;
+			assetBundleName = leftData.assetbundle;
+			dataBook = leftData;
+
 		} else {
-			assetBundleName = rightData.name;
+			assetBundleName = rightData.assetbundle;
+			dataBook = rightData;
 		}
 
 		Debug.Log ("assetBundleName UiDisplay: " + assetBundleName);
@@ -195,7 +204,7 @@ public class UIDisplay : MonoBehaviour {
 		} 
 		else
 		{
-			DownloadAsset.assetBundleName = assetBundleName;
+			GlobalVar.shareContext.shareVar.Add ("bookGetInfoDetail",dataBook);
 			SceneManager.LoadScene(GlobalVar.DOWNLOAD_ASSET_SCENE);
 		}
 	}

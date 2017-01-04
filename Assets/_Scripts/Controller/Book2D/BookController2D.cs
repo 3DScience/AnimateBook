@@ -49,8 +49,8 @@ public class BookController2D : MonoBehaviour {
 		uiDisplay = gameObject.GetComponent<UIDisplay> ();
 	
 		getPage();
-		yield return uiDisplay.LoadBookData(bookLeftImg,bookLeftText,curPageNumber,catName, true);
-		yield return uiDisplay.LoadBookData (pageLeftImg, pageLeftText, nextPageNumber,catName,false);
+//		yield return uiDisplay.LoadBookData(bookLeftImg,bookLeftText,curPageNumber,catName, true);
+//		yield return uiDisplay.LoadBookData (pageLeftImg, pageLeftText, nextPageNumber,catName,false);
 
 		if (pages.Length > 0) {
 			animation = GetComponent<Animation>();
@@ -60,10 +60,17 @@ public class BookController2D : MonoBehaviour {
 			if (count > 0) {
 				StartCoroutine (delayAddPage ());
 				GetComponent<Animation> ().Play ("openBook");
+				if (count == 1) {
+					StartCoroutine( uiDisplay.LoadBookData(bookLeftImg,bookLeftText,curPageNumber,catName, true) );
+				} else if (count >= 2) {
+					StartCoroutine( uiDisplay.LoadBookData(bookLeftImg,bookLeftText,curPageNumber,catName, true) );
+					StartCoroutine( uiDisplay.LoadBookData (pageLeftImg, pageLeftText, nextPageNumber,catName,false) );
+				}
 			} else {
 				bookActive.SetActive (true);
 				StartCoroutine (delayAddPage ());
 			}
+		
 		});
 		yield return new WaitForSeconds (2f);
 		bookActive.SetActive (false);
