@@ -83,13 +83,11 @@ public class BookController2D : MonoBehaviour {
 	IEnumerator callLoadBookdataBackPage() {
 		Debug.Log("curPageNumber back:: " + curPageNumber );
 		Debug.Log("nextPageNumber back:: " + nextPageNumber );
-//		yield return uiDisplay.LoadBookData (pageRightImg, pageRightText, nextPageNumber+2,catName,true);
-//		yield return uiDisplay.LoadBookData(bookRightImg,bookRightText,nextPageNumber+3,catName,false);
 		yield return uiDisplay.LoadBookData(pageLeftImg,pageLeftText,curPageNumber,catName,false);
 		yield return uiDisplay.LoadBookData(bookLeftImg,bookLeftText,nextPageNumber,catName,true);
 		yield return new WaitForSeconds(2f);
-//		yield return uiDisplay.LoadBookData("book/joint1/joint2/RightItems/Quad","book/joint1/joint2/RightItems/Canvas/Text",curPageNumber,catName,false);
-//		yield return uiDisplay.LoadBookData ("page/RightItems/Quad", "page/RightItems/Canvas/Text", nextPageNumber,catName,true);
+//		yield return uiDisplay.LoadBookData(pageRightImg,pageRightText,curPageNumber,catName,true);
+//		yield return uiDisplay.LoadBookData(bookRightImg,bookRightText,nextPageNumber,catName,false);
 	}
 
 	IEnumerator delayAddPage() {
@@ -126,6 +124,11 @@ public class BookController2D : MonoBehaviour {
 		if (SwipeManager.instance.IsSwiping (SwipeDirection.Right)) {
 			Debug.Log ("back page iiii: " + i);
 			if (animationAvailable == true) {
+
+
+				Debug.Log("curPageNumber back 0:: " + curPageNumber );
+				Debug.Log("nextPageNumber back 0:: " + nextPageNumber );
+				
 				if (curPageNumber > minPage+1) {
 					animationAvailable = false;
 					if (i == 0) { 
