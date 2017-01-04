@@ -48,15 +48,15 @@ public class BookController : MonoBehaviour {
 		nextLoadedPageNumber = 0;
 
 		commandNames.Add("page1", 5);
-		commandNames.Add("page2", 12);
-		commandNames.Add("page3", 25);
-		commandNames.Add("page4", 32);
-		commandNames.Add("page5", 40);
-		commandNames.Add("page6", 48);
-		commandNames.Add("page7", 57);
-		commandNames.Add("page8", 67);
-		commandNames.Add("page9", 76);
-		commandNames.Add("page10", 82);
+		commandNames.Add("page2", 13);
+		commandNames.Add("page3", 27);
+		commandNames.Add("page4", 35);
+		commandNames.Add("page5", 44);
+		commandNames.Add("page6", 53);
+		commandNames.Add("page7", 62);
+		commandNames.Add("page8", 74);
+		commandNames.Add("page9", 85);
+		commandNames.Add("page10", 92);
 
 
 		block = flowChart.FindBlock("Start");
@@ -100,6 +100,13 @@ public class BookController : MonoBehaviour {
 
 			swipeRightHandle ();
 		}
+
+	}
+
+	//handle event from fish
+	public void FishMouseButton () {
+		Debug.Log ("FishMouseButton");
+		InvokeLightningStrikeInCoInSuccession();
 	}
 
 	public void swipeLeftHandle () {
@@ -299,8 +306,8 @@ public class BookController : MonoBehaviour {
 			return null;
 		return clip.name;
 	}
-	AnimationClip getClipByIndex(int index)
-	{
+
+	AnimationClip getClipByIndex(int index)	{
 		int i = 0;
 		foreach (AnimationState animationState in animation)
 		{
@@ -322,6 +329,16 @@ public class BookController : MonoBehaviour {
 		return null;
 	}
 
+	public void fishDiving () {
+		if (nextLoadedPageNumber >= 0 && nextLoadedPageNumber < loadedPages.Count) {
+			//close left items on next page
+			string clip = "CloseLeftItemsPage";
+			Debug.Log ("CloseLeftItemsPage :: " + clip);
+
+			playAnimationNextPage (clip);
+		}
+	}
+
 	/* weather control */
 	private void invokeRainByLevel(bool flag, int lv) {
 		if (weatherScript != null) {
@@ -330,23 +347,23 @@ public class BookController : MonoBehaviour {
 
 			switch (lv) {
 				case 1:
-					weatherScript.IntensitySliderChanged(0.3);
+					weatherScript.IntensitySliderChanged(0.3f);
 					break;
 
 				case 2:
-					weatherScript.IntensitySliderChanged(0.5);
+					weatherScript.IntensitySliderChanged(0.5f);
 					break;
 
 				case 3:
-					weatherScript.IntensitySliderChanged(0.8);
+					weatherScript.IntensitySliderChanged(0.8f);
 					break;
 
 				case 4:
-					weatherScript.IntensitySliderChanged(1);
+					weatherScript.IntensitySliderChanged(1.0f);
 					break;
 
 				default:
-					weatherScript.IntensitySliderChanged(0.5);
+					weatherScript.IntensitySliderChanged(0.5f);
 					break;
 			}
 		}
@@ -355,7 +372,7 @@ public class BookController : MonoBehaviour {
 	private void invokeWind(bool flag) {
 		if (weatherScript != null) {
 
-			weatherScript.WindToggleChanged(true);
+			weatherScript.WindToggleChanged(flag);
 		}
 	}
 
@@ -379,6 +396,7 @@ public class BookController : MonoBehaviour {
 	} 
 
 	public void weatherForPage (int page) {
+		weatherScript.TransitionDurationSliderChanged(4);
 		switch (page) {
 		case 1: //house (lodge)
 			invokeWind(false);
@@ -407,23 +425,23 @@ public class BookController : MonoBehaviour {
 
 		case 6: //ocean
 			invokeWind(true);
-			invokeRainByLevel(false, 3);
+			invokeRainByLevel(true, 3);
 			break;
 
 		case 7:	//house (castle)
 			invokeWind(false);
-			invokeRainByLevel(false, 1);
+			invokeRainByLevel(true, 1);
 			break;
 
 		case 8: //ocean
 			invokeWind(true);
-			invokeRainByLevel(false, 4);
+			invokeRainByLevel(true, 4);
 			InvokeLightningStrikeInCoInSuccession();
 			break;
 
 		case 9:	//house (lodge)
 			invokeWind(false);
-			invokeRainByLevel(false, 2);
+			invokeRainByLevel(true, 2);
 			break;
 
 		case 10: //finish
@@ -437,5 +455,5 @@ public class BookController : MonoBehaviour {
 
 			break;
 		}
-	}
+	}  
 }
