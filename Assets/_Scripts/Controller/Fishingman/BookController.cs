@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using Fungus;
+using DigitalRuby.WeatherMaker;
 
 public class BookController : MonoBehaviour {
 	private List<GameObject> loadedPages = new List<GameObject>();
@@ -37,6 +38,9 @@ public class BookController : MonoBehaviour {
 
 	private bool animationAvailable;
 
+	public GameObject weatherController;
+	private WeatherMakerConfigurationScript weatherScript;
+
 	// Use this for initialization
 	void Start () {
 		animationAvailable = false;
@@ -52,6 +56,7 @@ public class BookController : MonoBehaviour {
 		commandNames.Add("page7", 57);
 		commandNames.Add("page8", 67);
 		commandNames.Add("page9", 76);
+		commandNames.Add("page10", 82);
 
 
 		block = flowChart.FindBlock("Start");
@@ -63,6 +68,8 @@ public class BookController : MonoBehaviour {
 		if (loadedPages.Count > 0) {
 			animation = GetComponent<Animation>();
 		}
+
+		weatherScript = weatherController.GetComponent<WeatherMakerConfigurationScript>();
 	}
 
 	IEnumerator LoadPageIntoContainers () {
@@ -313,5 +320,122 @@ public class BookController : MonoBehaviour {
 				return animationState.clip;
 		}
 		return null;
+	}
+
+	/* weather control */
+	private void invokeRainByLevel(bool flag, int lv) {
+		if (weatherScript != null) {
+			
+			weatherScript.RainToggleChanged(flag);
+
+			switch (lv) {
+				case 1:
+					weatherScript.IntensitySliderChanged(0.3);
+					break;
+
+				case 2:
+					weatherScript.IntensitySliderChanged(0.5);
+					break;
+
+				case 3:
+					weatherScript.IntensitySliderChanged(0.8);
+					break;
+
+				case 4:
+					weatherScript.IntensitySliderChanged(1);
+					break;
+
+				default:
+					weatherScript.IntensitySliderChanged(0.5);
+					break;
+			}
+		}
+	}
+
+	private void invokeWind(bool flag) {
+		if (weatherScript != null) {
+
+			weatherScript.WindToggleChanged(true);
+		}
+	}
+
+	private void invokeLightning() {
+		if (weatherScript != null) {
+
+			weatherScript.LightningStrikeButtonClicked();
+		}
+	}
+
+	private IEnumerator lightningStrikeInCoInSuccession () {
+		for (int count = 0; count < 7; count++) {
+			yield return new WaitForSeconds (2.0f);
+
+			invokeLightning();
+		}
+	}
+
+	public void InvokeLightningStrikeInCoInSuccession () {
+		StartCoroutine (lightningStrikeInCoInSuccession());
+	} 
+
+	public void weatherForPage (int page) {
+		switch (page) {
+		case 1: //house (lodge)
+			invokeWind(false);
+			invokeRainByLevel(false, 0);
+			break;
+
+		case 2:	//ocean
+			invokeWind(true);
+			invokeRainByLevel(false, 0);
+			break;
+
+		case 3: //house (lodge)
+			invokeWind(false);
+			invokeRainByLevel(false, 0);
+			break;
+
+		case 4: //ocean
+			invokeWind(true);
+			invokeRainByLevel(false, 0);
+			break;
+
+		case 5:	//house	(building)
+			invokeWind(false);
+			invokeRainByLevel(false, 0);
+			break;
+
+		case 6: //ocean
+			invokeWind(true);
+			invokeRainByLevel(false, 3);
+			break;
+
+		case 7:	//house (castle)
+			invokeWind(false);
+			invokeRainByLevel(false, 1);
+			break;
+
+		case 8: //ocean
+			invokeWind(true);
+			invokeRainByLevel(false, 4);
+			InvokeLightningStrikeInCoInSuccession();
+			break;
+
+		case 9:	//house (lodge)
+			invokeWind(false);
+			invokeRainByLevel(false, 2);
+			break;
+
+		case 10: //finish
+			invokeWind(false);
+			invokeRainByLevel(false, 0);
+			break;
+
+		default:
+			invokeWind(false);
+			invokeRainByLevel(false, 0);
+
+			break;
+		}
 	}
 }
