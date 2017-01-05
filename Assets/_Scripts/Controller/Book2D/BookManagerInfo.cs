@@ -44,9 +44,9 @@ namespace Book.RTDatabase
 			BookGetInfoDetail infoDetail = new BookGetInfoDetail ();
 			data.Clear ();
 
-			Debug.Log ("databaseReference : " + databaseReference);
-			Debug.Log ("category : " + category);
-			Debug.Log ("id.ToString () : " + id.ToString ());
+//			Debug.Log ("databaseReference : " + databaseReference);
+//			Debug.Log ("category : " + category);
+//			Debug.Log ("id.ToString () : " + id.ToString ());
 
 			databaseReference.Child ("public").Child(GlobalVar.LANGUAGE).Child ("books").Child (id.ToString ()).ValueChanged += (object sender, ValueChangedEventArgs args) => {
 				if (args.DatabaseError != null) {
@@ -66,9 +66,9 @@ namespace Book.RTDatabase
 					infoDetail.download_url = args.Snapshot.Child ("picture_url_resized").Value.ToString ();
 
 					data.Add (infoDetail);
-					Debug.Log("getFromServer: " + data.Count );
-					Debug.Log("getFromServer name: " + data[0].name );
-					Debug.Log("getFromServer description: " + data[0].description );
+//					Debug.Log("getFromServer: " + data.Count );
+//					Debug.Log("getFromServer name: " + data[0].name );
+//					Debug.Log("getFromServer description: " + data[0].description );
 					callback (data, textObject, imgObject, isLeftPage);
 				}
 			};
