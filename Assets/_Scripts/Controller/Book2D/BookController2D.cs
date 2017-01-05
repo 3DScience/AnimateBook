@@ -21,40 +21,16 @@ public class BookController2D : MonoBehaviour {
 	private string bookRightImg = "book/joint1/joint2/RightItems/Quad";
 	private string bookRightText = "book/joint1/joint2/RightItems/Canvas/Text";
 
-	private DragPage curAnimator;
-	private DragPage nextAnimator;
-
-	private GameObject curPage;
-	private GameObject nextPage;
-
-	private Animation animation;
-	private Animation curPageAnimation;
-	private Animation nextPageAnimation;
-
 	private UIDisplay uiDisplay;
-
-	private GameObject objectAnimation;
 
 	private bool animationAvailable;
 
 	// Use this for initialization
 	IEnumerator Start () {
 
-//		//test when start from scene book2D
-//		if (catName == null) {
-//			catName = "science";
-//		}
-//		// end test
-
 		uiDisplay = gameObject.GetComponent<UIDisplay> ();
 	
 		getPage();
-//		yield return uiDisplay.LoadBookData(bookLeftImg,bookLeftText,curPageNumber,catName, true);
-//		yield return uiDisplay.LoadBookData (pageLeftImg, pageLeftText, nextPageNumber,catName,false);
-
-		if (pages.Length > 0) {
-			animation = GetComponent<Animation>();
-		}
 
 		uiDisplay.getCountData(catName, (int count)=>{
 			if (count > 0) {
@@ -100,8 +76,7 @@ public class BookController2D : MonoBehaviour {
 	IEnumerator delayAddPage() {
 		yield return new WaitForSeconds(2f);
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		//open next page
 		if (SwipeManager.instance.IsSwiping (SwipeDirection.Left)) {
