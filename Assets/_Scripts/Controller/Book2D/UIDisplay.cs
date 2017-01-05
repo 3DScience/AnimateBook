@@ -97,7 +97,7 @@ public class UIDisplay : MonoBehaviour {
 			initFizebase ();
 		}
 
-		_databaseReference.Child ("public").Child(GlobalVar.LANGUAGE).Child ("books").Child (categoryName).ValueChanged += (object sender, ValueChangedEventArgs args) => {
+		_databaseReference.Child ("public").Child(GlobalVar.LANGUAGE).Child ("books").OrderByChild ("categories/" + categoryName).EqualTo(1).ValueChanged += (object sender, ValueChangedEventArgs args) => {
 			countBook = args.Snapshot.ChildrenCount.ToString();
 			callbackCountBook(int.Parse(countBook));
 			Debug.Log ("BookController2D.countBook : " + countBook);
@@ -112,7 +112,7 @@ public class UIDisplay : MonoBehaviour {
 			name = data [0].name;
 			price = data [0].price;
 			status = data [0].status;
-			picture_url = data [0].picture_url;
+		picture_url = data [0].picture_url;
 			version = data [0].version;
 			download_url = data [0].download_url;
 			assetbundle = data [0].assetbundle;

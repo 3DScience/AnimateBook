@@ -92,7 +92,7 @@ public class UIHandler : MonoBehaviour
 
 		_databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
 
-		DebugLog ("_databaseReference 0000 " + _databaseReference);
+		//DebugLog ("_databaseReference 0000 " + _databaseReference);
 
 //		leaderBoard = new ArrayList ();
 		/*
