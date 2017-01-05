@@ -342,17 +342,17 @@ public class UIHandler : MonoBehaviour
 			}
 			GUILayout.Space (20);
 
-			if (GUILayout.Button ("Push BookProteect")) {
-				pushBookProtectInfo ();
-			}
-
+//			if (GUILayout.Button ("Push BookProteect")) {
+//				pushBookProtectInfo ();
+//			}
+//
 			if (GUILayout.Button ("Push Book")) {
 				pushBookInfo ();
 			}
 
-			if (GUILayout.Button ("Get Book")) {
-				getBookInfo ();
-			}
+//			if (GUILayout.Button ("Get Book")) {
+//				getBookInfo ();
+//			}
 
 			/*
 			//ducgv add
@@ -401,12 +401,12 @@ public class UIHandler : MonoBehaviour
 
 		if (Screen.width < Screen.height) {
 			// Portrait mode
-			controlArea = new Rect (0.0f, 0.0f, Screen.width, Screen.height * 0.5f);
+			controlArea = new Rect (0.0f, 0.0f, Screen.width, Screen.height);
 //			leaderBoardArea = new Rect (0, Screen.height * 0.5f, Screen.width * 0.5f, Screen.height * 0.5f);
 			logArea = new Rect (Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.5f, Screen.height * 0.5f);
 		} else {
 			// Landscape mode
-			controlArea = new Rect (0.0f, 0.0f, Screen.width * 0.2f, Screen.height);
+			controlArea = new Rect (0.0f, 0.0f, Screen.width * 0.1f, Screen.height);
 //			leaderBoardArea = new Rect (Screen.width * 0.5f, 0, Screen.width * 0.5f, Screen.height * 0.5f);
 			logArea = new Rect (Screen.width * 0.5f, Screen.height * 0.5f, Screen.width * 0.5f, Screen.height * 0.5f);
 		}
