@@ -81,16 +81,18 @@ public class UIHandler : MonoBehaviour
 		
 		FirebaseApp app = FirebaseApp.DefaultInstance;
 //		app.SetEditorDatabaseUrl ("https://testunityfirebase-197e9.firebaseio.com/");
-//		app.SetEditorP12FileName ("TestUnityFirebase-04484f3999fc.p12");
+//		//app.SetEditorP12FileName ("TestUnityFirebase-04484f3999fc.p12");
 //		app.SetEditorServiceAccountEmail ("testunityfirebase-197e9@appspot.gserviceaccount.com");
-//		app.SetEditorP12Password ("notasecret");
+//		//app.SetEditorP12Password ("notasecret");
 
-		app.SetEditorDatabaseUrl ("https://filebasetest-7c55d.firebaseio.com/");
-		app.SetEditorP12FileName ("filebaseTest-2e653eef7319.p12");
-		app.SetEditorServiceAccountEmail ("filebasetest-7c55d@appspot.gserviceaccount.com");
-		app.SetEditorP12Password ("2e653eef7319ed39d40ed0a6370d9d222bbb555a");
+		app.SetEditorDatabaseUrl ("https://smallworld3d-2ac88.firebaseio.com/");
+//		app.SetEditorP12FileName ("filebaseTest-2e653eef7319.p12");
+		app.SetEditorServiceAccountEmail ("smallworld3d-2ac88@appspot.gserviceaccount.com");
+//		app.SetEditorP12Password ("2e653eef7319ed39d40ed0a6370d9d222bbb555a");
 
 		_databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
+
+		DebugLog ("_databaseReference 0000 " + _databaseReference);
 
 //		leaderBoard = new ArrayList ();
 		/*

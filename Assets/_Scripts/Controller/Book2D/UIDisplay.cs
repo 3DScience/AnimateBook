@@ -68,7 +68,7 @@ public class UIDisplay : MonoBehaviour {
 	{
 		FirebaseApp app = FirebaseApp.DefaultInstance;
 
-		app.SetEditorDatabaseUrl ("https://smallworld3d-2ac88.firebaseio.com");
+		app.SetEditorDatabaseUrl ("https://smallworld3d-2ac88.firebaseio.com/");
 		//app.SetEditorP12FileName ("filebaseTest-2e653eef7319.p12");
 		app.SetEditorServiceAccountEmail ("smallworld3d-2ac88@appspot.gserviceaccount.com");
 		//app.SetEditorP12Password ("2e653eef7319ed39d40ed0a6370d9d222bbb555a");
