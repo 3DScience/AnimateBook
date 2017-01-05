@@ -48,7 +48,7 @@ namespace Book.RTDatabase
 			Debug.Log ("category : " + category);
 			Debug.Log ("id.ToString () : " + id.ToString ());
 
-			databaseReference.Child ("public").Child(GlobalVar.LANGUAGE).Child ("books").Child (category).Child (id.ToString ()).ValueChanged += (object sender, ValueChangedEventArgs args) => {
+			databaseReference.Child ("public").Child(GlobalVar.LANGUAGE).Child ("books").Child (id.ToString ()).ValueChanged += (object sender, ValueChangedEventArgs args) => {
 				if (args.DatabaseError != null) {
 					Debug.LogError (args.DatabaseError.Message);
 					return;
@@ -63,7 +63,7 @@ namespace Book.RTDatabase
 					infoDetail.version = args.Snapshot.Child ("version").Value.ToString ();
 					infoDetail.min_app_version = args.Snapshot.Child ("min_app_version").Value.ToString ();
 					infoDetail.assetbundle = args.Snapshot.Child ("assetbundle").Value.ToString ();
-					infoDetail.download_url = args.Snapshot.Child ("download_url").Value.ToString ();
+					infoDetail.download_url = args.Snapshot.Child ("picture_url_resized").Value.ToString ();
 
 					data.Add (infoDetail);
 					Debug.Log("getFromServer: " + data.Count );
