@@ -58,12 +58,12 @@ namespace Book.RTDatabase
 					infoDetail.name = args.Snapshot.Child ("name").Value.ToString ();
 					infoDetail.status = int.Parse (args.Snapshot.Child ("status").Value.ToString ());
 					infoDetail.price = int.Parse (args.Snapshot.Child ("price").Value.ToString ());
-					infoDetail.picture_url = args.Snapshot.Child ("picture_url").Value.ToString ();
+					infoDetail.picture_url = args.Snapshot.Child ("picture_url_resized").Value.ToString ();
 					infoDetail.description = args.Snapshot.Child ("description").Value.ToString ();
 					infoDetail.version = args.Snapshot.Child ("version").Value.ToString ();
 					infoDetail.min_app_version = args.Snapshot.Child ("min_app_version").Value.ToString ();
 					infoDetail.assetbundle = args.Snapshot.Child ("assetbundle").Value.ToString ();
-					infoDetail.download_url = args.Snapshot.Child ("picture_url_resized").Value.ToString ();
+					infoDetail.download_url = args.Snapshot.Child ("download_url").Value.ToString ();
 
 					data.Add (infoDetail);
 //					Debug.Log("getFromServer: " + data.Count );
