@@ -4,24 +4,35 @@ using System.IO;
 using ProgressBar;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Book.RTDatabase;
+
 public class DownloadAsset : MonoBehaviour {
-    public static string assetBundleName;
+
     private string assetDataFolder = "";
     private WWW www;
     private string url;
     private bool isSavingFile= false;
-
+	string assetBundleName = "";
     ProgressBarBehaviour barBehaviour;
     // Use this for initialization
     void Start () {
         GameObject obj = GameObject.Find("ProgressBarLabelInside");
         barBehaviour = obj.GetComponent<ProgressBarBehaviour>();
         barBehaviour.ProgressSpeed = 10000;
-        if (assetBundleName == null || assetBundleName=="") // for testing
-        {
-            //assetBundleName = "test_book";
-            assetBundleName = "solar_system_book";
-        }
+
+
+
+		BookGetInfo.BookGetInfoDetail bookGetInfoDetail =(BookGetInfo.BookGetInfoDetail) GlobalVar.shareContext.shareVar["bookGetInfoDetail"];
+		GlobalVar.shareContext.shareVar.Remove ("bookGetInfoDetail");
+
+		if (bookGetInfoDetail == null) { // for testing
+			//assetBundleName = "test_book";
+			assetBundleName = "solar_system_book";
+		} else {
+			assetBundleName = bookGetInfoDetail.assetbundle;
+		}
+
+
         string platform = Application.platform.ToString();
         if (Application.platform == RuntimePlatform.WindowsEditor)// for testing
         {
@@ -40,7 +51,7 @@ public class DownloadAsset : MonoBehaviour {
             DebugOnScreen.Log(ex.ToString());
         }
 
-        url = GlobalVar.BASE_ASSET_DOWNLOAD_URL +assetBundleName + "/" + platform + ".zip";
+		url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + bookGetInfoDetail.download_url + "/" + platform + ".zip";
         DebugOnScreen.Log("url=" + url);
         www = new WWW(url);
     }

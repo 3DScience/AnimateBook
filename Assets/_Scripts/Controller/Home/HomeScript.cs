@@ -23,32 +23,28 @@ public class HomeScript : MonoBehaviour {
         GameObject animal_book = GameObject.Find("animal_book");
         CategoryInfo cat1 = animal_book.AddComponent<CategoryInfo>();
         cat1.index = 0;
-		cat1.catName = "nature";
-        cat1.categoryName = "solar_system_book";
+		cat1.categoryName = "nature";
         cat1.callback = OnSelectedBook;
         listBookInfo.Add(cat1);
 
         GameObject fairy_book = GameObject.Find("fairy_book");
         CategoryInfo cat2 = fairy_book.AddComponent<CategoryInfo>();
         cat2.index = 1;
-		cat2.catName = "fairytale";
-        cat2.categoryName = "solar_system_book";
+		cat2.categoryName = "fairytale";
         cat2.callback = OnSelectedBook;
         listBookInfo.Add(cat2);
 
         GameObject science_book = GameObject.Find("science_book");
         CategoryInfo cat3 = science_book.AddComponent<CategoryInfo>();
         cat3.index = 2;
-		cat3.catName = "science";
-        cat3.categoryName = "solar_system_book";
+		cat3.categoryName = "science";
         cat3.callback = OnSelectedBook;
         listBookInfo.Add(cat3);
 
         GameObject fiction_book = GameObject.Find("fiction_book");
         CategoryInfo cat4 = fiction_book.AddComponent<CategoryInfo>();
         cat4.index = 3;
-		cat4.catName = "fiction";
-        cat4.categoryName = "solar_system_book";
+		cat4.categoryName = "fiction";
         cat4.callback = OnSelectedBook;
         listBookInfo.Add(cat4);
 
@@ -58,7 +54,7 @@ public class HomeScript : MonoBehaviour {
         if (Debug.isDebugBuild)
             Debug.Log("OnSelectedBook "+ index);
         CategoryInfo categoryInfo = (CategoryInfo)listBookInfo[index];
-		BookController2D.catName = categoryInfo.catName;
+		BookController2D.catName = categoryInfo.categoryName;
         LoadBookSelected(categoryInfo.categoryName);
     }
     public void ButtonClick(string assetBundleName)

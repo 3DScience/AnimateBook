@@ -22,7 +22,6 @@ public class UIDisplay : MonoBehaviour {
 
 	private bool isLeftPage = true; 
 	private string myString;
-	private string url = "http://hstatic.net/846/1000030846/10/2015/9-24/cute-child-pictures.jpg";
 	private DatabaseReference _databaseReference;
 
 	private Renderer rendererLeft;
@@ -36,6 +35,8 @@ public class UIDisplay : MonoBehaviour {
 	private float price;
 	private int status;
 	private string version;
+	private string assetbundle;
+	private string download_url;
 
 	private string nameObject;
 	private BookGetInfo.BookGetInfoDetail leftData;
@@ -55,7 +56,7 @@ public class UIDisplay : MonoBehaviour {
 					// This should never happen if we're only using Firebase Analytics.
 					// It does not rely on any external dependencies.
 					Debug.LogError (
-						"Could not resolve all Firebase dependencies: " + dependencyStatus);
+						"Could --  not resolve all Firebase dependencies: " + dependencyStatus);
 				}
 			});
 		} else {
@@ -67,10 +68,10 @@ public class UIDisplay : MonoBehaviour {
 	{
 		FirebaseApp app = FirebaseApp.DefaultInstance;
 
-		app.SetEditorDatabaseUrl ("https://filebasetest-7c55d.firebaseio.com/");
-		app.SetEditorP12FileName ("filebaseTest-2e653eef7319.p12");
-		app.SetEditorServiceAccountEmail ("filebasetest-7c55d@appspot.gserviceaccount.com");
-		app.SetEditorP12Password ("2e653eef7319ed39d40ed0a6370d9d222bbb555a");
+		app.SetEditorDatabaseUrl ("https://smallworld3d-2ac88.firebaseio.com/");
+		//app.SetEditorP12FileName ("filebaseTest-2e653eef7319.p12");
+		app.SetEditorServiceAccountEmail ("smallworld3d-2ac88@appspot.gserviceaccount.com");
+		//app.SetEditorP12Password ("2e653eef7319ed39d40ed0a6370d9d222bbb555a");
 
 		_databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
 
@@ -83,20 +84,20 @@ public class UIDisplay : MonoBehaviour {
 			initFizebase ();
 		}
 			
-		BookGetInfo bookInfoLeft = new BookGetInfo (catName,idBook);
-		bookInfoLeft.getFromServer (_databaseReference,gettedData,nameText,nameImg,isLeftPage);
+		BookGetInfo bookInfo = new BookGetInfo (catName,idBook);
+		bookInfo.getFromServer (_databaseReference,gettedData,nameText,nameImg,isLeftPage);
 
 		yield return null;
 	}
 
 	private string countBook;
 	public void getCountData(string categoryName, System.Action<int> callbackCountBook) {
-		
+
 		if (_databaseReference == null) {
 			initFizebase ();
 		}
 
-		_databaseReference.Child ("public").Child ("books").Child (categoryName).ValueChanged += (object sender, ValueChangedEventArgs args) => {
+		_databaseReference.Child ("public").Child(GlobalVar.LANGUAGE).Child ("books").Child (categoryName).ValueChanged += (object sender, ValueChangedEventArgs args) => {
 			countBook = args.Snapshot.ChildrenCount.ToString();
 			callbackCountBook(int.Parse(countBook));
 			Debug.Log ("BookController2D.countBook : " + countBook);
@@ -113,6 +114,8 @@ public class UIDisplay : MonoBehaviour {
 			status = data [0].status;
 			picture_url = data [0].picture_url;
 			version = data [0].version;
+			download_url = data [0].download_url;
+			assetbundle = data [0].assetbundle;
 
 			if (isLeftPage) {
 				leftData = data [0];
@@ -177,13 +180,18 @@ public class UIDisplay : MonoBehaviour {
 		lastClickTime = Time.time;
 	}
 
+
 	private void loadBook()
 	{
 		string assetBundleName = "";
+		BookGetInfo.BookGetInfoDetail dataBook;
 		if (isLeftPage == true) {
-			assetBundleName = leftData.name;
+			assetBundleName = leftData.assetbundle;
+			dataBook = leftData;
+
 		} else {
-			assetBundleName = rightData.name;
+			assetBundleName = rightData.assetbundle;
+			dataBook = rightData;
 		}
 
 		Debug.Log ("assetBundleName UiDisplay: " + assetBundleName);
@@ -195,7 +203,7 @@ public class UIDisplay : MonoBehaviour {
 		} 
 		else
 		{
-			DownloadAsset.assetBundleName = assetBundleName;
+			GlobalVar.shareContext.shareVar.Add ("bookGetInfoDetail",dataBook);
 			SceneManager.LoadScene(GlobalVar.DOWNLOAD_ASSET_SCENE);
 		}
 	}

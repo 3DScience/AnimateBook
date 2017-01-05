@@ -21,8 +21,10 @@ namespace Book.RTDatabase
 			public string description;
 			public string version;
 			public string min_app_version;
+			public string assetbundle;
+			public string download_url;
 
-			public BookInfoDetail(string name, int status, float price, string picture_url, string description, string version, string min_app_version)
+			public BookInfoDetail(string name, int status, float price, string picture_url, string description, string version, string min_app_version, string assetbundle, string download_url)
 			{
 				this.name = name;
 				this.status = status;
@@ -31,14 +33,16 @@ namespace Book.RTDatabase
 				this.description = description;
 				this.version = version;
 				this.min_app_version = min_app_version;
+				this.assetbundle = assetbundle;
+				this.download_url = download_url;
 			}
 		}
 
-		public BookGeneralInfo (string category, int id, string name, int status, float price, string picture_url, string description, string version, string min_app_version)
+		public BookGeneralInfo (string category, int id, string name, int status, float price, string picture_url, string description, string version, string min_app_version, string assetbundle, string download_url)
 		{
 			this.id = id;
 			this.category = category;
-			infoDetail = new BookInfoDetail(name, status, price, picture_url, description, version, min_app_version);
+			infoDetail = new BookInfoDetail(name, status, price, picture_url, description, version, min_app_version,assetbundle,download_url);
 		}
 
 		public void pushToServer(DatabaseReference databaseReference)

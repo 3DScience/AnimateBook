@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "9479294475",
-    "firebase_url": "https://filebasetest-7c55d.firebaseio.com",
-    "project_id": "filebasetest-7c55d",
-    "storage_bucket": "filebasetest-7c55d.appspot.com"
+    "project_number": "583912075544",
+    "firebase_url": "https://smallworld3d-2ac88.firebaseio.com",
+    "project_id": "smallworld3d-2ac88",
+    "storage_bucket": "smallworld3d-2ac88.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:9479294475:android:096a7629d556f407",
+        "mobilesdk_app_id": "1:583912075544:android:c29b5b25e6abd014",
         "android_client_info": {
-          "package_name": "com.itp.AnimationBook"
+          "package_name": "com.born2go.smallworld"
         }
       },
       "oauth_client": [
         {
-          "client_id": "9479294475-6utei5l6ll12seiihn752silh1a46h2s.apps.googleusercontent.com",
+          "client_id": "583912075544-9igndrhcq10rtpqv1fi5g3eti06deh34.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCQwIyh0TqOBtSV5Y6_YY6XDCR7yCvCZFw"
+          "current_key": "AIzaSyCtG2Ta7RUB0Vt0GjH6sTkNNDNyuISXrto"
         }
       ],
       "services": {
