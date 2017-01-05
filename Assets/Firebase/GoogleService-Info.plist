@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>9479294475-75c62jp1md3s0rpphauhmlknaeq0h7oa.apps.googleusercontent.com</string>
+	<string>583912075544-ghjh46gqq3b3ercfte26qh546dbbt39b.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.9479294475-75c62jp1md3s0rpphauhmlknaeq0h7oa</string>
+	<string>com.googleusercontent.apps.583912075544-ghjh46gqq3b3ercfte26qh546dbbt39b</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCRYVeXIrPxWVwuL2vWOtsigqBiq5NVpe8</string>
+	<string>AIzaSyBqPuWiHWft4H58C929CKTMu8dJlMpbEjc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>9479294475</string>
+	<string>583912075544</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.itp.AnimationBook</string>
+	<string>com.born2go.smallworld</string>
 	<key>PROJECT_ID</key>
-	<string>filebasetest-7c55d</string>
+	<string>smallworld3d-2ac88</string>
 	<key>STORAGE_BUCKET</key>
-	<string>filebasetest-7c55d.appspot.com</string>
+	<string>smallworld3d-2ac88.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:9479294475:ios:9fc6f33b47fb8d70</string>
+	<string>1:583912075544:ios:c29b5b25e6abd014</string>
 	<key>DATABASE_URL</key>
-	<string>https://filebasetest-7c55d.firebaseio.com</string>
+	<string>https://smallworld3d-2ac88.firebaseio.com</string>
 </dict>
 </plist>

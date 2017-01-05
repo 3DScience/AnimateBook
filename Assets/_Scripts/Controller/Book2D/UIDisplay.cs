@@ -22,7 +22,6 @@ public class UIDisplay : MonoBehaviour {
 
 	private bool isLeftPage = true; 
 	private string myString;
-	private string url = "http://hstatic.net/846/1000030846/10/2015/9-24/cute-child-pictures.jpg";
 	private DatabaseReference _databaseReference;
 
 	private Renderer rendererLeft;
@@ -69,10 +68,10 @@ public class UIDisplay : MonoBehaviour {
 	{
 		FirebaseApp app = FirebaseApp.DefaultInstance;
 
-		app.SetEditorDatabaseUrl ("https://filebasetest-7c55d.firebaseio.com/");
-		app.SetEditorP12FileName ("filebaseTest-2e653eef7319.p12");
-		app.SetEditorServiceAccountEmail ("filebasetest-7c55d@appspot.gserviceaccount.com");
-		app.SetEditorP12Password ("2e653eef7319ed39d40ed0a6370d9d222bbb555a");
+		app.SetEditorDatabaseUrl ("https://smallworld3d-2ac88.firebaseio.com");
+		//app.SetEditorP12FileName ("filebaseTest-2e653eef7319.p12");
+		app.SetEditorServiceAccountEmail ("smallworld3d-2ac88@appspot.gserviceaccount.com");
+		//app.SetEditorP12Password ("2e653eef7319ed39d40ed0a6370d9d222bbb555a");
 
 		_databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
 
