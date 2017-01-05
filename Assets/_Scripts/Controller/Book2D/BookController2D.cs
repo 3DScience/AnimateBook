@@ -34,7 +34,7 @@ public class BookController2D : MonoBehaviour {
 
 		uiDisplay.getCountData(catName, (int count)=>{
 			if (count > 0) {
-				StartCoroutine (delayAddPage ());
+				//StartCoroutine (delayAddPage ());
 				GetComponent<Animation> ().Play ("openBook");
 				if (count == 1) {
 					StartCoroutine( uiDisplay.LoadBookData(bookLeftImg,bookLeftText,curPageNumber,catName, true) );
