@@ -17,7 +17,7 @@ public class BookLoader : MonoBehaviour {
             //assetBundleName = "test_book"; 
             assetBundleName = "solar_system_book";
         }
-        yield return StartCoroutine(AssetBundleHelper.getInstance().InitializeAssetBunder(assetBundleName));
+        yield return AssetBundleHelper.getInstance().InitializeAssetBunder(assetBundleName);
         try
         {
 
