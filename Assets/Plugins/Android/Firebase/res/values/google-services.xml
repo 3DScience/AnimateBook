@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="firebase_database_url" translatable="false">https://smallworld3d-2ac88.firebaseio.com</string>
-  <string name="gcm_defaultSenderId" translatable="false">583912075544</string>
-  <string name="google_storage_bucket" translatable="false">smallworld3d-2ac88.appspot.com</string>
-  <string name="google_api_key" translatable="false">AIzaSyCtG2Ta7RUB0Vt0GjH6sTkNNDNyuISXrto</string>
-  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCtG2Ta7RUB0Vt0GjH6sTkNNDNyuISXrto</string>
-  <string name="google_app_id" translatable="false">1:583912075544:android:c29b5b25e6abd014</string>
-  <string name="default_web_client_id" translatable="false">583912075544-9igndrhcq10rtpqv1fi5g3eti06deh34.apps.googleusercontent.com</string>
+  <string name="firebase_database_url" translatable="false">https://testfirebase-22c4c.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">54846153715</string>
+  <string name="google_storage_bucket" translatable="false">testfirebase-22c4c.appspot.com</string>
+  <string name="google_api_key" translatable="false">AIzaSyCHL7gT5oeaGN2_lLkTWq35o6HYdZuo4qY</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCHL7gT5oeaGN2_lLkTWq35o6HYdZuo4qY</string>
+  <string name="google_app_id" translatable="false">1:54846153715:android:ab835a9117a33329</string>
+  <string name="default_web_client_id" translatable="false">54846153715-ludosu2i591gdvnfjfsvjv3t1a1mjvie.apps.googleusercontent.com</string>
 </resources>
