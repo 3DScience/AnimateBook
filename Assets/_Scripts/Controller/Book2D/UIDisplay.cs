@@ -12,13 +12,13 @@ using System.IO;
 
 public class UIDisplay : MonoBehaviour {
 
-	public GameObject imgLeft;
-	public GameObject textLeft;
-	public GameObject imgRight;
-	public GameObject textRight;
-
 	public GameObject bookActiveLeft;
 	public GameObject bookActiveRight;
+
+	private GameObject imgLeft;
+	private GameObject textLeft;
+	private GameObject imgRight;
+	private GameObject textRight;
 
 	private bool isLeftPage = true; 
 	private string myString;
@@ -178,6 +178,10 @@ public class UIDisplay : MonoBehaviour {
 			}
 		}
 		lastClickTime = Time.time;
+	}
+
+	public void onClickItem() {
+		GameObject.Find ("items").SetActive(false);
 	}
 
 

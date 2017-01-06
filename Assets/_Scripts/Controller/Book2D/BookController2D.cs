@@ -2,11 +2,10 @@
 using System.Collections;
 
 public class BookController2D : MonoBehaviour {
-	public GameObject[] pages;
+	//public GameObject[] pages;
 	public static string catName;
 	public GameObject bookActive;
 
-	public int i =0;
 	private int isLoadPage = 0;
 	private int curPageNumber = 0;
 	private int nextPageNumber = 0;
@@ -80,7 +79,7 @@ public class BookController2D : MonoBehaviour {
 	void Update () {
 		//open next page
 		if (SwipeManager.instance.IsSwiping (SwipeDirection.Left)) {
-			i = 0;
+
 			if (animationAvailable == true) {
 
 				if (nextPageNumber < curPageNumber) {
@@ -103,7 +102,6 @@ public class BookController2D : MonoBehaviour {
 
 		//back page
 		if (SwipeManager.instance.IsSwiping (SwipeDirection.Right)) {
-			Debug.Log ("back page iiii: " + i);
 			if (animationAvailable == true) {
 
 				Debug.Log("curPageNumber back 0:: " + curPageNumber );
@@ -124,7 +122,6 @@ public class BookController2D : MonoBehaviour {
 				} 
 
 			}
-			i = i+1;
 		}
 	}
 
