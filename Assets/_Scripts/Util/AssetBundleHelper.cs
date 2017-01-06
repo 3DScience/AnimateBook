@@ -19,6 +19,10 @@ public class AssetBundleHelper {
     }
     public IEnumerator InitializeAssetBunder(string assetBundleName)
     {
+        if(assetBundleName!=null)
+        {
+            getInstance().unLoadAssetBundleManager();
+        }
 
         // Don't destroy this gameObject as we depend on it to run the loading script.
         //DontDestroyOnLoad(context.gameObject);
@@ -61,7 +65,6 @@ public class AssetBundleHelper {
     public void unLoadAssetBundleManager()
     {
         AssetBundleManager.UnloadAssetBundle(assetBundleName);
-        AssetBundleManager.UnloadAssetBundle(assetBundleName+".metadata");
         GameObject assetBundleManager= GameObject.Find("AssetBundleManager");
         AssetBundleManager.DestroyObject(assetBundleManager);
     }
