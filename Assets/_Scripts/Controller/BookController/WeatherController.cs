@@ -54,6 +54,13 @@ public class WeatherController : MonoBehaviour {
 		}
 	}
 
+	public void invokeCloud(bool flag) {
+		if (weatherScript != null) {
+
+			weatherScript.CloudToggleChanged(flag);
+		}
+	}
+
 	private IEnumerator lightningStrikeInCoInSuccession () {
 		for (int count = 0; count < 7; count++) {
 			yield return new WaitForSeconds (2.0f);
