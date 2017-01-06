@@ -112,7 +112,7 @@ public class UIDisplay : MonoBehaviour {
 			name = data [0].name;
 			price = data [0].price;
 			status = data [0].status;
-		picture_url = data [0].picture_url;
+		    picture_url = data [0].picture_url;
 			version = data [0].version;
 			download_url = data [0].download_url;
 			assetbundle = data [0].assetbundle;

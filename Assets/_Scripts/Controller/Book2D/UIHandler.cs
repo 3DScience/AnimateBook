@@ -340,7 +340,7 @@ public class UIHandler : MonoBehaviour
 			if (GUILayout.Button ("Home")) {
 				SceneManager.LoadScene ("Home");
 			}
-			GUILayout.Space (20);
+			GUILayout.Space (10);
 
 //			if (GUILayout.Button ("Push BookProteect")) {
 //				pushBookProtectInfo ();

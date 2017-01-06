@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using Fungus;
-using DigitalRuby.WeatherMaker;
 
 public class BookController : MonoBehaviour {
 	private List<GameObject> loadedPages = new List<GameObject>();
@@ -13,12 +12,6 @@ public class BookController : MonoBehaviour {
 	public GameObject[] pages;
 	public Image background;
 	public Sprite[] bgResources;
-
-	public Flowchart flowChart;
-	private Block block;
-
-	private Dictionary<string, int> commandNames =
-		new Dictionary<string, int>();
 
 	private int curLoadedPageNumber = 0;
 	private int nextLoadedPageNumber = 0;
@@ -38,8 +31,6 @@ public class BookController : MonoBehaviour {
 
 	private bool animationAvailable;
 
-	public GameObject weatherController;
-	private WeatherMakerConfigurationScript weatherScript;
 
 	// Use this for initialization
 	void Start () {
@@ -47,29 +38,7 @@ public class BookController : MonoBehaviour {
 		curLoadedPageNumber = -1;
 		nextLoadedPageNumber = 0;
 
-		commandNames.Add("page1", 5);
-		commandNames.Add("page2", 13);
-		commandNames.Add("page3", 27);
-		commandNames.Add("page4", 35);
-		commandNames.Add("page5", 44);
-		commandNames.Add("page6", 53);
-		commandNames.Add("page7", 62);
-		commandNames.Add("page8", 74);
-		commandNames.Add("page9", 85);
-		commandNames.Add("page10", 92);
-
-
-		block = flowChart.FindBlock("Start");
-
 		StartCoroutine (LoadPageIntoContainers ());
-
-		animationAvailable = true;
-
-		if (loadedPages.Count > 0) {
-			animation = GetComponent<Animation>();
-		}
-
-		weatherScript = weatherController.GetComponent<WeatherMakerConfigurationScript>();
 	}
 
 	IEnumerator LoadPageIntoContainers () {
@@ -85,31 +54,39 @@ public class BookController : MonoBehaviour {
 
 			loadedPages.Add(Instantiate(pages[count], placeHolder.transform.position, placeHolder.transform.rotation, container.transform));
 		}
+
+		animationAvailable = true;
+
+		if (loadedPages.Count > 0) {
+			animation = GetComponent<Animation>();
+		}
 	}
 
 	// Update is called once per frame
 	void Update () {
 		//open next page
-		if (SwipeManager.instance.IsSwiping (SwipeDirection.Left)) {
-
-			swipeLeftHandle ();
-		}
-
-		//back page
-		if (SwipeManager.instance.IsSwiping (SwipeDirection.Right)) {
-
-			swipeRightHandle ();
-		}
+//		if (SwipeManager.instance.IsSwiping (SwipeDirection.Left)) {
+//
+//			swipeLeftHandle ();
+//		}
+//
+//		//back page
+//		if (SwipeManager.instance.IsSwiping (SwipeDirection.Right)) {
+//
+//			swipeRightHandle ();
+//		}
 
 	}
 
 	//handle event from fish
-	public void FishMouseButton () {
-		Debug.Log ("FishMouseButton");
-		InvokeLightningStrikeInCoInSuccession();
-	}
+//	public void FishMouseButton () {
+//		Debug.Log ("FishMouseButton");
+//		InvokeLightningStrikeInCoInSuccession();
+//	}
 
-	public void swipeLeftHandle () {
+	//return true if there is a nextpage
+	public bool swipeLeftHandle () {
+		bool res = false;
 		Debug.Log("curLoadedPageNumber :: " + curLoadedPageNumber );
 		Debug.Log("nextLoadedPageNumber :: " + nextLoadedPageNumber );
 
@@ -135,13 +112,7 @@ public class BookController : MonoBehaviour {
 				curLoadedPageNumber = nextLoadedPageNumber;
 				curPageNumber ++;
 
-				string command = "page" + curPageNumber;
-				Debug.Log ("command :: " + command);
-				int commandIndex = 0;
-				bool b = commandNames.TryGetValue(command, out commandIndex);
-				Debug.Log ("commandIndex :: " + commandIndex);
-				block.JumpToCommandIndex = commandIndex;
-				block.Execute();
+				res = true;
 			}
 
 			//open left items on new next page
@@ -178,10 +149,13 @@ public class BookController : MonoBehaviour {
 				}
 			}
 		}
+
+		return res;
 	}
 
-	public void swipeRightHandle () {
-
+	//return true if there is a backpage
+	public bool swipeRightHandle () {
+		bool res = false;
 		if (animationAvailable == true) {
 			animationAvailable = false;
 			Debug.Log("curLoadedPageNumber :: " + curLoadedPageNumber );
@@ -207,14 +181,7 @@ public class BookController : MonoBehaviour {
 				nextLoadedPageNumber = curLoadedPageNumber;
 				curPageNumber --;
 
-				string command = "page" + curPageNumber;
-				Debug.Log ("command :: " + command);
-				int commandIndex = 0;
-				bool b = commandNames.TryGetValue(command, out commandIndex);
-				Debug.Log ("commandIndex :: " + commandIndex);
-
-				block.JumpToCommandIndex = commandIndex;
-				block.Execute();
+				res = true;
 			}
 
 			if (curLoadedPageNumber > 0) {
@@ -249,6 +216,8 @@ public class BookController : MonoBehaviour {
 				}
 			}
 		}
+
+		return res;
 	}
 
 	public void resetAnimationFlag () {
@@ -263,7 +232,7 @@ public class BookController : MonoBehaviour {
 		}
 	}
 
-	void playAnimationCurrentPage (string clip) {
+	public void playAnimationCurrentPage (string clip) {
 		getAnimationCurrentPage();
 
 		if (curPageAnimation) {
@@ -271,7 +240,7 @@ public class BookController : MonoBehaviour {
 		}
 	}
 
-	void playAnimationNextPage (string clip) {
+	public void playAnimationNextPage (string clip) {	//public to call from lua
 		getAnimationNextPage();
 
 		if (nextPageAnimation) {
@@ -329,131 +298,8 @@ public class BookController : MonoBehaviour {
 		return null;
 	}
 
-	public void fishDiving () {
-		if (nextLoadedPageNumber >= 0 && nextLoadedPageNumber < loadedPages.Count) {
-			//close left items on next page
-			string clip = "CloseLeftItemsPage";
-			Debug.Log ("CloseLeftItemsPage :: " + clip);
-
-			playAnimationNextPage (clip);
-		}
+	public int getCurrentPageNumber () {
+		return curPageNumber;
 	}
 
-	/* weather control */
-	private void invokeRainByLevel(bool flag, int lv) {
-		if (weatherScript != null) {
-			
-			weatherScript.RainToggleChanged(flag);
-
-			switch (lv) {
-				case 1:
-					weatherScript.IntensitySliderChanged(0.3f);
-					break;
-
-				case 2:
-					weatherScript.IntensitySliderChanged(0.5f);
-					break;
-
-				case 3:
-					weatherScript.IntensitySliderChanged(0.8f);
-					break;
-
-				case 4:
-					weatherScript.IntensitySliderChanged(1.0f);
-					break;
-
-				default:
-					weatherScript.IntensitySliderChanged(0.5f);
-					break;
-			}
-		}
-	}
-
-	private void invokeWind(bool flag) {
-		if (weatherScript != null) {
-
-			weatherScript.WindToggleChanged(flag);
-		}
-	}
-
-	private void invokeLightning() {
-		if (weatherScript != null) {
-
-			weatherScript.LightningStrikeButtonClicked();
-		}
-	}
-
-	private IEnumerator lightningStrikeInCoInSuccession () {
-		for (int count = 0; count < 7; count++) {
-			yield return new WaitForSeconds (2.0f);
-
-			invokeLightning();
-		}
-	}
-
-	public void InvokeLightningStrikeInCoInSuccession () {
-		StartCoroutine (lightningStrikeInCoInSuccession());
-	} 
-
-	public void weatherForPage (int page) {
-		weatherScript.TransitionDurationSliderChanged(4);
-		switch (page) {
-		case 1: //house (lodge)
-			invokeWind(false);
-			invokeRainByLevel(false, 0);
-			break;
-
-		case 2:	//ocean
-			invokeWind(true);
-			invokeRainByLevel(false, 0);
-			break;
-
-		case 3: //house (lodge)
-			invokeWind(false);
-			invokeRainByLevel(false, 0);
-			break;
-
-		case 4: //ocean
-			invokeWind(true);
-			invokeRainByLevel(false, 0);
-			break;
-
-		case 5:	//house	(building)
-			invokeWind(false);
-			invokeRainByLevel(false, 0);
-			break;
-
-		case 6: //ocean
-			invokeWind(true);
-			invokeRainByLevel(true, 3);
-			break;
-
-		case 7:	//house (castle)
-			invokeWind(false);
-			invokeRainByLevel(true, 1);
-			break;
-
-		case 8: //ocean
-			invokeWind(true);
-			invokeRainByLevel(true, 4);
-			InvokeLightningStrikeInCoInSuccession();
-			break;
-
-		case 9:	//house (lodge)
-			invokeWind(false);
-			invokeRainByLevel(true, 2);
-			break;
-
-		case 10: //finish
-			invokeWind(false);
-			invokeRainByLevel(false, 0);
-			break;
-
-		default:
-			invokeWind(false);
-			invokeRainByLevel(false, 0);
-
-			break;
-		}
-	}  
 }
