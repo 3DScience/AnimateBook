@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class BookLoader : MonoBehaviour {
 
     public static string assetBundleName;
@@ -32,6 +32,12 @@ public class BookLoader : MonoBehaviour {
             DebugOnScreen.Log(ex.ToString());
         }
 
+    }
+
+    public void onHomeButtonClick()
+    {
+        SceneManager.UnloadScene(GlobalVar.BOOK_LOADER_SCENE);
+        SceneManager.LoadScene(GlobalVar.MAINSCENE);
     }
 	
 

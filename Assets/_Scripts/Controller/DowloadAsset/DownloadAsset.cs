@@ -131,7 +131,7 @@ public class DownloadAsset : MonoBehaviour {
             Debug.Log("unzip done!");
 
         barBehaviour.m_AttachedText.text = "DONE";
-        BookLoaderScript.assetBundleName = assetBundleName;
+        BookLoader.assetBundleName = assetBundleName;
         SceneManager.LoadScene(GlobalVar.BOOK_LOADER_SCENE);
         yield return null;
     }
