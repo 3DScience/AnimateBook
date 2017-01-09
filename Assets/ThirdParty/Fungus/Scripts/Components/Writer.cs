@@ -863,7 +863,7 @@ namespace Fungus
             }
 
             // If this clip is null then WriterAudio will play the default sound effect (if any)
-            NotifyStart(audioClip);
+            NotifyStart(audioClip);   //Nam's comment: disable sound on saydialog
 
             string tokenText = content;
             if (waitForInput)
