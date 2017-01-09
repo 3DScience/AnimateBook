@@ -19,7 +19,7 @@ public class AssetBundleHelper {
     }
     public IEnumerator InitializeAssetBunder(string assetBundleName)
     {
-        if(assetBundleName!=null)
+        if(this.assetBundleName!=null)
         {
             getInstance().unLoadAssetBundleManager();
         }
@@ -57,6 +57,7 @@ public class AssetBundleHelper {
     }
     public IEnumerator LoadScene(string assetBundleName, string scenseName, bool isAddtive)
     {
+        AssetBundleManager.UnloadAssetBundle(assetBundleName);
         AssetBundleLoadOperation request = AssetBundleManager.LoadLevelAsync(assetBundleName, scenseName, true);
         if (request == null)
             yield break;
