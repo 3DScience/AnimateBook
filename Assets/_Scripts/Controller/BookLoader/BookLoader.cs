@@ -36,6 +36,11 @@ public class BookLoader : MonoBehaviour {
 
     public void onHomeButtonClick()
     {
+        GameObject[] gos = GameObject.FindGameObjectsWithTag("DestroyOnHome");
+        foreach (var go in gos)
+        {
+            DestroyObject(go);
+        }
         SceneManager.UnloadScene(GlobalVar.BOOK_LOADER_SCENE);
         SceneManager.LoadScene(GlobalVar.MAINSCENE);
     }
