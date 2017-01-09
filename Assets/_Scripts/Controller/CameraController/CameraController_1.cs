@@ -66,7 +66,7 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 
 	void OnTouchMoveAnyWhere()
 	{
-
+		Debug.Log("RotationCamera");
 		if (Input.touchCount == 1) {
 			RotationCamera ();
 		} else if (Input.touchCount == 2) {
