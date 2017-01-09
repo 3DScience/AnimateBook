@@ -18,18 +18,22 @@ public class WeatherController : MonoBehaviour {
 
 			switch (lv) {
 			case 1:
-				weatherScript.IntensitySliderChanged(0.3f);
+				weatherScript.IntensitySliderChanged(0.1f);
 				break;
 
 			case 2:
-				weatherScript.IntensitySliderChanged(0.5f);
+				weatherScript.IntensitySliderChanged(0.2f);
 				break;
 
 			case 3:
-				weatherScript.IntensitySliderChanged(0.8f);
+				weatherScript.IntensitySliderChanged(0.5f);
 				break;
 
 			case 4:
+				weatherScript.IntensitySliderChanged(0.8f);
+				break;
+
+			case 5:
 				weatherScript.IntensitySliderChanged(1.0f);
 				break;
 

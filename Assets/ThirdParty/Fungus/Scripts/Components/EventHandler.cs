@@ -53,6 +53,7 @@ namespace Fungus
         /// </summary>
         public virtual bool ExecuteBlock()
         {
+			Debug.Log ("ExecuteBlock");
             if (ParentBlock == null)
             {
                 return false;
