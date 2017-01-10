@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraController_1 : MonoBehaviour,TouchEventInterface {
+public class CameraController_1 : MonoBehaviour {
 
 	public float zoomSpeed = 50.0f;
 	private float currDist = 0.0f,
@@ -40,8 +40,11 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 	void Start() {
 		cachedTransform = transform;
 	}
+	public void OnTouchs() {
+		Update ();
+	}
 
-	public void OnTouchs()
+	public void Update()
 	{
 		for (int i = 0; i < Input.touchCount; i++) {
 			
@@ -132,10 +135,12 @@ public class CameraController_1 : MonoBehaviour,TouchEventInterface {
 		}
 			
 		zoomFactor =  Mathf.Clamp(lastDist - currDist, -30f, 30f);
+
+		Debug.Log ("flagCameraExitZoomOut : " + flagCameraExitZoomOut);
+		Debug.Log ("flagCameraExitZoomIn : " + flagCameraExitZoomIn);
 	
-		if (flagCameraExitZoomOut == 1 & zoomFactor > 0) {
-		} else if (zoomFactor < 0 & flagCameraExitZoomIn == 0) {
-		} else if (zoomFactor > 0 & flagCameraExitZoomOut == 1) {
+		if (flagCameraExitZoomOut == 1 & zoomFactor >= 0) {
+		} else if (zoomFactor <= 0 & flagCameraExitZoomIn == 0) {
 		} else {
 			Camera.main.transform.Translate(Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime);
 		}
