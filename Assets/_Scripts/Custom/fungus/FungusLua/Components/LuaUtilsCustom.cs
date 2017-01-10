@@ -45,5 +45,9 @@ namespace Fungus
         {
             GameObject.DontDestroyOnLoad(go);
         }
+        public void SetSkyBox( Material skybox)
+        {
+            RenderSettings.skybox = skybox;
+        }
     }
 }
