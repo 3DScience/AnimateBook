@@ -4,9 +4,15 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine.Analytics;
 public class HomeScript : MonoBehaviour {
+    public GameObject settingDialogPrefab;
+
 	ArrayList listBookInfo = new ArrayList();
 	// Use this for initialization
 	void Start () {
+        if(GlobalVar.SETTING_DIALOG == null)
+        {
+            GlobalVar.SETTING_DIALOG = GameObject.Instantiate(settingDialogPrefab);
+        }
         if (Debug.isDebugBuild)
             Debug.Log("HomeScript Start...");
         loadAllCategory();

@@ -11,6 +11,7 @@ public class GlobalVar {
     public static string CATEGORY_SCENE = "Book2D";
     public static string MAINSCENE = "Home";
 	public static string LANGUAGE = "vn";
+    public static GameObject SETTING_DIALOG;
     static GlobalVar()
     {
         DATA_PATH = Application.persistentDataPath;
