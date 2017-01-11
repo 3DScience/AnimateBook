@@ -26,19 +26,19 @@ public class WeatherController : MonoBehaviour {
 				break;
 
 			case 3:
-				weatherScript.IntensitySliderChanged(0.5f);
+				weatherScript.IntensitySliderChanged(0.3f);
 				break;
 
 			case 4:
-				weatherScript.IntensitySliderChanged(0.8f);
+				weatherScript.IntensitySliderChanged(0.5f);
 				break;
 
 			case 5:
-				weatherScript.IntensitySliderChanged(1.0f);
+				weatherScript.IntensitySliderChanged(0.7f);
 				break;
 
 			default:
-				weatherScript.IntensitySliderChanged(0.5f);
+				weatherScript.IntensitySliderChanged(0.2f);
 				break;
 			}
 		}
