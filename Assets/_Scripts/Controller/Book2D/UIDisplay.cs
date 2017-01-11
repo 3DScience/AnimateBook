@@ -184,7 +184,6 @@ public class UIDisplay : MonoBehaviour {
 		GameObject.Find ("items").SetActive(false);
 	}
 
-
 	private void loadBook()
 	{
 		string assetBundleName = "";
@@ -192,7 +191,21 @@ public class UIDisplay : MonoBehaviour {
 		if (isLeftPage == true) {
 			assetBundleName = leftData.assetbundle;
 			dataBook = leftData;
+		} else {
+			assetBundleName = rightData.assetbundle;
+			dataBook = rightData;
+		}
+		GlobalVar.shareContext.shareVar.Add ("bookGetInfoDetail",dataBook);
+		SceneManager.LoadScene(GlobalVar.BOOK2DDETAIL_SCENE);
+	}
 
+	private void loadBook_()
+	{
+		string assetBundleName = "";
+		BookGetInfo.BookGetInfoDetail dataBook;
+		if (isLeftPage == true) {
+			assetBundleName = leftData.assetbundle;
+			dataBook = leftData;
 		} else {
 			assetBundleName = rightData.assetbundle;
 			dataBook = rightData;
@@ -226,6 +239,11 @@ public class UIDisplay : MonoBehaviour {
 		yield return new WaitForSeconds(2f);
 		bookActiveLeft.SetActive (false);
 		bookActiveRight.SetActive (false);
+	}
+
+	public void onHomeButtonClick()
+	{
+		SceneManager.LoadScene(GlobalVar.MAINSCENE);
 	}
 
 }
