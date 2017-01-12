@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class CameraController_1 : MonoBehaviour {
 
@@ -46,6 +47,9 @@ public class CameraController_1 : MonoBehaviour {
 
 	public void Update()
 	{
+		if (Camera.main == null || EventSystem.current.IsPointerOverGameObject (0)) {
+			return;
+		}
 		for (int i = 0; i < Input.touchCount; i++) {
 			
 			currTouch = i;
