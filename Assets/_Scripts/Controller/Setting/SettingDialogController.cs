@@ -8,6 +8,7 @@ using Firebase.Auth;
 public class SettingDialogController : MonoBehaviour {
 
     public GameObject dialogUi;
+    public GameObject loginPanel;
     private LoginPanelController loginPanelController;
     private ProfilePanelController profilePanelController;
     // Use this for initialization
@@ -16,7 +17,7 @@ public class SettingDialogController : MonoBehaviour {
         DontDestroyOnLoad(gameObject.transform.parent.gameObject);
         //ProfileFirebase.getInstance().listenLoginStateChange(stateChangedCallback);
 
-        loginPanelController = GetComponent<LoginPanelController>();
+        loginPanelController = loginPanel.GetComponent<LoginPanelController>();
         profilePanelController = GetComponent<ProfilePanelController>();
         ProfileFirebase.getInstance().getCurrentUser(gettedUser);
 
