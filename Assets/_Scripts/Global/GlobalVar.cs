@@ -9,6 +9,7 @@ public class GlobalVar {
     public static string BOOK_LOADER_SCENE = "BookLoader";
     public static string DOWNLOAD_ASSET_SCENE = "DownloadAsset";
     public static string CATEGORY_SCENE = "Book2D";
+	public static string BOOK2DDETAIL_SCENE = "Book2DDetail";
     public static string MAINSCENE = "Home";
 	public static string LANGUAGE = "vn";
     public static GameObject SETTING_DIALOG;
