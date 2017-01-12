@@ -39,6 +39,7 @@ public class BookController : MonoBehaviour {
 		nextLoadedPageNumber = 0;
 
 		StartCoroutine (LoadPageIntoContainers ());
+
 	}
 
 	IEnumerator LoadPageIntoContainers () {
@@ -225,10 +226,13 @@ public class BookController : MonoBehaviour {
 		animationAvailable = true;
 	}
 		
-	public void changeBackgroundImage (int sceneID) {
-		if (bgResources.Length > 0 && bgResources.Length > sceneID) {
+	public void changeBackgroundImage (int ind, float alpha) {
+		if (bgResources.Length > 0 && bgResources.Length > ind) {
 			
-			background.sprite = bgResources[sceneID];
+			background.sprite = bgResources[ind];
+
+			Color cl = new Color (background.color.r, background.color.g, background.color.b, alpha);
+			background.color = cl;
 		}
 	}
 
