@@ -11,7 +11,6 @@ public enum CameraMode {
 
 public class CameraFunctions : MonoBehaviour {
 
-	public Camera mainCam;
 	public float defaulFieldOfView = 21.0f;
 
 	//flags to activate functions
@@ -33,8 +32,8 @@ public class CameraFunctions : MonoBehaviour {
 	private float currentX = 0.0f;
 	private float currentY = 0.0f;
 
-	private float sensitiveX = 0.2f;
-	private float sensitiveY = 0.2f;
+	private float sensitiveX = 0.1f;
+	private float sensitiveY = 0.1f;
 
 	private bool allowRotate;
 
@@ -56,6 +55,7 @@ public class CameraFunctions : MonoBehaviour {
 
 
 	//private variable
+	private Camera mainCam;
 	private CameraMode _camMode;
 	private bool isMoving;
 	private bool isZooming;
@@ -68,6 +68,10 @@ public class CameraFunctions : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if (mainCam == null) {
+			mainCam = gameObject.GetComponent<Camera>();
+		}
+
 		allowRotate = false;
 
 		isMoving = true;
@@ -207,7 +211,7 @@ public class CameraFunctions : MonoBehaviour {
 					float fOv = mainCam.fieldOfView + deltaMagnitudeDiff * perspectiveZoomSpeed;
 					
 					// Clamp the field of view to make sure it's between 0 and 180.
-					mainCam.fieldOfView = Mathf.Clamp(fOv, 5.0f, 30.0f);
+					mainCam.fieldOfView = Mathf.Clamp(fOv, 10.0f, 30.0f);
 				}
 
 				//back to default position after zooming
