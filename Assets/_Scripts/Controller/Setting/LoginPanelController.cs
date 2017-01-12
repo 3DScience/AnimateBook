@@ -22,7 +22,7 @@ public class LoginPanelController : MonoBehaviour {
     }
         // Use this for initialization
         void Start () {
-       // if (GlobalVar.DEBUG)
+        if (GlobalVar.DEBUG)
             DebugOnScreen.Log("LoginPanelController- Onstart ");
     }
     public void OnLoginButtonClick()
