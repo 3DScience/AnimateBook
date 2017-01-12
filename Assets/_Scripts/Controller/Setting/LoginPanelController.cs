@@ -10,14 +10,14 @@ public class LoginPanelController : MonoBehaviour {
     public GameObject loginPanel;
     public GameObject profilePanel;
     public Text txtEmail;
-    public Text txtPassword;
+    public InputField txtPassword;
     public Text txtError;
     public GameObject loadingPanel;
     void OnEnable()
     {
 
         if (GlobalVar.DEBUG)
-        DebugOnScreen.Log("OnEnable- OnBecameVisible     ");
+            DebugOnScreen.Log("LoginPanelController-OnEnable- OnBecameVisible     ");
         txtError.gameObject.SetActive(false);
     }
         // Use this for initialization
