@@ -3,18 +3,41 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Firebase;
+using Firebase.Auth;
 public class SettingDialogController : MonoBehaviour {
 
     public GameObject dialogUi;
-
-    public Text txtEmail;
-    public Text txtPassword;
+    private LoginPanelController loginPanelController;
+    private ProfilePanelController profilePanelController;
     // Use this for initialization
     void Start () {
+        dialogUi.SetActive(false);
         DontDestroyOnLoad(gameObject.transform.parent.gameObject);
-        ProfileFirebase.getInstance().listenLoginStateChange(stateChangedCallback);
+        //ProfileFirebase.getInstance().listenLoginStateChange(stateChangedCallback);
 
+        loginPanelController = GetComponent<LoginPanelController>();
+        profilePanelController = GetComponent<ProfilePanelController>();
+        ProfileFirebase.getInstance().getCurrentUser(gettedUser);
+
+    }
+
+    void gettedUser()
+    {
+        FirebaseUser user = ProfileFirebase.getInstance().auth.CurrentUser;
+        if (user != null)
+        {
+            if (GlobalVar.DEBUG)
+                DebugOnScreen.Log("SettingDialogController-CurrentUser: Email=" + user.Email + ", DisplayName=" + user.DisplayName);
+            loginPanelController.deactiveLoginPanel();
+            profilePanelController.OnLoginStateChange(true);
+        }
+        else
+        {
+            profilePanelController.deactiveProfilePanel();
+            if (GlobalVar.DEBUG)
+                DebugOnScreen.Log("SettingDialogController-CurrentUser= null");
+        }
     }
     public void OnSettingClick()
     {
@@ -43,31 +66,7 @@ public class SettingDialogController : MonoBehaviour {
     {
         dialogUi.SetActive(false);
     }
-    public void OnLoginButtonClick()
-    {
-        DebugOnScreen.Log("OnLoginButtonClick, email="+txtEmail.text+ "/ pass="+txtPassword.text);
-        ProfileFirebase.getInstance().Login(txtEmail.text, txtPassword.text, HandleSigninResult);
-    }
 
-    void HandleSigninResult(Task<Firebase.Auth.FirebaseUser> authTask)
-    {
-
-        if (authTask.IsCanceled)
-        {
-            DebugOnScreen.Log("SignIn canceled.");
-        }
-        else if (authTask.IsFaulted)
-        {
-            DebugOnScreen.Log("Login encountered an error.");
-            DebugOnScreen.Log(authTask.Exception.ToString());
-        }
-        else if (authTask.IsCompleted)
-        {
-            DebugOnScreen.Log("Login completed.");
-            DebugOnScreen.Log("Signing out.");
- 
-        }
-    }
     public void OnEdgeClick()
     {
         Debug.Log("OnEdgeClick");
