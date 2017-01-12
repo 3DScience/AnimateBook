@@ -199,42 +199,6 @@ public class UIDisplay : MonoBehaviour {
 		SceneManager.LoadScene(GlobalVar.BOOK2DDETAIL_SCENE);
 	}
 
-	private void loadBook_()
-	{
-		string assetBundleName = "";
-		BookGetInfo.BookGetInfoDetail dataBook;
-		if (isLeftPage == true) {
-			assetBundleName = leftData.assetbundle;
-			dataBook = leftData;
-		} else {
-			assetBundleName = rightData.assetbundle;
-			dataBook = rightData;
-		}
-
-		Debug.Log ("assetBundleName UiDisplay: " + assetBundleName);
-
-		if (checkIsDownloadedAsset(assetBundleName))
-		{
-			BookLoader.assetBundleName = assetBundleName;
-			SceneManager.LoadScene(GlobalVar.BOOK_LOADER_SCENE);
-		} 
-		else
-		{
-			GlobalVar.shareContext.shareVar.Add ("bookGetInfoDetail",dataBook);
-			SceneManager.LoadScene(GlobalVar.DOWNLOAD_ASSET_SCENE);
-		}
-	}
-
-	private bool checkIsDownloadedAsset(string assetBundleName)
-	{
-		string assetDataFolder = GlobalVar.DATA_PATH + "/" + assetBundleName;
-		if (Directory.Exists(assetDataFolder))
-		{
-			return true;
-		}
-		return false;
-	}
-
 	IEnumerator delayAddPage() {
 		yield return new WaitForSeconds(2f);
 		bookActiveLeft.SetActive (false);
