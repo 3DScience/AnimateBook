@@ -47,8 +47,8 @@ public class CameraFunctions : MonoBehaviour {
 
 
 	//zoom
-	private float perspectiveZoomSpeed = 0.1f;        // The rate of change of the field of view in perspective mode.
-	private float orthoZoomSpeed = 0.1f;        // The rate of change of the orthographic size in orthographic mode.
+	private float perspectiveZoomSpeed = 0.05f;        // The rate of change of the field of view in perspective mode.
+	private float orthoZoomSpeed = 0.05f;        // The rate of change of the orthographic size in orthographic mode.
 
 	int floorMask;                      // A layer mask so that a ray can be cast just at gameobjects on the floor layer.
 	float camRayLength = 100f;          // The length of the ray from the camera into the scene.

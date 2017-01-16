@@ -240,7 +240,9 @@ namespace DigitalRuby.WeatherMaker
 
         public void TimeOfDayEnabledChanged(bool val)
         {
-            WeatherScript.DayNightScript.Speed = (val ? 10.0f : 0.0f);
+			if (WeatherScript.DayNightScript != null) {
+	            WeatherScript.DayNightScript.Speed = (val ? 10.0f : 0.0f);
+			}
         }
 
         public void LightningStrikeButtonClicked()
@@ -250,7 +252,9 @@ namespace DigitalRuby.WeatherMaker
 
         public void DawnDuskSliderChanged(float val)
         {
-            WeatherScript.DayNightScript.TimeOfDay = val;
+			if (WeatherScript.DayNightScript != null) {
+	            WeatherScript.DayNightScript.TimeOfDay = val;
+			}
         }
 
         public static float ClampAngle(float angle, float min, float max)
