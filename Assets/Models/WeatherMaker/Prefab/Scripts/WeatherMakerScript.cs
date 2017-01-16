@@ -114,20 +114,46 @@ namespace DigitalRuby.WeatherMaker
 
         private void UpdateCollision()
         {
-            RainScript.CollisionEnabled = CollisionEnabled;
-            SnowScript.CollisionEnabled = CollisionEnabled;
-            HailScript.CollisionEnabled = CollisionEnabled;
-            SleetScript.CollisionEnabled = CollisionEnabled;
+			if (RainScript != null) {
+	            RainScript.CollisionEnabled = CollisionEnabled;
+			}
+
+			if (SnowScript != null) {
+	            SnowScript.CollisionEnabled = CollisionEnabled;
+			}
+
+			if (HailScript != null) {
+	            HailScript.CollisionEnabled = CollisionEnabled;
+			}
+
+			if (SleetScript != null) {
+	            SleetScript.CollisionEnabled = CollisionEnabled;
+			}
         }
 
         private void UpdateSoundsVolumes()
         {
             LightningScript.VolumeModifier = VolumeModifier;
-            RainScript.AudioSourceLight.VolumeModifier = RainScript.AudioSourceMedium.VolumeModifier = RainScript.AudioSourceHeavy.VolumeModifier = VolumeModifier;
-            SnowScript.AudioSourceLight.VolumeModifier = SnowScript.AudioSourceMedium.VolumeModifier = SnowScript.AudioSourceHeavy.VolumeModifier = VolumeModifier;
-            HailScript.AudioSourceLight.VolumeModifier = HailScript.AudioSourceMedium.VolumeModifier = HailScript.AudioSourceHeavy.VolumeModifier = VolumeModifier;
-            SleetScript.AudioSourceLight.VolumeModifier = SleetScript.AudioSourceMedium.VolumeModifier = SleetScript.AudioSourceHeavy.VolumeModifier = VolumeModifier;
-            WindScript.AudioSourceWind.VolumeModifier = VolumeModifier;
+
+			if (RainScript != null) {
+            	RainScript.AudioSourceLight.VolumeModifier = RainScript.AudioSourceMedium.VolumeModifier = RainScript.AudioSourceHeavy.VolumeModifier = VolumeModifier;
+			}
+
+			if (SnowScript != null) {
+	            SnowScript.AudioSourceLight.VolumeModifier = SnowScript.AudioSourceMedium.VolumeModifier = SnowScript.AudioSourceHeavy.VolumeModifier = VolumeModifier;
+			}
+
+			if (HailScript != null) {
+	            HailScript.AudioSourceLight.VolumeModifier = HailScript.AudioSourceMedium.VolumeModifier = HailScript.AudioSourceHeavy.VolumeModifier = VolumeModifier;
+			}
+
+			if (SleetScript != null) {
+				SleetScript.AudioSourceLight.VolumeModifier = SleetScript.AudioSourceMedium.VolumeModifier = SleetScript.AudioSourceHeavy.VolumeModifier = VolumeModifier;
+			}
+
+			if (WindScript != null) {
+	            WindScript.AudioSourceWind.VolumeModifier = VolumeModifier;
+			}
         }
 
         private void UpdateWind()
@@ -148,12 +174,31 @@ namespace DigitalRuby.WeatherMaker
                 Debug.LogError("Must assign a camera for weather maker to work properly. Tag a camera as main camera, or manually assign the camera property.");
             }
             UpdateCollision();
-            RainScript.Camera = Camera;
-            SnowScript.Camera = Camera;
-            HailScript.Camera = Camera;
-            SleetScript.Camera = Camera;
-            CloudScript.Camera = Camera;
-            DayNightScript.Camera = Camera;
+
+			if (RainScript != null) {
+	            RainScript.Camera = Camera;
+			}
+
+			if (SnowScript != null) {
+	            SnowScript.Camera = Camera;
+			}
+            
+			if (HailScript != null) {
+				HailScript.Camera = Camera;
+			}
+
+			if (SleetScript != null) {
+	            SleetScript.Camera = Camera;
+			}
+
+			if (CloudScript != null) {
+	            CloudScript.Camera = Camera;
+			}
+
+			if (DayNightScript != null) {
+	            DayNightScript.Camera = Camera;
+			}
+
             if (SkySphereScript != null)
             {
                 SkySphereScript.Camera = Camera;
@@ -201,7 +246,23 @@ namespace DigitalRuby.WeatherMaker
         /// <summary>
         /// Gets the current time of day in seconds. 86400 seconds per day.
         /// </summary>
-        public float TimeOfDay { get { return DayNightScript.TimeOfDay; } set { DayNightScript.TimeOfDay = value; } }
+        public float TimeOfDay {
+			get {
+
+				if (DayNightScript != null) {
+					return DayNightScript.TimeOfDay;
+
+				} else {
+					return 0.0f;
+				}
+			}
+
+			set {
+				if (DayNightScript != null) {
+					DayNightScript.TimeOfDay = value;
+				}
+			} 
+		}
 
         /// <summary>
         /// Singleton
