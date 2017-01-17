@@ -117,7 +117,7 @@ namespace DigitalRuby.WeatherMaker
         private void UpdateTimeOfDay()
         {
             DawnDuskSlider.value = WeatherScript.TimeOfDay;
-            if (TimeOfDayText.IsActive())
+			if (TimeOfDayText != null && TimeOfDayText.IsActive())
             {
                 TimeSpan t = TimeSpan.FromSeconds(WeatherScript.TimeOfDay);
                 TimeOfDayText.text = string.Format("{0:00}:{1:00}:{2:00}", t.Hours, t.Minutes, t.Seconds);
