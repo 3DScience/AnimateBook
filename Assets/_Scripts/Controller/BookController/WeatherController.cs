@@ -7,8 +7,54 @@ public class WeatherController : MonoBehaviour {
 	public GameObject weatherController;
 	private WeatherMakerConfigurationScript weatherScript;
 
+	void OnGUI () {
+		if (weatherController == null) {
+			weatherController = Instantiate(Resources.Load("WeatherMaker/Prefab/Prefab/WeatherMakerPrefab", typeof(GameObject))) as GameObject;
+
+			if (weatherController != null) {
+				weatherScript = weatherController.GetComponent<WeatherMakerConfigurationScript>();
+				Debug.Log ("Load weather component successfully");
+
+				//disable some un-use objects
+				GameObject config = weatherController.transform.FindChild("ConfigurationCanvas").gameObject;
+				Destroy(config);
+
+				GameObject snow = weatherController.transform.FindChild("SnowPrefab").gameObject;
+				Destroy(snow);
+
+				GameObject hail = weatherController.transform.FindChild("HailPrefab").gameObject;
+				Destroy(hail);
+
+				GameObject sleed = weatherController.transform.FindChild("SleetPrefab").gameObject;
+				Destroy(sleed);
+
+				GameObject sun = weatherController.transform.FindChild("Sun").gameObject;
+				Destroy(sun);
+
+				GameObject skySphere = weatherController.transform.FindChild("SkySphere").gameObject;
+				Destroy(skySphere);
+
+				GameObject dayNightCycle = weatherController.transform.FindChild("DayNightCycle").gameObject;
+				Destroy(dayNightCycle);
+
+				GameObject clouds = weatherController.transform.FindChild("Clouds").gameObject;
+				Destroy(clouds);
+
+				GameObject fog = weatherController.transform.FindChild("Fog").gameObject;
+				Destroy(fog);
+
+				GameObject thunder = weatherController.transform.FindChild("ThunderAndLightningPrefab").gameObject;
+				WeatherMakerThunderAndLightningScript3D script  = thunder.GetComponent<WeatherMakerThunderAndLightningScript3D>();
+				script.Camera = Camera.main;
+
+			} else {
+				Debug.Log ("Could not load weather component");
+			}
+		}
+	}
+
 	void Start () {
-		weatherScript = weatherController.GetComponent<WeatherMakerConfigurationScript>();
+		
 	}
 
 	public void invokeRainByLevel(bool flag, int lv) {
