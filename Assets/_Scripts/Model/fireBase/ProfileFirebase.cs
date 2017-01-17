@@ -10,10 +10,11 @@ using Firebase.Unity.Editor;
 public class ProfileFirebase {
     private bool initedFirebase=false;
     private static ProfileFirebase _instance = null;
-    Firebase.Auth.FirebaseAuth auth;
+    public FirebaseAuth auth;
+    private FirebaseUser user;
     private System.Action<bool> stateChangedCallback;
 
-    public FirebaseUser user;
+
     private ProfileFirebase()
     {
 
@@ -25,6 +26,9 @@ public class ProfileFirebase {
             FirebaseHelper.getInstance().initFirebase(() =>
             {
                 initedFirebase = true;
+                auth = FirebaseAuth.DefaultInstance;
+                user = auth.CurrentUser;
+                auth.StateChanged += AuthStateChanged;
                 callbackWhenDone();
             });
         }else
@@ -44,59 +48,67 @@ public class ProfileFirebase {
     }
     public void listenLoginStateChange(System.Action<bool> stateChangedCallback)
     {
-        DebugOnScreen.Log("listenLoginStateChange ....");
+        if (GlobalVar.DEBUG)
+            DebugOnScreen.Log("ProfileFirebase- Add listenLoginStateChange ....");
         this.stateChangedCallback = stateChangedCallback;
-        FirebaseHelper.getInstance().initFirebase(() => {
-            DebugOnScreen.Log("init done ....");
-            auth = FirebaseAuth.DefaultInstance;
-            auth.StateChanged += AuthStateChanged;
-        });
+ 
     }
     void AuthStateChanged(object sender, System.EventArgs eventArgs)
     {
-        DebugOnScreen.Log("AuthStateChanged ....");
+        //DebugOnScreen.Log("AuthStateChanged ");
+        //if (user == null && auth.CurrentUser != null)
+        //{
+        //    DebugOnScreen.Log("Signed in " + auth.CurrentUser.Email);
+        //    user = auth.CurrentUser;
+        //    if (stateChangedCallback != null)
+        //        stateChangedCallback(true);
+        //}
+        //else
+        //{
+        //    DebugOnScreen.Log("Signed out " + user.Email);
+        //    if (stateChangedCallback != null)
+        //        stateChangedCallback(false);
+        //}
+        if (GlobalVar.DEBUG)
+            DebugOnScreen.Log("ProfileFirebase- AuthStateChanged -auth.CurrentUser= " + auth.CurrentUser);
         if (auth.CurrentUser != user)
         {
             if (user == null && auth.CurrentUser != null)
             {
-                DebugOnScreen.Log("Signed in " + auth.CurrentUser.DisplayName);
+                if (GlobalVar.DEBUG)
+                    DebugOnScreen.Log("ProfileFirebase- AuthStateChanged Signed in " + auth.CurrentUser.Email);
+                if (stateChangedCallback != null)
+                    stateChangedCallback(true);
             }
-            //else if (user != null && auth.CurrentUser == null)
-            //{
-            //    Debug.Log("Signed out " + user.DisplayName);
-            //}
+            else if (user != null && auth.CurrentUser == null)
+            {
+                if (GlobalVar.DEBUG)
+                    DebugOnScreen.Log("ProfileFirebase- AuthStateChanged- Signed out " + user.Email);
+                user = null;
+                if (stateChangedCallback != null)
+                    stateChangedCallback(false);
+            }else
+            {
+                if (GlobalVar.DEBUG)
+                    DebugOnScreen.Log("ProfileFirebase- AuthStateChanged- else");
+            }
             user = auth.CurrentUser;
-            stateChangedCallback(true);
+        }else
+        {
+            if (GlobalVar.DEBUG)
+                DebugOnScreen.Log("ProfileFirebase- AuthStateChanged- auth.CurrentUser == user ");
         }
-        stateChangedCallback(false);
     }
 
 
     public void Login(string email, string password,System.Action<Task<Firebase.Auth.FirebaseUser>> resultCallback)
     {
-        Debug.Log(String.Format("Attempting to sign in as {0}...", email));
+        if (GlobalVar.DEBUG)
+            Debug.Log(String.Format("Attempting to sign in as {0}...", email));
 
         auth.SignInWithEmailAndPasswordAsync(email, password)
           .ContinueWith(resultCallback);
     }
-    void HandleSigninResult(Task<Firebase.Auth.FirebaseUser> authTask)
-    {
 
-        if (authTask.IsCanceled)
-        {
-            Debug.Log("SignIn canceled.");
-        }
-        else if (authTask.IsFaulted)
-        {
-            Debug.Log("Login encountered an error.");
-            Debug.Log(authTask.Exception.ToString());
-        }
-        else if (authTask.IsCompleted)
-        {
-            Debug.Log("Login completed.");
-            Debug.Log("Signing out.");
-            auth.SignOut();
-        }
-    }
 
 }

@@ -58,7 +58,8 @@ public class FirebaseHelper  {
         //  _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
 
         // Debug.Log("InitializeFirebase:  _databaseReference:" + _databaseReference);
-        DebugOnScreen.Log("InitializeFirebase done ....");
+        if (GlobalVar.DEBUG)
+            DebugOnScreen.Log("InitializeFirebase done ....");
         callbackWhenDone();
     }
 
