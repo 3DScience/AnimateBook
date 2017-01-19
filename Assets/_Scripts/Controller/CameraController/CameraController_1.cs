@@ -48,8 +48,16 @@ public class CameraController_1 : MonoBehaviour {
 	public void Update()
 	{
 		if (Camera.main == null || EventSystem.current.IsPointerOverGameObject (0)) {
-			return;
+			Touch firstTouch= Input.touches[0];
+			Ray ray = Camera.main.ScreenPointToRay(firstTouch.position);
+			RaycastHit hit;
+			if (Physics.Raycast(ray, out hit)){
+			} else {
+				return;
+			}
+				
 		}
+
 		for (int i = 0; i < Input.touchCount; i++) {
 			
 			currTouch = i;
