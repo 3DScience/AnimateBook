@@ -12,6 +12,7 @@ public enum CameraMode {
 public class CameraFunctions : MonoBehaviour {
 
 	public float defaulFieldOfView = 21.0f;
+	public GameObject bgCanvas;
 
 	//flags to activate functions
 	public bool switchModeFunctionFlag = false;
@@ -136,6 +137,10 @@ public class CameraFunctions : MonoBehaviour {
 						transform.LookAt (lookAtTarget.position);
 
 						firstPos = Input.mousePosition;
+
+						if (bgCanvas != null) {
+							bgCanvas.transform.rotation = rotation;
+						}
 					}
 
 				}

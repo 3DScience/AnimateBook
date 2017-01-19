@@ -4,7 +4,7 @@ using UnityEngine;
 using DigitalRuby.WeatherMaker;
 
 public class WeatherController : MonoBehaviour {
-	public GameObject weatherController;
+	[HideInInspector]public GameObject weatherController;
 	private WeatherMakerConfigurationScript weatherScript;
 
 	public bool snowFlag = false;
