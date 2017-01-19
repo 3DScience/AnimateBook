@@ -138,6 +138,7 @@ public class CameraFunctions : MonoBehaviour {
 
 						firstPos = Input.mousePosition;
 
+						/*
 						if (bgCanvas != null) {
 							
 							offset = bgCanvas.transform.position - lookAtTarget.position;
@@ -146,7 +147,7 @@ public class CameraFunctions : MonoBehaviour {
 							Vector3 dir2 = new Vector3 (0, 0, distance);
 							bgCanvas.transform.position = transform.position + rotation*dir2;
 							bgCanvas.transform.rotation = rotation;
-						}
+						}*/
 					}
 
 				}
