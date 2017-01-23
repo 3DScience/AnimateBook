@@ -52,7 +52,7 @@ public class DownloadAsset : MonoBehaviour {
         }
 
 		url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + bookGetInfoDetail.download_url + "/" + platform + ".zip";
-        //if (GlobalVar.DEBUG)
+        if (GlobalVar.DEBUG)
             DebugOnScreen.Log("url=" + url);
         www = new WWW(url);
     }
