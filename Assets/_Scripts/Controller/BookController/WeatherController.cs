@@ -16,7 +16,8 @@ public class WeatherController : MonoBehaviour {
 	public bool fogFlag = false;
 //	public bool thunderFlag = false;
 
-	void OnGUI () {
+
+	void Start () {
 		if (weatherController == null) {
 			weatherController = Instantiate(Resources.Load("WeatherMaker/Prefab/Prefab/WeatherMakerPrefab", typeof(GameObject))) as GameObject;
 
@@ -74,10 +75,6 @@ public class WeatherController : MonoBehaviour {
 				Debug.Log ("Could not load weather component");
 			}
 		}
-	}
-
-	void Start () {
-		
 	}
 
 	public void invokeRainByLevel(bool flag, int lv) {

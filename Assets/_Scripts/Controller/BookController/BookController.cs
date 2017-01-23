@@ -31,9 +31,12 @@ public class BookController : MonoBehaviour {
 
 	private bool animationAvailable;
 
+	private CameraFunctions camFunc;
 
 	// Use this for initialization
 	void Start () {
+		camFunc = Camera.main.GetComponent<CameraFunctions>();
+
 		animationAvailable = false;
 		curLoadedPageNumber = -1;
 		nextLoadedPageNumber = 0;
@@ -43,7 +46,6 @@ public class BookController : MonoBehaviour {
 	}
 
 	IEnumerator LoadPageIntoContainers () {
-		yield return new WaitForSeconds (3.5f);	//waiting for the book is opened
 
 		beginPageNumber = 0;
 		endPageNumber = MAX_PAGE - 1;
@@ -56,10 +58,18 @@ public class BookController : MonoBehaviour {
 			loadedPages.Add(Instantiate(pages[count], placeHolder.transform.position, placeHolder.transform.rotation, container.transform));
 		}
 
-		animationAvailable = true;
+		animationAvailable = false;
 
 		if (loadedPages.Count > 0) {
 			animation = GetComponent<Animation>();
+
+			if (animation != null) {
+				yield return new WaitForSeconds (3.5f);	//waiting for the book is opened
+				animation.Play();
+
+				//switch cam 2D -> 3D
+				camFunc.switchCameraMode(CameraMode.Camera3D);
+			}
 		}
 	}
 
