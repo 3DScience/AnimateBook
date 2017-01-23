@@ -1,0 +1,35 @@
+function playSound()
+
+	print(animationAvailable);
+	print(pid);
+
+	if (pid == 1) then
+		audio.clip = audio1
+	elseif(pid == 2) then
+		audio.clip = audio2
+	elseif(pid == 3) then
+		audio.clip = audio3
+	elseif(pid == 4) then
+		audio.clip = audio4
+	elseif(pid == 5) then
+		audio.clip = audio5
+	elseif(pid == 6) then
+		audio.clip = audio6
+	elseif(pid == 7) then
+		audio.clip = audio7
+	elseif(pid == 8) then
+		audio.clip = audio8
+	elseif(pid == 9) then
+		audio.clip = audio8
+	elseif(pid == 10) then
+		audio.clip = audio8
+	end
+
+	if (animationAvailable == true and pid > 0 and pid < 11) then
+		audio.play()
+	else
+		audio.Stop()
+	end
+end
+
+playSound()
