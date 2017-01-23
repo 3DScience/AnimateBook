@@ -44,7 +44,7 @@ public class CameraFunctions : MonoBehaviour {
 	public GameObject pos2D;
 	public GameObject pos3D;
 
-	private float lerpSpeed = 4.0f;
+	private float lerpSpeed = 2.0f;
 
 
 	//zoom
@@ -77,7 +77,7 @@ public class CameraFunctions : MonoBehaviour {
 
 		isMoving = true;
 		isZooming = false;
-		_camMode = CameraMode.Camera3D;
+		_camMode = CameraMode.Camera2D;
 		mainCam.fieldOfView = defaulFieldOfView;
 
 		if (rotateFunctionFlag == true && lookAtTarget != null) {
