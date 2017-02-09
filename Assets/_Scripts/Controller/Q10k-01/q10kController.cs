@@ -7,11 +7,22 @@ public class q10kController : MonoBehaviour {
 
 	private int i=0;
 	private bool animationAvailable;
+	private int swipe = 0;
+
+	public GameObject IndexPageDialogPrefab;
+
+	void Start() {
+		IndexPageDialogPrefab.SetActive (true);
+	}
 
 	void Update () {
 		//open next page
 		if (SwipeManager.instance.IsSwiping (SwipeDirection.Left)) {
-			
+
+			if (swipe == 1) {
+				i = i - 1;
+			}
+
 			animationAvailable = false;
 			i = i + 1;
 			audioPlay ();
@@ -21,11 +32,15 @@ public class q10kController : MonoBehaviour {
 			} else {
 				i = 11;
 			}
-				
+			swipe = 0;		
 		}
 			
 		//back page
 		if (SwipeManager.instance.IsSwiping (SwipeDirection.Right)) {
+
+			if (swipe == 1) {
+				i = i - 1;
+			}
 			
 			animationAvailable = false;
 			Debug.Log ("open back page : ");
@@ -36,6 +51,7 @@ public class q10kController : MonoBehaviour {
 			}
 			i = i - 1;
 			audioPlay ();
+			swipe = 0;
 		}
 	}
 
@@ -46,6 +62,7 @@ public class q10kController : MonoBehaviour {
 
 	public void onHomeButtonClick()
 	{
+		IndexPageDialogPrefab.SetActive (false);
 		SceneManager.LoadScene(GlobalVar.MAINSCENE);
 	}
 
@@ -62,13 +79,38 @@ public class q10kController : MonoBehaviour {
 		StartCoroutine (gotoPageFlip (Pageid));
 	}
 
+	private int indexPage;
 	private IEnumerator gotoPageFlip (int Pageid) {
-		i = Pageid - 1;
-		for(int n = 1; n < Pageid; n ++)
-		{
-			GameObject.Find ("book/page" + n).GetComponent<Animation> ().Play ("flip");
-			yield return new WaitForSeconds(0.2f);
+		
+		Debug.Log ("page open iiiii: " + i);
+		if (i == 0 || swipe == 0) {
+			i = i + 1;
 		}
+
+		if (Pageid > i) {
+			for(indexPage = i; indexPage < Pageid; indexPage ++)
+			{
+				Debug.Log ("page open Pageid indexPage: " + indexPage);
+				GameObject.Find ("book/page" + indexPage).GetComponent<Animation> ().Play ("flip");
+				yield return new WaitForSeconds(0.2f);
+			}
+		} else if(Pageid < i) {
+			for(indexPage = i; indexPage > Pageid; indexPage --)
+			{
+				int aa = indexPage - 1;
+				Debug.Log ("page open indexPage: " + indexPage);
+				GameObject.Find ("book/page" + aa).GetComponent<Animation> ().Play ("back");
+				yield return new WaitForSeconds(0.2f);
+			}
+		}
+
+		i = indexPage;
+
+		Debug.Log ("page open Pageid i: " + i);
+		Debug.Log ("page open Pageid Pageid: " + Pageid);
+
+		swipe = 1;
+
 		yield return null;
 	}
 }
