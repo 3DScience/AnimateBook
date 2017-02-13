@@ -12,7 +12,7 @@ public class Book2DDetail : MonoBehaviour {
 	public Text bookDescription;
 	public Text bookName;
 
-	private BookGetInfo.BookGetInfoDetail bookGetInfoDetail;
+	private BookInfo bookInfo;
 	private string description;
 	private string min_app_version;
 	private string name;
@@ -27,9 +27,9 @@ public class Book2DDetail : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		bookGetInfoDetail =(BookGetInfo.BookGetInfoDetail) GlobalVar.shareContext.shareVar["bookGetInfoDetail"];
-		GlobalVar.shareContext.shareVar.Remove ("bookGetInfoDetail");
-		StartCoroutine (loadImg (bookGetInfoDetail.picture_url));
+        bookInfo = (BookInfo) GlobalVar.shareContext.shareVar["bookInfo"];
+		GlobalVar.shareContext.shareVar.Remove ("bookInfo");
+		StartCoroutine (loadImg (bookInfo.picture_url));
 		loadDescription ();
 		loadTitle ();
 	}
@@ -44,15 +44,15 @@ public class Book2DDetail : MonoBehaviour {
 	}
 
 	private void loadDescription() {
-		description = bookGetInfoDetail.description;
-		price = bookGetInfoDetail.price;
-		version = bookGetInfoDetail.version;
+		description = bookInfo.description;
+		price = bookInfo.price;
+		version = bookInfo.version;
 		bookDescription.text = "Giới thiệu về sách: \n" + description + "\n\nThông tin sách: \nPrice: " + price + "\nversion: " + version;
 	}
 
 	private void loadTitle() {
-		name = bookGetInfoDetail.name;
-		status = bookGetInfoDetail.status;
+		name = bookInfo.name;
+		status = bookInfo.status;
 		bookName.text = name + "\nstatus: " + status;
 	}
 
@@ -68,14 +68,14 @@ public class Book2DDetail : MonoBehaviour {
 
 	public void ReDownloadBook()
 	{
-		GlobalVar.shareContext.shareVar.Add ("bookGetInfoDetail",bookGetInfoDetail);
+		GlobalVar.shareContext.shareVar.Add ("bookInfo", bookInfo);
 		SceneManager.LoadScene(GlobalVar.DOWNLOAD_ASSET_SCENE);
 	}
 
 	private void loadBook()
 	{
 		string assetBundleName = "";
-		assetBundleName = bookGetInfoDetail.assetbundle;
+		assetBundleName = bookInfo.assetbundle;
 
 		Debug.Log ("assetBundleName Book2dDetail: " + assetBundleName);
 
@@ -86,7 +86,7 @@ public class Book2DDetail : MonoBehaviour {
 		} 
 		else
 		{
-			GlobalVar.shareContext.shareVar.Add ("bookGetInfoDetail",bookGetInfoDetail);
+			GlobalVar.shareContext.shareVar.Add ("bookInfo", bookInfo);
 			SceneManager.LoadScene(GlobalVar.DOWNLOAD_ASSET_SCENE);
 		}
 	}

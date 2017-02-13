@@ -22,14 +22,14 @@ public class DownloadAsset : MonoBehaviour {
 
 
 
-		BookGetInfo.BookGetInfoDetail bookGetInfoDetail =(BookGetInfo.BookGetInfoDetail) GlobalVar.shareContext.shareVar["bookGetInfoDetail"];
-		GlobalVar.shareContext.shareVar.Remove ("bookGetInfoDetail");
+		BookInfo bookInfo = (BookInfo) GlobalVar.shareContext.shareVar["bookInfo"];
+		GlobalVar.shareContext.shareVar.Remove ("bookInfo");
 
-		if (bookGetInfoDetail == null) { // for testing
+		if (bookInfo == null) { // for testing
 			//assetBundleName = "test_book";
 			assetBundleName = "solar_system_book";
 		} else {
-			assetBundleName = bookGetInfoDetail.assetbundle;
+			assetBundleName = bookInfo.assetbundle;
 		}
 
 
@@ -51,7 +51,7 @@ public class DownloadAsset : MonoBehaviour {
             DebugOnScreen.Log(ex.ToString());
         }
 
-		url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + bookGetInfoDetail.download_url + "/" + platform + ".zip";
+		url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + bookInfo.download_url + "/" + platform + ".zip";
         if (GlobalVar.DEBUG)
             DebugOnScreen.Log("url=" + url);
         www = new WWW(url);

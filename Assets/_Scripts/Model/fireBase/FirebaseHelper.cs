@@ -7,6 +7,7 @@ using Firebase.Unity.Editor;
 public class FirebaseHelper  {
 
     private static FirebaseHelper _instance = null;
+    private bool initiated = false;
     private FirebaseHelper()
     {
 
@@ -23,30 +24,38 @@ public class FirebaseHelper  {
     DependencyStatus dependencyStatus = DependencyStatus.UnavailableOther;
     public void initFirebase(System.Action callbackWhenDone)
     {
-        dependencyStatus = FirebaseApp.CheckDependencies();
-        if (dependencyStatus != DependencyStatus.Available)
+        if (!initiated)
         {
-            FirebaseApp.FixDependenciesAsync().ContinueWith(task => {
-                dependencyStatus = FirebaseApp.CheckDependencies();
-                if (dependencyStatus == DependencyStatus.Available)
+            dependencyStatus = FirebaseApp.CheckDependencies();
+            if (dependencyStatus != DependencyStatus.Available)
+            {
+                FirebaseApp.FixDependenciesAsync().ContinueWith(task =>
                 {
-                    InitializeFirebase(callbackWhenDone);
-                }
-                else
-                {
-                    // This should never happen if we're only using Firebase Analytics.
-                    // It does not rely on any external dependencies.
-                    Debug.LogError(
-                        "Could --  not resolve all Firebase dependencies: " + dependencyStatus);
-                }
-            });
-        }
-        else
+                    dependencyStatus = FirebaseApp.CheckDependencies();
+                    if (dependencyStatus == DependencyStatus.Available)
+                    {
+                        initiated = true;
+                        _initFirebase(callbackWhenDone);
+                    }
+                    else
+                    {
+                        // This should never happen if we're only using Firebase Analytics.
+                        // It does not rely on any external dependencies.
+                        Debug.LogError(
+                            "Could --  not resolve all Firebase dependencies: " + dependencyStatus);
+                    }
+                });
+            }
+            else
+            {
+                _initFirebase(callbackWhenDone);
+            }
+        }else
         {
-            InitializeFirebase(callbackWhenDone);
+            callbackWhenDone();
         }
     }
-    void InitializeFirebase(System.Action callbackWhenDone)
+    private void _initFirebase(System.Action callbackWhenDone)
     {
         FirebaseApp app = FirebaseApp.DefaultInstance;
 
@@ -60,7 +69,9 @@ public class FirebaseHelper  {
         // Debug.Log("InitializeFirebase:  _databaseReference:" + _databaseReference);
         if (GlobalVar.DEBUG)
             DebugOnScreen.Log("InitializeFirebase done ....");
+        initiated = true;
         callbackWhenDone();
+
     }
 
 }
