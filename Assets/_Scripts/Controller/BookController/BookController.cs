@@ -64,9 +64,11 @@ public class BookController : MonoBehaviour {
 			animation = GetComponent<Animation>();
 
 			if (animation != null) {
-				yield return new WaitForSeconds (3.5f);	//waiting for the book is opened
 				animation.Play();
 
+				yield return new WaitForSeconds (3.5f);	//waiting for the book is opened
+
+				animationAvailable = true;
 				//switch cam 2D -> 3D
 				camFunc.switchCameraMode(CameraMode.Camera3D);
 			}

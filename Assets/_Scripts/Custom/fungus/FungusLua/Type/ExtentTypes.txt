@@ -8,6 +8,8 @@
 		"UnityEngine.AnimationState, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
 		"MovingCam",
 		"BookController",
+		"BookController2D5",
+		"CharacterMoving",
 		"WeatherController"
 	],
 	"extensionTypes" : [
