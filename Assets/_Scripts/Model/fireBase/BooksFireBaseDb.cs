@@ -4,7 +4,6 @@ using Firebase;
 using Firebase.Database;
 using UnityEngine;
 using System.IO;
-using UnityEditor;
 public class BooksFireBaseDb {
     string fileSave = GlobalVar.DB_PATH + "/books.text";
     private DatabaseReference dbf;
