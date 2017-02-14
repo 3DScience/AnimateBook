@@ -29,6 +29,7 @@ public class BookListItemController : MonoBehaviour {
     {
 
         WWW imgLink = new WWW(urls);
+       
         yield return imgLink;
         img.texture = imgLink.texture;
 

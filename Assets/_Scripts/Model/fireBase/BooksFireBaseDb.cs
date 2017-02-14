@@ -1,10 +1,8 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
-using Firebase;
 using Firebase.Database;
 using UnityEngine;
 using System.IO;
-using UnityEditor;
 public class BooksFireBaseDb {
     string fileSave = GlobalVar.DB_PATH + "/books.text";
     private DatabaseReference dbf;
@@ -23,6 +21,11 @@ public class BooksFireBaseDb {
         FirebaseHelper.getInstance().initFirebase( () => {
             dbf = FirebaseDatabase.DefaultInstance.RootReference;
         });
+    }
+    public void reSaveBooksToLocal(System.Action callbackWhenDone)
+    {
+        listAllBooks = null;
+        saveBooksToLocal(callbackWhenDone);
     }
     public void saveBooksToLocal(System.Action callbackWhenDone)
     {
