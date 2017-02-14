@@ -42,7 +42,6 @@ public class LoginPanelController : MonoBehaviour {
 	{
 		if (FB.IsInitialized) {
 			// Signal an app activation App Event
-			DebugOnScreen.Log("Initialize the Facebook SDK");
 			FB.ActivateApp();
 			// Continue with Facebook SDK
 			// ...
@@ -73,35 +72,27 @@ public class LoginPanelController : MonoBehaviour {
 
 	public void OnLoginButtonFBClick()
 	{
-		DebugOnScreen.Log("LoginPanelController- OnLoginButtonFBClick");
 		var perms = new List<string>(){"public_profile", "email", "user_friends"};
 		FB.LogInWithReadPermissions(perms, AuthCallback);
 	}
 	private void AuthCallback (ILoginResult result) {
-		DebugOnScreen.Log("FacebookLogin 1111");
 		if (FB.IsLoggedIn) {
-			DebugOnScreen.Log("FacebookLogin 2222");
 			// AccessToken class will have session details
 			var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
 			//var aToken = Facebook.Unity.AccessToken.CurrentAccessToken.TokenString;
 			// Print current access token's User ID
-			DebugOnScreen.Log(aToken.UserId);
+			//DebugOnScreen.Log(aToken.UserId);
 			//DebugOnScreen.Log (aToken);
 			// Print current access token's granted permissions
 			foreach (string perm in aToken.Permissions) {
 				DebugOnScreen.Log(perm);
 			}
 
-//			ProfileFirebase.getInstance ().LoginWithFaceBook (aToken.TokenString, HandleSigninResult2);
+			ProfileFirebase.getInstance ().LoginWithFaceBook (aToken.TokenString, HandleSigninResult);
 
 		} else {
 			Debug.Log("User cancelled login");
 		}
-	}
-
-	void HandleSigninResult2(Task<Firebase.Auth.FirebaseUser> authTask)
-	{
-		DebugOnScreen.Log("FacebookLogin success");
 	}
 
     void HandleSigninResult(Task<Firebase.Auth.FirebaseUser> authTask)
