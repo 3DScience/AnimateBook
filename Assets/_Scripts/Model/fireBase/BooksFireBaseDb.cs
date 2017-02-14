@@ -1,6 +1,5 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
-using Firebase;
 using Firebase.Database;
 using UnityEngine;
 using System.IO;
@@ -22,6 +21,11 @@ public class BooksFireBaseDb {
         FirebaseHelper.getInstance().initFirebase( () => {
             dbf = FirebaseDatabase.DefaultInstance.RootReference;
         });
+    }
+    public void reSaveBooksToLocal(System.Action callbackWhenDone)
+    {
+        listAllBooks = null;
+        saveBooksToLocal(callbackWhenDone);
     }
     public void saveBooksToLocal(System.Action callbackWhenDone)
     {
