@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Firebase;
 using Firebase.Auth;
+using Facebook.Unity;
 
 public class LoginPanelController : MonoBehaviour {
     public GameObject loginPanel;
@@ -25,6 +26,42 @@ public class LoginPanelController : MonoBehaviour {
         if (GlobalVar.DEBUG)
             DebugOnScreen.Log("LoginPanelController- Onstart ");
     }
+
+	void Awake ()
+	{
+		if (!FB.IsInitialized) {
+			// Initialize the Facebook SDK
+			FB.Init(InitCallback, OnHideUnity);
+		} else {
+			// Already initialized, signal an app activation App Event
+			DebugOnScreen.Log("Already initialized, signal an app activation App Event");
+			FB.ActivateApp();
+		}
+	}
+	private void InitCallback ()
+	{
+		if (FB.IsInitialized) {
+			// Signal an app activation App Event
+			FB.ActivateApp();
+			// Continue with Facebook SDK
+			// ...
+		} else {
+			DebugOnScreen.Log("Failed to Initialize the Facebook SDK");
+		}
+	}
+	private void OnHideUnity (bool isGameShown)
+	{
+		if (!isGameShown) {
+			// Pause the game - we will need to hide
+			Time.timeScale = 0;
+		} else {
+			// Resume the game - we're getting focus again
+			Time.timeScale = 1;
+		}
+	}
+
+
+
     public void OnLoginButtonClick()
     {
         loadingPanel.SetActive(true);
@@ -32,6 +69,31 @@ public class LoginPanelController : MonoBehaviour {
             DebugOnScreen.Log("LoginPanelController- OnLoginButtonClick, email=" + txtEmail.text + "/ pass=" + txtPassword.text);
         ProfileFirebase.getInstance().Login(txtEmail.text, txtPassword.text, HandleSigninResult);
     }
+
+	public void OnLoginButtonFBClick()
+	{
+		var perms = new List<string>(){"public_profile", "email", "user_friends"};
+		FB.LogInWithReadPermissions(perms, AuthCallback);
+	}
+	private void AuthCallback (ILoginResult result) {
+		if (FB.IsLoggedIn) {
+			// AccessToken class will have session details
+			var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
+			//var aToken = Facebook.Unity.AccessToken.CurrentAccessToken.TokenString;
+			// Print current access token's User ID
+			//DebugOnScreen.Log(aToken.UserId);
+			//DebugOnScreen.Log (aToken);
+			// Print current access token's granted permissions
+			foreach (string perm in aToken.Permissions) {
+				DebugOnScreen.Log(perm);
+			}
+
+			ProfileFirebase.getInstance ().LoginWithFaceBook (aToken.TokenString, HandleSigninResult);
+
+		} else {
+			Debug.Log("User cancelled login");
+		}
+	}
 
     void HandleSigninResult(Task<Firebase.Auth.FirebaseUser> authTask)
     {
@@ -66,4 +128,6 @@ public class LoginPanelController : MonoBehaviour {
         profilePanel.SetActive(true);
         profilePanel.GetComponent<RectTransform>().SetAsLastSibling();
     }
+		
+
 }

@@ -110,5 +110,14 @@ public class ProfileFirebase {
           .ContinueWith(resultCallback);
     }
 
+	public void LoginWithFaceBook(string tokenId, System.Action<Task<Firebase.Auth.FirebaseUser>> resultCallback)
+	{
+		if (GlobalVar.DEBUG)
+			Debug.Log(String.Format("Attempting to sign in as tokenId {0}...", tokenId));
+
+		Credential facebookid = Firebase.Auth.FacebookAuthProvider.GetCredential (tokenId);
+		auth.SignInWithCredentialAsync (facebookid).ContinueWith (resultCallback);
+	}
+
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using DigitalRuby.WeatherMaker;
 
 public class WeatherController : MonoBehaviour {
-	[HideInInspector]public GameObject weatherController;
+	public GameObject weatherController;
 	private WeatherMakerConfigurationScript weatherScript;
 
 	public bool snowFlag = false;
@@ -74,6 +74,8 @@ public class WeatherController : MonoBehaviour {
 			} else {
 				Debug.Log ("Could not load weather component");
 			}
+		} else {
+			weatherScript = weatherController.GetComponent<WeatherMakerConfigurationScript>();
 		}
 	}
 

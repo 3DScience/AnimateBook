@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Firebase;
 using Firebase.Auth;
+using Facebook.Unity;
 
 public class ProfilePanelController : MonoBehaviour
 {
@@ -48,6 +49,7 @@ public class ProfilePanelController : MonoBehaviour
         try
         {
             ProfileFirebase.getInstance().auth.SignOut();
+			FB.LogOut();
             deactiveProfilePanel();
         }
         catch (System.Exception ex)
