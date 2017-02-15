@@ -84,9 +84,9 @@ public class LoginPanelController : MonoBehaviour {
 			//DebugOnScreen.Log(aToken.UserId);
 			//DebugOnScreen.Log (aToken);
 			// Print current access token's granted permissions
-			foreach (string perm in aToken.Permissions) {
-				DebugOnScreen.Log(perm);
-			}
+//			foreach (string perm in aToken.Permissions) {
+//				DebugOnScreen.Log(perm);
+//			}
 
 			ProfileFirebase.getInstance ().LoginWithFaceBook (aToken.TokenString, HandleSigninResult);
 
