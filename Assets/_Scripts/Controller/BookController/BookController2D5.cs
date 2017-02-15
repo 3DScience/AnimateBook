@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BookController2D5 : MonoBehaviour {
-
-    private int current_page = 0;
+	[HideInInspector]public int current_page = 0;
     //Maximum content page
     public int max_page = 8;
 
@@ -27,6 +26,8 @@ public class BookController2D5 : MonoBehaviour {
     //Page Effect
     private GameObject Page1_Effect, Page2_Effect;
 
+	bool activityEnabled;
+
     //Book Material
     public Material pageBlank_mat;
     public Material page1Left_mat, page1Right_mat, 
@@ -42,6 +43,7 @@ public class BookController2D5 : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+		activityEnabled = false;
         Scence = GameObject.Find("Scence");
         BGPlane = GameObject.Find("BGPlane");
 
@@ -84,19 +86,35 @@ public class BookController2D5 : MonoBehaviour {
 
     public void open()
     {
-        GetComponent<Animation>().Play("openBook");
+		StartCoroutine(openBook());
     }
+
+	IEnumerator openBook () {
+		activityEnabled = false;
+		GetComponent<Animation>().Play("openBook");
+
+		yield return new WaitForSeconds(3);
+		activityEnabled = true;
+	}
 
     public void onBookClick()
     {
-        //Open next page
-        if (current_page <= max_page)
-            StartCoroutine(openPage(current_page));
+		if (activityEnabled == true) {
+	        //Open next page
+			if (max_page > 0 && current_page <= max_page) {
+	            StartCoroutine(openPage(current_page));
+			}
 
-        //Start Story Tell Scence
-        if (current_page == 1)
-            Scence.GetComponent<ScenceController>().StartStoryTellScence();
+	        //Start Story Tell Scence
+			if (current_page == 1) {
+	            Scence.GetComponent<ScenceController>().StartStoryTellScence();
+			}
+		}
     }
+
+	public void test() {
+		Debug.Log("test");
+	}
 
     GameObject getFlipPage(int current_page)
     {
@@ -188,8 +206,8 @@ public class BookController2D5 : MonoBehaviour {
         Material[] book_mat = new Material[4];
         Material bookLeftMat = pageBlank_mat;
         Material bookRightMat = pageBlank_mat;
-        Material bookFlipMat = null;
-        Material BGPlaneMat = null;
+		Material bookFlipMat = pageBlank_mat;
+		Material BGPlaneMat = pageBlank_mat;
         switch (current_page)
         {
             case 1:
@@ -287,10 +305,14 @@ public class BookController2D5 : MonoBehaviour {
         switch (current_page)
         {
             case 1:
-                Page1_Effect.SetActive(true);
+				if (Page1_Effect != null) {
+	                Page1_Effect.SetActive(true);
+				}
                 break;
             case 2:
-                Page2_Effect.SetActive(true);
+				if (Page1_Effect != null) {
+	                Page2_Effect.SetActive(true);
+				}
                 break;
             case 3:              
                 break;
@@ -311,8 +333,13 @@ public class BookController2D5 : MonoBehaviour {
 
     private void disableAllEffect()
     {
-        Page1_Effect.SetActive(false);
-        Page2_Effect.SetActive(false);
+		if (Page1_Effect != null) {
+	        Page1_Effect.SetActive(false);
+		}
+
+		if (Page2_Effect != null) {
+        	Page2_Effect.SetActive(false);
+		}
     }
 
     private IEnumerator openPage(int current_page)
@@ -321,6 +348,7 @@ public class BookController2D5 : MonoBehaviour {
         this.current_page = current_page;
         
         //Play animation open page
+		activityEnabled = false;
         Animation animation = GetComponent<Animation>();
         animation.PlayQueued("openPage" + current_page);
 
@@ -338,13 +366,16 @@ public class BookController2D5 : MonoBehaviour {
         topPageRight.GetComponent<Renderer>().material = pageBlank_mat;  
 
         do
-        {
+		{
             ScaleDownObject(getPageSke(current_page)[0]);
             ScaleDownObject(getPageSke(current_page)[1]);
             ScaleUpObject(getPageSke(current_page)[2]);
             ScaleUpObject(getPageSke(current_page)[3]);
+
             yield return null;
         } while (animation.isPlaying);
+
+		activityEnabled = true;
 
         //Add new background texture
         //BGPlane.GetComponent<Renderer>().material = getMaterial(current_page)[3];
@@ -413,7 +444,7 @@ public class BookController2D5 : MonoBehaviour {
     {
         if(obj != null)
         { 
-            float x = 0.0066f;
+            float x = 0.01f;
 
             if (obj.transform.localScale.y < 1)
                 obj.transform.localScale = obj.transform.localScale + new Vector3(x, x, 0);
@@ -427,7 +458,7 @@ public class BookController2D5 : MonoBehaviour {
     {
         if (obj != null)
         {
-            float x = 0.0066f;
+            float x = 0.01f;
 
             if (obj.transform.localScale.y > 0)
                 obj.transform.localScale = obj.transform.localScale - new Vector3(x, x, 0);
