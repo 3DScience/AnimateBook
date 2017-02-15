@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+#if !UNITY_WEBGL
 using Firebase;
 using Firebase.Auth;
 using Facebook.Unity;
@@ -131,3 +132,4 @@ public class LoginPanelController : MonoBehaviour {
 		
 
 }
+#endif

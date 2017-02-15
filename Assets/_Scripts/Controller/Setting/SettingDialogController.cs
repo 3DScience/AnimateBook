@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+#if !UNITY_WEBGL
 using Firebase;
 using Firebase.Auth;
 public class SettingDialogController : MonoBehaviour {
@@ -78,3 +79,5 @@ public class SettingDialogController : MonoBehaviour {
         Debug.Log("ontest");
     }
 }
+
+#endif

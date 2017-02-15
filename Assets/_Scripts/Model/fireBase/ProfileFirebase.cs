@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+#if !UNITY_WEBGL
 using Firebase;
 using Firebase.Database;
 using Firebase.Auth;
@@ -121,3 +122,4 @@ public class ProfileFirebase {
 
 
 }
+#endif
