@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class BookController2D5 : MonoBehaviour {
+	private const string OPEN_BOOK = "openBook";
+	private const string NEXT_PAGE = "nextPage";
+	private const string BACK_PAGE = "backPage";
+
 	[HideInInspector]public int current_page = 0;
     //Maximum content page
     public int max_page = 8;
@@ -91,7 +97,7 @@ public class BookController2D5 : MonoBehaviour {
 
 	IEnumerator openBook () {
 		activityEnabled = false;
-		GetComponent<Animation>().Play("openBook");
+		GetComponent<Animation>().Play(OPEN_BOOK);
 
 		yield return new WaitForSeconds(3);
 		activityEnabled = true;
@@ -101,8 +107,8 @@ public class BookController2D5 : MonoBehaviour {
     {
 		if (activityEnabled == true) {
 	        //Open next page
-			if (max_page > 0 && current_page <= max_page) {
-	            StartCoroutine(openPage(current_page));
+			if (max_page > 0 && current_page <= max_page && current_page >= 0) {
+	            StartCoroutine(_nextPage());
 			}
 
 	        //Start Story Tell Scence
@@ -342,15 +348,15 @@ public class BookController2D5 : MonoBehaviour {
 		}
     }
 
-    private IEnumerator openPage(int current_page)
+	private IEnumerator _nextPage()
     {
-        current_page++;
-        this.current_page = current_page;
+		current_page++;
         
         //Play animation open page
 		activityEnabled = false;
+		Debug.Log("_nextPage :: " + current_page);
         Animation animation = GetComponent<Animation>();
-        animation.PlayQueued("openPage" + current_page);
+        animation.PlayQueued(NEXT_PAGE + current_page);
 
         //Disable all Effect
         disableAllEffect();
@@ -395,6 +401,73 @@ public class BookController2D5 : MonoBehaviour {
         //Deactive current page
         getFlipPage(current_page).SetActive(false);
     }
+
+	public void backPage() {
+		if (activityEnabled == true) {
+			//Open next page
+			if (max_page > 0 && current_page <= max_page && current_page >= 0) {
+				StartCoroutine(_backPage());
+			}
+		}
+	}
+
+	private IEnumerator _backPage()
+	{
+		
+
+		//Play animation open page
+		activityEnabled = false;
+		Debug.Log("_backPage :: " + current_page);
+		Animation animation = GetComponent<Animation>();
+		animation.PlayQueued(BACK_PAGE + (current_page));
+
+
+
+		//Disable all Effect
+		disableAllEffect();
+
+		//Hide current Background texture
+		InvokeRepeating("HideBGPlaneTexture", 0f, 0.03F);
+
+		//Set active current page
+		getFlipPage(current_page).SetActive(true);
+		getFlipPage(current_page).GetComponent<Renderer>().material = getMaterial(current_page)[0];
+
+		current_page--;
+
+		//Set blank_page material to Book Right
+		topPageRight.GetComponent<Renderer>().material = pageBlank_mat;  
+
+		do
+		{
+			ScaleUpObject(getPageSke(current_page + 1)[0]);
+			ScaleUpObject(getPageSke(current_page + 1)[1]);
+			ScaleDownObject(getPageSke(current_page + 1)[2]);
+			ScaleDownObject(getPageSke(current_page +1)[3]);
+
+			yield return null;
+		} while (animation.isPlaying);
+
+		activityEnabled = true;
+
+		//Add new background texture
+		//BGPlane.GetComponent<Renderer>().material = getMaterial(current_page)[3];
+		//BGPlane.GetComponent<Renderer>().material.SetFloat("_Level", 1F);
+		//InvokeRepeating("DissolveBackGroundTexture", 0f, 0.03F);
+
+		//Add Book materials when open page animation done
+		topPageLeft.GetComponent<Renderer>().material = getMaterial(current_page)[0];
+		topPageRight.GetComponent<Renderer>().material = getMaterial(current_page)[1];
+		topPageLeft.GetComponent<Renderer>().material.SetFloat("_Level", 1F);
+		topPageRight.GetComponent<Renderer>().material.SetFloat("_Level", 1F);
+		InvokeRepeating("DissolveTopBookTexture", 0f, 0.03F);
+
+		//Enable Page Deco_Effect
+		enableEffect();
+
+		//Deactive current page
+		getFlipPage(current_page).SetActive(false);
+	}
 
     private void HideBGPlaneTexture()
     {

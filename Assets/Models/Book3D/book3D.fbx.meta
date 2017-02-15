@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 4b42a9580278749daa471112db3f7c2b
-timeCreated: 1484885344
+timeCreated: 1487144982
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -67,6 +67,21 @@ ModelImporter:
     100118: page_ske9
     100120: top_page_left
     100122: top_page_right
+    100124: joint7 15
+    100126: joint7 16
+    100128: joint7 17
+    100130: joint7 18
+    100132: joint7 19
+    100134: page16
+    100136: page17
+    100138: page18
+    100140: page19
+    100142: page20
+    100144: page_ske16
+    100146: page_ske17
+    100148: page_ske18
+    100150: page_ske19
+    100152: page_ske20
     400000: //RootNode
     400002: book_cover
     400004: Book_Ske
@@ -129,6 +144,21 @@ ModelImporter:
     400118: page_ske9
     400120: top_page_left
     400122: top_page_right
+    400124: joint7 15
+    400126: joint7 16
+    400128: joint7 17
+    400130: joint7 18
+    400132: joint7 19
+    400134: page16
+    400136: page17
+    400138: page18
+    400140: page19
+    400142: page20
+    400144: page_ske16
+    400146: page_ske17
+    400148: page_ske18
+    400150: page_ske19
+    400152: page_ske20
     2300000: page_copy
     3300000: page_copy
     4300000: book_cover
@@ -155,8 +185,29 @@ ModelImporter:
     4300042: page13
     4300044: page14
     4300046: page15
+    4300048: page16
+    4300050: page17
+    4300052: page18
+    4300054: page19
+    4300056: page20
     7400000: openBook
-    7400002: openPage1
+    7400002: nextPage1
+    7400004: nextPage2
+    7400006: nextPage3
+    7400008: nextPage4
+    7400010: nextPage5
+    7400012: nextPage6
+    7400014: nextPage7
+    7400016: nextPage8
+    7400018: backPage1
+    7400020: backPage2
+    7400022: backPage3
+    7400024: backPage4
+    7400026: backPage5
+    7400028: backPage6
+    7400030: backPage7
+    7400032: backPage8
+    7400034: closeBook
     9500000: //RootNode
     11100000: //RootNode
     13700000: book_cover
@@ -182,6 +233,11 @@ ModelImporter:
     13700040: page9
     13700042: top_page_left
     13700044: top_page_right
+    13700046: page16
+    13700048: page17
+    13700050: page18
+    13700052: page19
+    13700054: page20
   materials:
     importMaterials: 1
     materialName: 0
@@ -356,7 +412,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: openPage1
+      name: nextPage1
       takeName: Take 001
       firstFrame: 81
       lastFrame: 140
@@ -485,6 +541,2886 @@ ModelImporter:
       - path: Flip_Page/page15
         weight: 1
       - path: Flip_Page/page_copy
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: nextPage2
+      takeName: Take 001
+      firstFrame: 141
+      lastFrame: 200
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: nextPage3
+      takeName: Take 001
+      firstFrame: 201
+      lastFrame: 260
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: nextPage4
+      takeName: Take 001
+      firstFrame: 261
+      lastFrame: 320
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: nextPage5
+      takeName: Take 001
+      firstFrame: 321
+      lastFrame: 380
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: nextPage6
+      takeName: Take 001
+      firstFrame: 381
+      lastFrame: 440
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: nextPage7
+      takeName: Take 001
+      firstFrame: 441
+      lastFrame: 500
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: nextPage8
+      takeName: Take 001
+      firstFrame: 501
+      lastFrame: 560
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: backPage1
+      takeName: Take 001
+      firstFrame: -140
+      lastFrame: -81
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: backPage2
+      takeName: Take 001
+      firstFrame: -200
+      lastFrame: -141
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: backPage3
+      takeName: Take 001
+      firstFrame: -260
+      lastFrame: -201
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: backPage4
+      takeName: Take 001
+      firstFrame: -320
+      lastFrame: -261
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: backPage5
+      takeName: Take 001
+      firstFrame: -380
+      lastFrame: -321
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: backPage6
+      takeName: Take 001
+      firstFrame: -440
+      lastFrame: -381
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: backPage7
+      takeName: Take 001
+      firstFrame: -500
+      lastFrame: -441
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: backPage8
+      takeName: Take 001
+      firstFrame: -560
+      lastFrame: -501
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
+        weight: 1
+      - path: Open_Book
+        weight: 1
+      - path: Open_Book/book_cover
+        weight: 1
+      - path: Open_Book/book_spine
+        weight: 1
+      - path: Open_Book/lower_page_left
+        weight: 1
+      - path: Open_Book/lower_page_left_cover
+        weight: 1
+      - path: Open_Book/lower_page_right
+        weight: 1
+      - path: Open_Book/lower_page_right_cover
+        weight: 1
+      - path: Open_Book/top_page_left
+        weight: 1
+      - path: Open_Book/top_page_right
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: closeBook
+      takeName: Take 001
+      firstFrame: -80
+      lastFrame: 0
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Book_Ske
+        weight: 1
+      - path: Book_Ske/page_left_ske
+        weight: 1
+      - path: Book_Ske/page_left_ske/joint5
+        weight: 1
+      - path: Book_Ske/page_right_ske
+        weight: 1
+      - path: Book_Ske/page_right_ske/joint3
+        weight: 1
+      - path: Book_Ske/page_ske1
+        weight: 1
+      - path: Book_Ske/page_ske1/joint7
+        weight: 1
+      - path: Book_Ske/page_ske2
+        weight: 1
+      - path: Book_Ske/page_ske2/joint7 11
+        weight: 1
+      - path: Book_Ske/page_ske3
+        weight: 1
+      - path: Book_Ske/page_ske3/joint7 13
+        weight: 1
+      - path: Book_Ske/page_ske4
+        weight: 1
+      - path: Book_Ske/page_ske4/joint7 14
+        weight: 1
+      - path: Book_Ske/page_ske5
+        weight: 1
+      - path: Book_Ske/page_ske5/joint7 15
+        weight: 1
+      - path: Book_Ske/page_ske6
+        weight: 1
+      - path: Book_Ske/page_ske6/joint7 16
+        weight: 1
+      - path: Book_Ske/page_ske7
+        weight: 1
+      - path: Book_Ske/page_ske7/joint7 17
+        weight: 1
+      - path: Book_Ske/page_ske8
+        weight: 1
+      - path: Book_Ske/page_ske8/joint7 18
+        weight: 1
+      - path: Book_Ske/page_ske9
+        weight: 1
+      - path: Book_Ske/page_ske9/joint7 19
+        weight: 1
+      - path: Book_Ske/page_ske10
+        weight: 1
+      - path: Book_Ske/page_ske10/joint7 1
+        weight: 1
+      - path: Book_Ske/page_ske11
+        weight: 1
+      - path: Book_Ske/page_ske11/joint7 2
+        weight: 1
+      - path: Book_Ske/page_ske12
+        weight: 1
+      - path: Book_Ske/page_ske12/joint7 3
+        weight: 1
+      - path: Book_Ske/page_ske13
+        weight: 1
+      - path: Book_Ske/page_ske13/joint7 4
+        weight: 1
+      - path: Book_Ske/page_ske14
+        weight: 1
+      - path: Book_Ske/page_ske14/joint7 5
+        weight: 1
+      - path: Book_Ske/page_ske15
+        weight: 1
+      - path: Book_Ske/page_ske15/joint7 6
+        weight: 1
+      - path: Book_Ske/page_ske16
+        weight: 1
+      - path: Book_Ske/page_ske16/joint7 7
+        weight: 1
+      - path: Book_Ske/page_ske17
+        weight: 1
+      - path: Book_Ske/page_ske17/joint7 8
+        weight: 1
+      - path: Book_Ske/page_ske18
+        weight: 1
+      - path: Book_Ske/page_ske18/joint7 9
+        weight: 1
+      - path: Book_Ske/page_ske19
+        weight: 1
+      - path: Book_Ske/page_ske19/joint7 10
+        weight: 1
+      - path: Book_Ske/page_ske20
+        weight: 1
+      - path: Book_Ske/page_ske20/joint7 12
+        weight: 1
+      - path: Flip_Page
+        weight: 1
+      - path: Flip_Page/page1
+        weight: 1
+      - path: Flip_Page/page2
+        weight: 1
+      - path: Flip_Page/page3
+        weight: 1
+      - path: Flip_Page/page4
+        weight: 1
+      - path: Flip_Page/page5
+        weight: 1
+      - path: Flip_Page/page6
+        weight: 1
+      - path: Flip_Page/page7
+        weight: 1
+      - path: Flip_Page/page8
+        weight: 1
+      - path: Flip_Page/page9
+        weight: 1
+      - path: Flip_Page/page10
+        weight: 1
+      - path: Flip_Page/page11
+        weight: 1
+      - path: Flip_Page/page12
+        weight: 1
+      - path: Flip_Page/page13
+        weight: 1
+      - path: Flip_Page/page14
+        weight: 1
+      - path: Flip_Page/page15
+        weight: 1
+      - path: Flip_Page/page16
+        weight: 1
+      - path: Flip_Page/page17
+        weight: 1
+      - path: Flip_Page/page18
+        weight: 1
+      - path: Flip_Page/page19
+        weight: 1
+      - path: Flip_Page/page20
         weight: 1
       - path: Open_Book
         weight: 1
