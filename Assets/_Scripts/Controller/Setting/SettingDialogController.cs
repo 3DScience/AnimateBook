@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+#if !UNITY_WEBGL
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -78,3 +79,5 @@ public class SettingDialogController : MonoBehaviour {
         Debug.Log("ontest");
     }
 }
+
+#endif

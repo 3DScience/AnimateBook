@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+#if !UNITY_WEBGL
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -67,3 +68,4 @@ public class ProfilePanelController : MonoBehaviour
         profilePanel.SetActive(false);
     }
 }
+#endif

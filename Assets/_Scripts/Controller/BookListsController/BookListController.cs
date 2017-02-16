@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if !UNITY_WEBGL
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -76,3 +77,4 @@ public class BookListController : MonoBehaviour {
         SceneManager.LoadScene(GlobalVar.MAINSCENE);
     }
 }
+#endif

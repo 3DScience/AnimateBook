@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+#if !UNITY_WEBGL
 using UnityEngine;
 using Firebase;
 using Firebase.Database;
@@ -75,3 +76,4 @@ public class FirebaseHelper  {
     }
 
 }
+#endif

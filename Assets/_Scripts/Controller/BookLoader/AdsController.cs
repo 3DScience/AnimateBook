@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if !UNITY_WEBGL // If the Ads service is not enabled...
 using UnityEngine.Advertisements;
+#endif
+
 public class AdsController : MonoBehaviour {
 
     public string gameId = "1224976"; // Set this value from the inspector.
     public bool enableTestMode = false;
 
-
+#if !UNITY_WEBGL // 
     IEnumerator Start()
     {
 #if !UNITY_ADS // If the Ads service is not enabled...
@@ -48,4 +51,5 @@ public class AdsController : MonoBehaviour {
         }
         Destroy(this);
     }
+#endif
 }
