@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BookController2D5 : MonoBehaviour {
 
-    private int current_page = 0;
+
+public class BookController2D5 : MonoBehaviour {
+	private const string OPEN_BOOK = "openBook";
+	private const string CLOSE_BOOK = "closeBook";
+	private const string NEXT_PAGE = "nextPage";
+	private const string BACK_PAGE = "backPage";
+
+	[HideInInspector]public int current_page = 0;	//current_page is counted from 1 :: page1 is 1
     //Maximum content page
-    public int max_page = 8;
+    public int max_page = 0;
 
     //Scence Controller
     private GameObject Scence;
@@ -18,60 +24,61 @@ public class BookController2D5 : MonoBehaviour {
     private GameObject topPageLeft, topPageRight;
 
     //Book Flip Page
-    private GameObject page1, page2, page3, page4, page5, page6, page7, page8;
+	private List<GameObject> pages = new List<GameObject>();
 
     //Flip Page Bone
-    private GameObject left_pageske2, left_pageske3, left_pageske4, left_pageske5, left_pageske6, left_pageske7, left_pageske8;
-    private GameObject right_pageske1, right_pageske2, right_pageske3, right_pageske4, right_pageske5, right_pageske6, right_pageske7;
+	private List<GameObject> left_pageskes = new List<GameObject>();
+	private List<GameObject> right_pageskes = new List<GameObject>();
+
 
     //Page Effect
     private GameObject Page1_Effect, Page2_Effect;
 
+	bool activityEnabled;	//true after animations are finished
+	bool allowMovingCam;	//to prevent moving camera after back to the first page then open next page, only move camera at the first time open book
+	bool closedBook;
+
     //Book Material
     public Material pageBlank_mat;
-    public Material page1Left_mat, page1Right_mat, 
-                    page2Left_mat, page2Right_mat, 
-                    page3Left_mat, page3Right_mat, 
-                    page4Left_mat, page4Right_mat, 
-                    page5Left_mat, page5Right_mat, 
-                    page6Left_mat, page6Right_mat, 
-                    page7Left_mat, page7Right_mat, 
-                    page8Left_mat, page8Right_mat;
-    public Material flipPage1_mat, flipPage2_mat, flipPage3_mat, flipPage4_mat, flipPage5_mat, flipPage6_mat, flipPage7_mat, flipPage8_mat;
-    public Material BG1_mat, BG2_mat, BG3_mat, BG4_mat, BG5_mat, BG6_mat, BG7_mat, BG8_mat;
+
+	public Material[] pageLeft_mats;
+	public Material[] pageRight_mats;
+	public Material[] flipPage_mats;
+	public Material[] BG_mats;
 
     // Use this for initialization
     void Start () {
+		activityEnabled = false;
+		allowMovingCam = false;
+
         Scence = GameObject.Find("Scence");
         BGPlane = GameObject.Find("BGPlane");
 
         topPageLeft = GameObject.Find("Open_Book/top_page_left");
         topPageRight = GameObject.Find("Open_Book/top_page_right");
 
-        page1 = transform.FindChild("Flip_Page/page1").gameObject;
-        page2 = transform.FindChild("Flip_Page/page2").gameObject;
-        page3 = transform.FindChild("Flip_Page/page3").gameObject;
-        page4 = transform.FindChild("Flip_Page/page4").gameObject;
-        page5 = transform.FindChild("Flip_Page/page5").gameObject;
-        page6 = transform.FindChild("Flip_Page/page6").gameObject;
-        page7 = transform.FindChild("Flip_Page/page7").gameObject;
-        page8 = transform.FindChild("Flip_Page/page8").gameObject;
+		string pg = "";
+		string left_pgske = "";
+		string right_pgske = "";
 
-        left_pageske2 = GameObject.Find("Book_Ske/page_ske2/left_pageske2");
-        left_pageske3 = GameObject.Find("Book_Ske/page_ske3/left_pageske3");
-        left_pageske4 = GameObject.Find("Book_Ske/page_ske4/left_pageske4");
-        left_pageske5 = GameObject.Find("Book_Ske/page_ske5/left_pageske5");
-        left_pageske6 = GameObject.Find("Book_Ske/page_ske6/left_pageske6");
-        left_pageske7 = GameObject.Find("Book_Ske/page_ske7/left_pageske7");
-        left_pageske8 = GameObject.Find("Book_Ske/page_ske8/left_pageske8");
+		for (int i = 1; i <= max_page; i++) {
+			pg = "Flip_Page/page";
+			pg = pg + i;
 
-        right_pageske1 = GameObject.Find("Book_Ske/page_ske1/right_pageske1");
-        right_pageske2 = GameObject.Find("Book_Ske/page_ske2/right_pageske2");
-        right_pageske3 = GameObject.Find("Book_Ske/page_ske3/right_pageske3");
-        right_pageske4 = GameObject.Find("Book_Ske/page_ske4/right_pageske4");
-        right_pageske5 = GameObject.Find("Book_Ske/page_ske5/right_pageske5");
-        right_pageske6 = GameObject.Find("Book_Ske/page_ske6/right_pageske6");
-        right_pageske7 = GameObject.Find("Book_Ske/page_ske7/right_pageske7");
+			pages.Add(transform.FindChild(pg).gameObject);
+
+			//left pageske
+			left_pgske = "Book_Ske/page_ske{0}/left_pageske{1}";
+			left_pgske = string.Format(left_pgske, i, i);
+
+			left_pageskes.Add(GameObject.Find(left_pgske));
+
+			//right pageske
+			right_pgske = "Book_Ske/page_ske{0}/right_pageske{1}";
+			right_pgske = string.Format(right_pgske, i, i);
+
+			right_pageskes.Add(GameObject.Find(right_pgske));
+		}
 
         Page1_Effect = GameObject.Find("Book_Ske/page_ske2/left_pageske2/Page1_Effect");
         Page2_Effect = GameObject.Find("Book_Ske/page_ske3/left_pageske3/Page2_Effect");
@@ -84,98 +91,90 @@ public class BookController2D5 : MonoBehaviour {
 
     public void open()
     {
-        GetComponent<Animation>().Play("openBook");
+		StartCoroutine(openBook());
     }
+
+	IEnumerator openBook () {
+		activityEnabled = false;
+		GetComponent<Animation>().Play(OPEN_BOOK);
+
+		yield return new WaitForSeconds(3);
+		activityEnabled = true;
+		closedBook = false;
+	}
+
+	IEnumerator closeBook () {
+		current_page = 0;
+		activityEnabled = false;
+		GetComponent<Animation>().Play(CLOSE_BOOK);
+
+		yield return new WaitForSeconds(2);
+		activityEnabled = true;
+		closedBook = true;
+	}
 
     public void onBookClick()
     {
-        //Open next page
-        if (current_page <= max_page)
-            StartCoroutine(openPage(current_page));
+		if (activityEnabled == true) {
 
-        //Start Story Tell Scence
-        if (current_page == 1)
-            Scence.GetComponent<ScenceController>().StartStoryTellScence();
+			if (closedBook == false) {	//book is opening
+		        //Open next page
+				if (max_page > 0 && current_page < max_page && current_page >= 0) {
+		            StartCoroutine(_nextPage());
+
+				} else {
+					StartCoroutine(closeBook());
+				}
+
+		        //Start Story Tell Scence
+				if (current_page == 1 && allowMovingCam == false) {
+		            Scence.GetComponent<ScenceController>().StartStoryTellScence();
+					allowMovingCam = true;
+				}
+
+			} else {
+				open();
+			}
+		}
     }
+
+	public void test() {
+		Debug.Log("test");
+	}
 
     GameObject getFlipPage(int current_page)
     {
-        switch (current_page)
-        {
-            case 1:
-                return page1;
-            case 2:
-                return page2;
-            case 3:
-                return page3;
-            case 4:
-                return page4;
-            case 5:
-                return page5;
-            case 6:
-                return page6;
-            case 7:
-                return page7;
-            case 8:
-                return page8;
-            default:
-                return null;
-        }
+		if (max_page > 0 && current_page <= max_page && current_page > 0) { 	//current_page is counted from 1
+			return pages[current_page - 1];
+
+		}
+
+		return null;
     }
 
     GameObject[] getPageSke(int current_page)
     {
         GameObject[] pageSke = new GameObject[4];
         GameObject left_prePageSke = null, right_prePageSke = null, left_curPageSke = null, right_curPageSke = null;
-        switch (current_page)
-        {
-            case 1:
-                left_curPageSke = right_pageske1;
-                right_curPageSke = left_pageske2;
-                break;
-            case 2:
-                left_prePageSke = right_pageske1;
-                right_prePageSke = left_pageske2;
-                left_curPageSke = right_pageske2;
-                right_curPageSke = left_pageske3;
-                break;
-            case 3:
-                left_prePageSke = right_pageske2;
-                right_prePageSke = left_pageske3;
-                left_curPageSke = right_pageske3;
-                right_curPageSke = left_pageske4;
-                break;
-            case 4:
-                left_prePageSke = right_pageske3;
-                right_prePageSke = left_pageske4;
-                left_curPageSke = right_pageske4;
-                right_curPageSke = left_pageske5;
-                break;
-            case 5:
-                left_prePageSke = right_pageske4;
-                right_prePageSke = left_pageske5;
-                left_curPageSke = right_pageske5;
-                right_curPageSke = left_pageske6;
-                break;
-            case 6:
-                left_prePageSke = right_pageske5;
-                right_prePageSke = left_pageske6;
-                left_curPageSke = right_pageske6;
-                right_curPageSke = left_pageske7;
-                break;
-            case 7:
-                left_prePageSke = right_pageske6;
-                right_prePageSke = left_pageske7;
-                left_curPageSke = right_pageske7;
-                right_curPageSke = left_pageske8;
-                break;
-            case 8:
-                left_prePageSke = right_pageske7;
-                right_prePageSke = left_pageske8;
-                break;
-            default:
-                break;
-        }
+ 
+		if (max_page > 0 && current_page <= max_page && current_page > 0) {
+			if (current_page == 1) {
+				left_curPageSke = right_pageskes[current_page - 1];
+				right_curPageSke = left_pageskes[current_page];
+
+			} else if (current_page == max_page) {
+				left_prePageSke = right_pageskes[current_page - 2];
+				right_prePageSke = left_pageskes[current_page - 1];
+
+			} else {
+
+				left_prePageSke = right_pageskes[current_page - 2];
+				right_prePageSke = left_pageskes[current_page - 1];
+				left_curPageSke = right_pageskes[current_page - 1];
+				right_curPageSke = left_pageskes[current_page];
+			}
+		}
+
         pageSke[0] = left_prePageSke;
         pageSke[1] = right_prePageSke;
         pageSke[2] = left_curPageSke;
@@ -188,93 +187,27 @@ public class BookController2D5 : MonoBehaviour {
         Material[] book_mat = new Material[4];
         Material bookLeftMat = pageBlank_mat;
         Material bookRightMat = pageBlank_mat;
-        Material bookFlipMat = null;
-        Material BGPlaneMat = null;
-        switch (current_page)
-        {
-            case 1:
-                if(page1Left_mat != null)
-                    bookLeftMat = page1Left_mat;
-                if (page1Right_mat != null)
-                    bookRightMat = page1Right_mat;
-                if (flipPage1_mat != null)
-                    bookFlipMat = flipPage1_mat;
-                if (BG1_mat != null)
-                    BGPlaneMat = BG1_mat;
-                break;
-            case 2:
-                if (page2Left_mat != null)
-                    bookLeftMat = page2Left_mat;
-                if (page2Right_mat != null)
-                    bookRightMat = page2Right_mat;
-                if (flipPage2_mat != null)
-                    bookFlipMat = flipPage2_mat;
-                if (BG2_mat != null)
-                    BGPlaneMat = BG2_mat;
-                break;
-            case 3:
-                if (page3Left_mat != null)
-                    bookLeftMat = page3Left_mat;
-                if (page3Right_mat != null)
-                    bookRightMat = page3Right_mat;
-                if (flipPage3_mat != null)
-                    bookFlipMat = flipPage3_mat;
-                if (BG3_mat != null)
-                    BGPlaneMat = BG3_mat;
-                break;
-            case 4:
-                if (page4Left_mat != null)
-                    bookLeftMat = page4Left_mat;
-                if (page4Right_mat != null)
-                    bookRightMat = page4Right_mat;
-                if (flipPage4_mat != null)
-                    bookFlipMat = flipPage4_mat;
-                if (BG4_mat != null)
-                    BGPlaneMat = BG4_mat;
-                break;
-            case 5:
-                if (page5Left_mat != null)
-                    bookLeftMat = page5Left_mat;
-                if (page5Right_mat != null)
-                    bookRightMat = page5Right_mat;
-                if (flipPage5_mat != null)
-                    bookFlipMat = flipPage5_mat;
-                if (BG5_mat != null)
-                    BGPlaneMat = BG5_mat;
-                break;
-            case 6:
-                if (page6Left_mat != null)
-                    bookLeftMat = page6Left_mat;
-                if (page6Right_mat != null)
-                    bookRightMat = page6Right_mat;
-                if (flipPage6_mat != null)
-                    bookFlipMat = flipPage6_mat;
-                if (BG6_mat != null)
-                    BGPlaneMat = BG6_mat;
-                break;
-            case 7:
-                if (page7Left_mat != null)
-                    bookLeftMat = page7Left_mat;
-                if (page7Right_mat != null)
-                    bookRightMat = page7Right_mat;
-                if (flipPage7_mat != null)
-                    bookFlipMat = flipPage7_mat;
-                if (BG7_mat != null)
-                    BGPlaneMat = BG7_mat;
-                break;
-            case 8:
-                if (page8Left_mat != null)
-                    bookLeftMat = page8Left_mat;
-                if (page8Right_mat != null)
-                    bookRightMat = page8Right_mat;
-                if (flipPage8_mat != null)
-                    bookFlipMat = flipPage8_mat;
-                if (BG8_mat != null)
-                    BGPlaneMat = BG8_mat;
-                break;
-            default:
-                break;
-        }
+		Material bookFlipMat = pageBlank_mat;
+		Material BGPlaneMat = pageBlank_mat;
+        
+		if (max_page > 0 && current_page <= max_page && current_page > 0) {
+			if (pageLeft_mats.Length >= current_page && pageLeft_mats[current_page - 1] != null) {
+				bookLeftMat = pageLeft_mats[current_page - 1];
+			}
+
+			if (pageRight_mats.Length >= current_page && pageRight_mats[current_page - 1] != null) {
+				bookRightMat = pageRight_mats[current_page - 1];
+			}
+
+			if (flipPage_mats.Length >= current_page && flipPage_mats[current_page - 1] != null) {
+				bookLeftMat = flipPage_mats[current_page - 1];
+			}
+
+			if (BG_mats.Length >= current_page && BG_mats[current_page - 1] != null) {
+				BGPlaneMat = BG_mats[current_page - 1];
+			}
+		}
+
         book_mat[0] = bookLeftMat;
         book_mat[1] = bookRightMat;
         book_mat[2] = bookFlipMat;
@@ -287,10 +220,14 @@ public class BookController2D5 : MonoBehaviour {
         switch (current_page)
         {
             case 1:
-                Page1_Effect.SetActive(true);
+				if (Page1_Effect != null) {
+	                Page1_Effect.SetActive(true);
+				}
                 break;
             case 2:
-                Page2_Effect.SetActive(true);
+				if (Page1_Effect != null) {
+	                Page2_Effect.SetActive(true);
+				}
                 break;
             case 3:              
                 break;
@@ -311,18 +248,24 @@ public class BookController2D5 : MonoBehaviour {
 
     private void disableAllEffect()
     {
-        Page1_Effect.SetActive(false);
-        Page2_Effect.SetActive(false);
+		if (Page1_Effect != null) {
+	        Page1_Effect.SetActive(false);
+		}
+
+		if (Page2_Effect != null) {
+        	Page2_Effect.SetActive(false);
+		}
     }
 
-    private IEnumerator openPage(int current_page)
+	private IEnumerator _nextPage()
     {
-        current_page++;
-        this.current_page = current_page;
+		current_page++;
         
         //Play animation open page
+		activityEnabled = false;
+		Debug.Log("_nextPage :: " + current_page);
         Animation animation = GetComponent<Animation>();
-        animation.PlayQueued("openPage" + current_page);
+        animation.PlayQueued(NEXT_PAGE + current_page);
 
         //Disable all Effect
         disableAllEffect();
@@ -338,13 +281,16 @@ public class BookController2D5 : MonoBehaviour {
         topPageRight.GetComponent<Renderer>().material = pageBlank_mat;  
 
         do
-        {
+		{
             ScaleDownObject(getPageSke(current_page)[0]);
             ScaleDownObject(getPageSke(current_page)[1]);
             ScaleUpObject(getPageSke(current_page)[2]);
             ScaleUpObject(getPageSke(current_page)[3]);
+
             yield return null;
         } while (animation.isPlaying);
+
+		activityEnabled = true;
 
         //Add new background texture
         //BGPlane.GetComponent<Renderer>().material = getMaterial(current_page)[3];
@@ -364,6 +310,74 @@ public class BookController2D5 : MonoBehaviour {
         //Deactive current page
         getFlipPage(current_page).SetActive(false);
     }
+
+	public void backPage() {
+		if (activityEnabled == true) {
+			if (closedBook == false) {	//book is opening
+				//Open next page
+				if (max_page > 0 && current_page <= max_page && current_page > 0) {
+					StartCoroutine(_backPage());
+
+				} else {
+					StartCoroutine(closeBook());
+				}
+			}
+		}
+	}
+
+	private IEnumerator _backPage()
+	{
+		int old_page = current_page;
+		current_page--;
+		//Play animation open page
+		activityEnabled = false;
+		Debug.Log("_backPage :: " + old_page);
+		Animation animation = GetComponent<Animation>();
+		animation.PlayQueued(BACK_PAGE + (old_page));
+
+		//Disable all Effect
+		disableAllEffect();
+
+		//Hide current Background texture
+		InvokeRepeating("HideBGPlaneTexture", 0f, 0.03F);
+
+		//Set active old_page, to make flip_page to be visible
+		getFlipPage(old_page).SetActive(true);
+		getFlipPage(old_page).GetComponent<Renderer>().material = getMaterial(old_page)[2];
+
+		//Set blank_page material to Book left
+		topPageLeft.GetComponent<Renderer>().material = pageBlank_mat;  
+
+		do
+		{
+			ScaleUpObject(getPageSke(old_page)[0]);
+			ScaleUpObject(getPageSke(old_page)[1]);
+			ScaleDownObject(getPageSke(old_page)[2]);
+			ScaleDownObject(getPageSke(old_page)[3]);
+
+			yield return null;
+		} while (animation.isPlaying);
+
+		activityEnabled = true;
+
+		//Add new background texture
+		//BGPlane.GetComponent<Renderer>().material = getMaterial(current_page)[3];
+		//BGPlane.GetComponent<Renderer>().material.SetFloat("_Level", 1F);
+		//InvokeRepeating("DissolveBackGroundTexture", 0f, 0.03F);
+
+		//Add Book materials when open page animation done
+		topPageLeft.GetComponent<Renderer>().material = getMaterial(current_page)[0];
+		topPageRight.GetComponent<Renderer>().material = getMaterial(current_page)[1];
+		topPageLeft.GetComponent<Renderer>().material.SetFloat("_Level", 1F);
+		topPageRight.GetComponent<Renderer>().material.SetFloat("_Level", 1F);
+		InvokeRepeating("DissolveTopBookTexture", 0f, 0.03F);
+
+		//Enable Page Deco_Effect
+		enableEffect();
+
+		//Deactive current page
+		getFlipPage(old_page).SetActive(false);
+	}
 
     private void HideBGPlaneTexture()
     {
@@ -413,7 +427,7 @@ public class BookController2D5 : MonoBehaviour {
     {
         if(obj != null)
         { 
-            float x = 0.0066f;
+            float x = 0.01f;
 
             if (obj.transform.localScale.y < 1)
                 obj.transform.localScale = obj.transform.localScale + new Vector3(x, x, 0);
@@ -427,7 +441,7 @@ public class BookController2D5 : MonoBehaviour {
     {
         if (obj != null)
         {
-            float x = 0.0066f;
+            float x = 0.01f;
 
             if (obj.transform.localScale.y > 0)
                 obj.transform.localScale = obj.transform.localScale - new Vector3(x, x, 0);
