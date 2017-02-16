@@ -4,7 +4,6 @@ using System.IO;
 using ProgressBar;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Book.RTDatabase;
 
 public class DownloadAsset : MonoBehaviour {
 

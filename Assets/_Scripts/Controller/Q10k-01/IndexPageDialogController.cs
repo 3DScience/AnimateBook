@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+
 using UnityEngine;
-using UnityEngine.UI;
-using Firebase;
-using Firebase.Auth;
+
 public class IndexPageDialogController : MonoBehaviour {
 
 	public GameObject dialogUi;

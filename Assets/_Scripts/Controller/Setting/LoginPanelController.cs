@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+#if !UNITY_WEBGL
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-#if !UNITY_WEBGL
 using Firebase;
 using Firebase.Auth;
 using Facebook.Unity;

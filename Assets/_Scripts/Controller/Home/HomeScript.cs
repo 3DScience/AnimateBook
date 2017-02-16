@@ -60,8 +60,10 @@ public class HomeScript : MonoBehaviour {
         if (Debug.isDebugBuild)
             Debug.Log("OnSelectedBook "+ index);
         CategoryInfo categoryInfo = (CategoryInfo)listBookInfo[index];
+#if !UNITY_WEBGL
 		BookListController.catName = categoryInfo.categoryName;
         LoadBookSelected(categoryInfo.categoryName);
+#endif
     }
     public void ButtonClick(string assetBundleName)
     {

@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+#if !UNITY_WEBGL
 using Firebase.Database;
 using UnityEngine;
 using System.IO;
@@ -104,3 +105,4 @@ public class BooksFireBaseDb {
         listAllBooks = JsonUtility.FromJson<ListBookInfos>(loadedText);
     }
 }
+#endif
