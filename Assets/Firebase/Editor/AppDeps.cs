@@ -42,7 +42,7 @@ public class FirebaseAppDeps : AssetPostprocessor
 
         Google.VersionHandler.InvokeInstanceMethod(svcSupport, "DependOn", new object[] { "com.google.android.gms", "play-services-base", "10+" }, namedArgs: new Dictionary<string, object>() { { "packageIds", new string[] { "extra-google-m2repository" } }, { "repositories", null } });
         Google.VersionHandler.InvokeInstanceMethod(svcSupport, "DependOn", new object[] { "com.google.firebase", "firebase-common", "10+" }, namedArgs: new Dictionary<string, object>() { { "packageIds", new string[] { "extra-google-m2repository", "extra-android-m2repository" } }, { "repositories", null } });
-        Google.VersionHandler.InvokeInstanceMethod(svcSupport, "DependOn", new object[] { "com.google.firebase", "firebase-app-unity", "1.1.0" }, namedArgs: new Dictionary<string, object>() { { "packageIds", null }, { "repositories", new string[] { "Assets/Firebase/m2repository" } } });
+        Google.VersionHandler.InvokeInstanceMethod(svcSupport, "DependOn", new object[] { "com.google.firebase", "firebase-app-unity", "1.1.2" }, namedArgs: new Dictionary<string, object>() { { "packageIds", null }, { "repositories", new string[] { "Assets/Firebase/m2repository" } } });
 #elif UNITY_IOS
         Type iosResolver = Google.VersionHandler.FindClass(
             "Google.IOSResolver", "Google.IOSResolver");

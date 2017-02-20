@@ -7,7 +7,7 @@ no real data that gets merged with the final manifest, but is none-the-less
 needed for the plugin to be parsed correctly in the folder structure we use.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.google.firebase"
+          package="com.google.firebase.unity"
           android:versionCode="1"
           android:versionName="1.0">
 </manifest>
