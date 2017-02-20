@@ -17,7 +17,16 @@ public class BookLoader : MonoBehaviour {
             //assetBundleName = "test_book"; 
             assetBundleName = "solar_system_book";
         }
-        yield return AssetBundleHelper.getInstance().InitializeAssetBunder(assetBundleName);
+#if !UNITY_WEBGL
+               yield return AssetBundleHelper.getInstance().InitializeAssetBunder(assetBundleName);
+#else
+        string assetBundleUrl = "vn/books/science/230002_solar_system_book/";
+        yield return AssetBundleHelper.getInstance().InitializeAssetBunder(assetBundleUrl);
+        assetBundleName = "solar_system_book";
+        DebugOnScreen.Log("RUN PLATFORM WEBGL");
+        Debug.Log("RUN PLATFORM WEBGL");
+#endif
+
         try
         {
 
