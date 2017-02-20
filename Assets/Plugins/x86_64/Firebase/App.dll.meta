@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 988626e974c810649908ce71e86a61e4
+guid: 7d53fe9ba8294974bcc4bb4d0eb7d6d0
+time_created: 1480838400
 PluginImporter:
   serializedVersion: 1
   iconMap: {}
   executionOrder: {}
   isPreloaded: 0
-  isOverridable: 0
   platformData:
     Android:
       enabled: 0
@@ -65,8 +65,5 @@ PluginImporter:
     iOS:
       enabled: 0
       settings:
-        CompileFlags: 
-        FrameworkDependencies: 
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
+        CompileFlags:
+        FrameworkDependencies:
