@@ -42,6 +42,22 @@ namespace Fungus
                     }
                 }
             }
+            if (Input.GetMouseButton(0))
+            {
+                if (Camera.main == null || EventSystem.current.IsPointerOverGameObject())
+                {
+                    Debug.Log("Camera.current =null or touch on some ui");
+                    return false;
+                }
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (!Physics.Raycast(ray, out hit))
+                {
+                    return true;
+                }
+
+
+            }
             return false;
         }
     }

@@ -41,7 +41,7 @@ public class AssetBundleHelper {
 #if !UNITY_WEBGL
 		AssetBundleManager.SetSourceAssetBundleURL("file://" + GlobalVar.DATA_PATH + "/" + assetBundleName + "/");
 #else
-        AssetBundleManager.SetSourceAssetBundleURL("file://" + GlobalVar.BASE_ASSET_URL + "/" + assetBundleName );
+        AssetBundleManager.SetSourceAssetBundleURL(GlobalVar.BASE_ASSET_URL + "/" + assetBundleName );
 #endif
         this.assetBundleName=assetBundleName;
         // Initialize AssetBundleManifest which loads the AssetBundleManifest object.
@@ -52,6 +52,7 @@ public class AssetBundleHelper {
     }
     public  IEnumerator LoadAsset<T>(string assetBundleName,string assetName,System.Action<T> callback) where T : Object
     {
+        this.assetBundleName = assetBundleName;
         AssetBundleLoadAssetOperation request = AssetBundleManager.LoadAssetAsync(assetBundleName, assetName, typeof(T));
         if (request == null)
             yield break;
@@ -61,6 +62,7 @@ public class AssetBundleHelper {
     }
     public IEnumerator LoadScene(string assetBundleName, string scenseName, bool isAddtive)
     {
+        this.assetBundleName = assetBundleName;
         AssetBundleManager.UnloadAssetBundle(assetBundleName);
         AssetBundleLoadOperation request = AssetBundleManager.LoadLevelAsync(assetBundleName, scenseName, true);
         if (request == null)

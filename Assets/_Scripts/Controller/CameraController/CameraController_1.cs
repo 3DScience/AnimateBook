@@ -37,26 +37,49 @@ public class CameraController_1 : MonoBehaviour {
 	private float sensitiveY = 0.2f;
 
 	private bool flagShowtxt = false;
-
-	void Start() {
+    private Vector3 lastMouseCoordinate;
+    private Vector3 originMouseCoordinate;
+    void Start() {
 		cachedTransform = transform;
 	}
 	public void OnTouchs() {
 		Update ();
 	}
-
+    private bool chekcIsPoitOverGo(Vector3 pos)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(pos);
+        RaycastHit hit;
+        bool b = Physics.Raycast(ray, out hit);
+      //  Debug.Log("b=" + b);
+        if (b)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 	public void Update()
 	{
 		if (Camera.main == null || EventSystem.current.IsPointerOverGameObject (0)) {
 			Touch firstTouch= Input.touches[0];
-			Ray ray = Camera.main.ScreenPointToRay(firstTouch.position);
-			RaycastHit hit;
-			if (Physics.Raycast(ray, out hit)){
-			} else {
-				return;
-			}
-				
-		}
+            if(!chekcIsPoitOverGo(firstTouch.position))
+            {
+                return;
+            }
+
+            //Ray ray = Camera.main.ScreenPointToRay(firstTouch.position);
+            //RaycastHit hit;
+            //         bool b = Physics.Raycast(ray, out hit);
+            //         Debug.Log("b="+b);
+            //         if (b){
+
+            //} else {
+            //             return;
+            //}
+
+        }
 
 		for (int i = 0; i < Input.touchCount; i++) {
 			
@@ -74,6 +97,24 @@ public class CameraController_1 : MonoBehaviour {
 				OnTouchStayAnyWhere ();
 			}
 		}
+        if(Input.GetMouseButtonDown(0))
+        {
+            originMouseCoordinate = Input.mousePosition;
+        }
+        if(Input.GetMouseButton(0))
+        {
+            Debug.Log("GetMouseButtonDown");
+            if (Camera.main == null || EventSystem.current.IsPointerOverGameObject())
+            {
+                if (!chekcIsPoitOverGo(Input.mousePosition))
+                {
+                    return;
+                }
+             
+            }
+            OnTouchMoveAnyWhere();
+
+        }
 	}
 		
 	void OnTouchBeganAnyWhere() {
@@ -81,8 +122,12 @@ public class CameraController_1 : MonoBehaviour {
 
 	void OnTouchMoveAnyWhere()
 	{
-		Debug.Log("RotationCamera");
-		if (Input.touchCount == 1) {
+		
+        if (Input.GetMouseButton(0))
+        {
+            RotationCamera();
+        }
+        if (Input.touchCount == 1) {
 			RotationCamera ();
 		} else if (Input.touchCount == 2) {
 			BoxCollider[] myColliders = gameObject.GetComponents<BoxCollider>();
@@ -106,14 +151,12 @@ public class CameraController_1 : MonoBehaviour {
 
 
 		if  (Input.touchCount == 1) {
-
-			Touch touch = Input.GetTouch(0);
+            Touch touch = Input.GetTouch(0);
 			if (Input.GetTouch(0).phase == TouchPhase.Moved) {
 				//Debug.Log("Start begin" + gameObject.transform.position);
 				currentX += touch.deltaPosition.x * sensitiveX;
 				currentY -= touch.deltaPosition.y * sensitiveY;
-
-				currentY = Mathf.Clamp (currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
+                currentY = Mathf.Clamp (currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
 
 				Vector3 dir = new Vector3 (0,0, -distance);
 				Quaternion rotation = Quaternion.Euler (currentY, currentX, 0);
@@ -121,8 +164,28 @@ public class CameraController_1 : MonoBehaviour {
 				cachedTransform.LookAt (lookAt.position);
 				//cachedTransform.LookAt (Camera.main.ScreenToWorldPoint(new Vector3(Screen.width/3,Screen.height/2,lookAt.position.z)));
 			}
-		}
-	}
+		}else  if (Input.GetMouseButton(0) )
+        {
+            Vector3 mousePosition= Input.mousePosition;
+            Vector3 mouseDelta = mousePosition - lastMouseCoordinate;
+            Vector3 mouseOriginDelta = mousePosition - originMouseCoordinate;
+            lastMouseCoordinate = mousePosition;
+            if (mouseDelta.x !=0 || mouseDelta.y != 0)
+            {
+                currentX += mouseOriginDelta.x * sensitiveX;
+                currentY -= mouseOriginDelta.y * sensitiveY;
+
+                currentY = Mathf.Clamp(currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
+
+                Vector3 dir = new Vector3(0, 0, -distance);
+                Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
+                cachedTransform.position = lookAt.position + rotation * dir;
+                cachedTransform.LookAt(lookAt.position);
+            }
+            
+        }
+    }
+    
 		
 	void ZoomCamera ()
 	{
