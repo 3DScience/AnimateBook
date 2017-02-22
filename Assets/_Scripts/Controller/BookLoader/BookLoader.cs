@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class BookLoader : MonoBehaviour {
-
+    public GameObject homeButton;
     public static string assetBundleName;
     // Use this for initialization
     IEnumerator Start () {
@@ -11,7 +11,7 @@ public class BookLoader : MonoBehaviour {
         //GameObject textObject = (GameObject)Instantiate(Resources.Load("RichTextUi_1"));
         //  GameObject instance = Instantiate(Resources.Load("RichTextUi_1", typeof(GameObject))) as GameObject;
 
-
+        Caching.CleanCache();
         if (assetBundleName == null || assetBundleName == "")
         {
             //assetBundleName = "test_book"; 
@@ -20,11 +20,27 @@ public class BookLoader : MonoBehaviour {
 #if !UNITY_WEBGL
                yield return AssetBundleHelper.getInstance().InitializeAssetBunder(assetBundleName);
 #else
+        homeButton.SetActive(false);
+        string url = Application.absoluteURL;
+        Dictionary<string, string> httpGetData=null;
+        if(url != null)
+        {
+            httpGetData = parseHttpGetData(url);
+        }
         string assetBundleUrl = "vn/books/science/230002_solar_system_book/";
-        yield return AssetBundleHelper.getInstance().InitializeAssetBunder(assetBundleUrl);
         assetBundleName = "solar_system_book";
-        DebugOnScreen.Log("RUN PLATFORM WEBGL");
-        Debug.Log("RUN PLATFORM WEBGL");
+        if (httpGetData!=null && httpGetData.ContainsKey("assetBundleName")&& httpGetData.ContainsKey("assetBundleUrl"))
+        {
+            
+            assetBundleName = httpGetData["assetBundleName"];
+            assetBundleUrl = httpGetData["assetBundleUrl"];
+            //DebugOnScreen.Log("getted assetBundleName=" + assetBundleName+ ", assetBundleUrl=" + assetBundleUrl);
+        }
+        yield return AssetBundleHelper.getInstance().InitializeAssetBunder(assetBundleUrl);
+    
+       // DebugOnScreen.Log("RUN PLATFORM WEBGL 3");
+        Debug.Log("RUN PLATFORM WEBGL 2");
+       // yield return null;
 #endif
 
         try
@@ -42,7 +58,23 @@ public class BookLoader : MonoBehaviour {
         }
 
     }
+    Dictionary<string,string> parseHttpGetData(string url)
+    {
+        Dictionary<string, string> res = new Dictionary<string, string>();
+        if (!url.Contains("?"))
+            return res;
+        url = url.Split('?')[1];
 
+        string[] pas=url.Split('&');
+        foreach (var pa in pas)
+        {
+            if (!url.Contains("="))
+                continue;
+            string[] strs = pa.Split('=');
+            res.Add(strs[0], strs[1]);
+        }
+        return res;
+    }
     public void onHomeButtonClick()
     {
         GameObject[] gos = GameObject.FindGameObjectsWithTag("DestroyOnHome");
