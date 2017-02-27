@@ -66,6 +66,15 @@ public class BookListController : MonoBehaviour {
 
         }, catName);
         listUiScrollRect.normalizedPosition = new Vector2(0, 1);
+        StartCoroutine(loadImages());
+    }
+    IEnumerator loadImages()
+    {
+        foreach (var book in listGameObjectBookAdded)
+        {
+            BookListItemController bookListItemController = book.GetComponentInChildren<BookListItemController>();
+            yield return bookListItemController.loadImg();
+        }
     }
     public void refressButtonClicked()
     {
