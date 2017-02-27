@@ -12,8 +12,8 @@ public class BookListItemController : MonoBehaviour {
     void Start () {
         string imageUrl = bookInfo.picture_url;
         Debug.Log("ImageURL="+ imageUrl);
-        if( imageUrl!=null && imageUrl!="")
-        StartCoroutine(loadImg(imageUrl));
+      //  if( imageUrl!=null && imageUrl!="")
+        //StartCoroutine(loadImg(imageUrl));
         txtName.text = bookInfo.name;
     }
     public void onClicked()
@@ -25,13 +25,16 @@ public class BookListItemController : MonoBehaviour {
     }
 
 
-    IEnumerator loadImg(string urls)
+    public IEnumerator loadImg()
     {
 
-        WWW imgLink = new WWW(urls);
-       
-        yield return imgLink;
-        img.texture = imgLink.texture;
+        if (bookInfo.picture_url != null && bookInfo.picture_url != "")
+        {
+            WWW imgLink = new WWW(bookInfo.picture_url);
+
+            yield return imgLink;
+            img.texture = imgLink.texture;
+        }
 
     }
 }
