@@ -9,10 +9,10 @@ public class BookSceneLoader : MonoBehaviour {
     // Use this for initialization
 
     IEnumerator Start () {
-        GlobalVar.shareContext.loadingIdicator.SetActive(true);
+        GlobalVar.shareContext.loadingIndicator.SetActive(true);
         yield return AssetBundleHelper.getInstance().LoadScene(assetBundleName, sceneName, true);
         DestroyObject(this);
-        GlobalVar.shareContext.loadingIdicator.SetActive(false);
+        GlobalVar.shareContext.loadingIndicator.SetActive(false);
     }
 
 }

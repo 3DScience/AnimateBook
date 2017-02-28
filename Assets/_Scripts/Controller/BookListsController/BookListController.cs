@@ -27,7 +27,6 @@ public class BookListController : MonoBehaviour {
         Debug.Log(listUiScrollRect);
         float cellWidth= (listUiRectTransform.rect.width - contentGridLayout.padding.left) / 3 - (contentGridLayout.spacing.x);
         contentGridLayout.cellSize = new Vector2(cellWidth, cellWidth*1.3f);
-
         loadListBook();
 
         //for( int i=0; i<20; i ++)
