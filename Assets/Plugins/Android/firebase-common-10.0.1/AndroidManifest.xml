@@ -3,6 +3,6 @@
     <uses-sdk android:minSdkVersion="9"/>
     <application>
 
-        <provider android:authorities="com.itpro.testFireBase.firebaseinitprovider" android:name="com.google.firebase.provider.FirebaseInitProvider" android:exported="false" android:initOrder="100"/>
+        <provider android:authorities="com.born2go.smallworld.firebaseinitprovider" android:name="com.google.firebase.provider.FirebaseInitProvider" android:exported="false" android:initOrder="100"/>
     </application>
 </manifest>
