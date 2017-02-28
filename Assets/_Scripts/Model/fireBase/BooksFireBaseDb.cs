@@ -30,6 +30,7 @@ public class BooksFireBaseDb {
     }
     public void saveBooksToLocal(System.Action callbackWhenDone)
     {
+        GlobalVar.shareContext.loadingIndicator.SetActive(true);
         dbf.Child("public").Child("vn").Child("books").GetValueAsync().ContinueWith(task => {
             if (task.IsFaulted)
             {
@@ -61,6 +62,7 @@ public class BooksFireBaseDb {
                 string loadedText = File.ReadAllText(fileSave);
                 Debug.Log("textAsset loaded=" + loadedText);
                 callbackWhenDone();
+                GlobalVar.shareContext.loadingIndicator.SetActive(false);
             }
         });
     }

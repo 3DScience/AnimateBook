@@ -35,6 +35,7 @@ public class GlobalVar {
 
         GameObject g = new GameObject("ShareContext");
         shareContext=g.AddComponent<ShareContext>();
+        shareContext.initLoadingIndicator();
     }
 
 }
