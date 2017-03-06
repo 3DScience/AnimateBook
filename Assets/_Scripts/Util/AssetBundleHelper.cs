@@ -73,7 +73,7 @@ public class AssetBundleHelper {
     {
         AssetBundleManager.UnloadAssetBundle(assetBundleName);
         AssetBundleManager.UnloadAssetBundle(assetBundleName+".mf");
-        DebugOnScreen.Log("upload AB "+ assetBundleName + ".mf");
+        //DebugOnScreen.Log("upload AB "+ assetBundleName + ".mf");
         GameObject assetBundleManager= GameObject.Find("AssetBundleManager");
         AssetBundleManager.DestroyObject(assetBundleManager);
     }

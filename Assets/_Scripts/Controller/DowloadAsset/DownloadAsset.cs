@@ -124,16 +124,16 @@ public class DownloadAsset : MonoBehaviour {
             
             if( !checkExistAbName(dependencyBook.assetbundle))
             {
-                DebugOnScreen.Log("Download dependency book: " + dependencyBook.name);
+                //DebugOnScreen.Log("Download dependency book: " + dependencyBook.name);
 
                 url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + dependencyBook.download_url + "/" + platform + ".zip";
-                //if (GlobalVar.DEBUG)
-                DebugOnScreen.Log("url=" + url);
+                if (GlobalVar.DEBUG)
+                    DebugOnScreen.Log("url=" + url);
                 www = new WWW(url);
                 currentDownloadDependencyIdx++;
             }
             else {
-                DebugOnScreen.Log("dependency book \"" + dependencyBook.name +"\" is existing.");
+                //DebugOnScreen.Log("dependency book \"" + dependencyBook.name +"\" is existing.");
                 currentDownloadDependencyIdx++;
                 downloadDependencies();
             }
@@ -149,7 +149,7 @@ public class DownloadAsset : MonoBehaviour {
             platform = "IOS";
         }
         bool r= File.Exists(assetDataFolder +platform+"/"+ abname);
-        DebugOnScreen.Log("checking exist ab name " + assetDataFolder + platform + "/" + abname+". Result=" +r);
+        //DebugOnScreen.Log("checking exist ab name " + assetDataFolder + platform + "/" + abname+". Result=" +r);
         return r;
     }
     IEnumerator saveFileToLocal()

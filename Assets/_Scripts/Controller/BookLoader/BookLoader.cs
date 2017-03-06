@@ -19,7 +19,7 @@ public class BookLoader : MonoBehaviour {
             assetBundleName = "solar_system_book";
         }
 #if !UNITY_WEBGL
-        DebugOnScreen.Log("init mainfest 10");
+       // DebugOnScreen.Log("init mainfest 10");
         yield return AssetBundleHelper.getInstance().InitializeAssetBunder(assetBundleName);
 #else
         homeButton.SetActive(false);

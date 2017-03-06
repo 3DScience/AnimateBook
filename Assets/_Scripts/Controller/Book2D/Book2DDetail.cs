@@ -107,11 +107,16 @@ public class Book2DDetail : MonoBehaviour {
 
 	private bool checkIsDownloadedAsset(string assetBundleName)
 	{
-		string assetDataFolder = GlobalVar.DATA_PATH + "/" + assetBundleName;
-		if (Directory.Exists(assetDataFolder))
-		{
-			return true;
-		}
-		return false;
+        string platform = Application.platform.ToString();
+        if (platform == RuntimePlatform.IPhonePlayer.ToString())
+        {
+            platform = "IOS";
+        }
+        string assetDataFolder = GlobalVar.DATA_PATH + "/" + platform + "/" + assetBundleName;
+        if (File.Exists(assetDataFolder))
+        {
+            return true;
+        }
+        return false;
 	}
 }
