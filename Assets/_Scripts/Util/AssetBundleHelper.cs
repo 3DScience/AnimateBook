@@ -39,13 +39,13 @@ public class AssetBundleHelper {
         //                //AssetBundleManager.SetSourceAssetBundleURL("http://www.MyWebsite/MyAssetBundles");
         //        #endif
 #if !UNITY_WEBGL
-		AssetBundleManager.SetSourceAssetBundleURL("file://" + GlobalVar.DATA_PATH + "/" + assetBundleName + "/");
+		AssetBundleManager.SetSourceAssetBundleURL("file://" + GlobalVar.DATA_PATH + "/");
 #else
         AssetBundleManager.SetSourceAssetBundleURL(GlobalVar.BASE_ASSET_URL + "/" + assetBundleName );
 #endif
         this.assetBundleName=assetBundleName;
         // Initialize AssetBundleManifest which loads the AssetBundleManifest object.
-        var request = AssetBundleManager.Initialize();
+        var request = AssetBundleManager.Initialize(assetBundleName+".mf");
 
         if (request != null)
             yield return context.StartCoroutine(request);
@@ -72,6 +72,8 @@ public class AssetBundleHelper {
     public void unLoadAssetBundleManager()
     {
         AssetBundleManager.UnloadAssetBundle(assetBundleName);
+        AssetBundleManager.UnloadAssetBundle(assetBundleName+".mf");
+        //DebugOnScreen.Log("upload AB "+ assetBundleName + ".mf");
         GameObject assetBundleManager= GameObject.Find("AssetBundleManager");
         AssetBundleManager.DestroyObject(assetBundleManager);
     }

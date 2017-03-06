@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using ProgressBar;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class DownloadAsset : MonoBehaviour {
-
+    public Text txtMsg;
+    int currentDownloadDependencyIdx = 0;
+    string platform = Application.platform.ToString();
     private string assetDataFolder = "";
     private WWW www;
     private string url;
     private bool isSavingFile= false;
 	string assetBundleName = "";
     ProgressBarBehaviour barBehaviour;
+    private List<BookInfo> dependeciesBook = new List<BookInfo>(); 
     // Use this for initialization
     void Start () {
         GameObject obj = GameObject.Find("ProgressBarLabelInside");
@@ -29,20 +33,33 @@ public class DownloadAsset : MonoBehaviour {
 			assetBundleName = "solar_system_book";
 		} else {
 			assetBundleName = bookInfo.assetbundle;
-		}
+            if(bookInfo.dependencies != null)
+            {
+                foreach (var bookId in bookInfo.dependencies)
+                {
+                    BookInfo dependencyBook = BooksFireBaseDb.getInstance().getBookInfoById(bookId);
+                    dependeciesBook.Add(dependencyBook);
+                }
+            }
+
+        }
 
 
-        string platform = Application.platform.ToString();
+       
         if (Application.platform == RuntimePlatform.WindowsEditor)// for testing
         {
             platform = "Android";
         }
         try
         {
-            assetDataFolder = GlobalVar.DATA_PATH + "/" + assetBundleName;
-            if (Directory.Exists(assetDataFolder))
+            assetDataFolder = GlobalVar.DATA_PATH + "/" ;
+            string olderFile = assetDataFolder + assetBundleName;
+            if (File.Exists(olderFile))
             {
-                Directory.Delete(assetDataFolder,true);
+                File.Delete(olderFile);
+                File.Delete(olderFile+".mf");
+                File.Delete(olderFile + ".manifest");
+                Caching.CleanCache();
             }
         }
         catch (System.Exception ex)
@@ -50,6 +67,7 @@ public class DownloadAsset : MonoBehaviour {
             DebugOnScreen.Log(ex.ToString());
         }
 
+        txtMsg.text = "Downloading contents.";
 		url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + bookInfo.download_url + "/" + platform + ".zip";
         if (GlobalVar.DEBUG)
             DebugOnScreen.Log("url=" + url);
@@ -78,7 +96,62 @@ public class DownloadAsset : MonoBehaviour {
         }
 
     }
+    private void downloadDependencies()
+    {
+        if(currentDownloadDependencyIdx >= dependeciesBook.Count )
+        {
+            barBehaviour.m_AttachedText.text = "DONE";
 
+            if (dependeciesBook.Count > 0)
+            {
+                string[] dependenciesAbName = new string[dependeciesBook.Count];
+                int i = 0;
+                foreach (BookInfo dep in dependeciesBook)
+                {
+                    dependenciesAbName[i] = dep.name;
+                    i++;
+                }
+                BookLoader.dependenciesAbName = dependenciesAbName;
+            }
+            BookLoader.assetBundleName = assetBundleName;
+            SceneManager.LoadScene(GlobalVar.BOOK_LOADER_SCENE);
+        }else
+        {
+            isSavingFile = false;
+
+            txtMsg.text = "Downloading dependencies ("+ (currentDownloadDependencyIdx+1)+"/"+dependeciesBook.Count+")";
+            BookInfo dependencyBook = dependeciesBook[currentDownloadDependencyIdx];
+            
+            if( !checkExistAbName(dependencyBook.assetbundle))
+            {
+                //DebugOnScreen.Log("Download dependency book: " + dependencyBook.name);
+
+                url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + dependencyBook.download_url + "/" + platform + ".zip";
+                if (GlobalVar.DEBUG)
+                    DebugOnScreen.Log("url=" + url);
+                www = new WWW(url);
+                currentDownloadDependencyIdx++;
+            }
+            else {
+                //DebugOnScreen.Log("dependency book \"" + dependencyBook.name +"\" is existing.");
+                currentDownloadDependencyIdx++;
+                downloadDependencies();
+            }
+
+        }
+ 
+    }
+    private bool checkExistAbName(string abname)
+    {
+        string platform = Application.platform.ToString();
+        if (platform == RuntimePlatform.IPhonePlayer.ToString())
+        {
+            platform = "IOS";
+        }
+        bool r= File.Exists(assetDataFolder +platform+"/"+ abname);
+        //DebugOnScreen.Log("checking exist ab name " + assetDataFolder + platform + "/" + abname+". Result=" +r);
+        return r;
+    }
     IEnumerator saveFileToLocal()
     {
         //if (Debug.isDebugBuild)
@@ -97,7 +170,7 @@ public class DownloadAsset : MonoBehaviour {
             {
                 Directory.CreateDirectory(assetDataFolder);
             }
-            zipFile = assetDataFolder + "/" + assetBundleName + ".zip";
+            zipFile = assetDataFolder  + assetBundleName + ".zip";
             if (Debug.isDebugBuild)
                 Debug.Log("dataFile=" + zipFile);
             System.IO.File.WriteAllBytes(zipFile, data);
@@ -129,10 +202,10 @@ public class DownloadAsset : MonoBehaviour {
 
         if (Debug.isDebugBuild)
             Debug.Log("unzip done!");
-
-        barBehaviour.m_AttachedText.text = "DONE";
-        BookLoader.assetBundleName = assetBundleName;
-        SceneManager.LoadScene(GlobalVar.BOOK_LOADER_SCENE);
+        downloadDependencies();
+        //barBehaviour.m_AttachedText.text = "DONE";
+        //BookLoader.assetBundleName = assetBundleName;
+        //SceneManager.LoadScene(GlobalVar.BOOK_LOADER_SCENE);
         yield return null;
     }
 }

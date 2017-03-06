@@ -4,7 +4,7 @@ using System;
 
 [Serializable]
 public class BookInfo  {
-    public int id;
+    public string id;
     public string assetbundle;
     public string categories;
     public string description;
@@ -17,5 +17,6 @@ public class BookInfo  {
     public float price;
     public int status;
     public string version;
+    public string[] dependencies;
 
 }

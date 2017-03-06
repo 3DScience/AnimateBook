@@ -44,8 +44,9 @@ public class BooksFireBaseDb {
                 {
                     //  Debug.Log("b id="+item.Key+"/ v="+item.GetRawJsonValue());
                     BookInfo b = JsonUtility.FromJson<BookInfo>(item.GetRawJsonValue());
-                    b.id = int.Parse(item.Key);
-                    // Debug.Log("b id="+item.Key+"/ v="+b.name);
+                    b.id =  item.Key;
+                    if(b.dependencies!=null)
+                     Debug.Log("b id="+item.Key+"/ v="+b.dependencies[0]);
                     lsbooks.Add(b);
                 }
                 ListBookInfos bs = new ListBookInfos();
@@ -65,6 +66,22 @@ public class BooksFireBaseDb {
                 GlobalVar.shareContext.loadingIndicator.SetActive(false);
             }
         });
+    }
+    public BookInfo getBookInfoById(string id)
+    {
+        if( listAllBooks ==null)
+        {
+            _getListAllBook();
+        }
+        foreach (var bookInfo in listAllBooks.books)
+        {
+          //  Debug.Log("bookInfo.id=" + bookInfo.id);
+            if(bookInfo.id==id)
+            {
+                return bookInfo;
+            }
+        }
+        return null;
     }
     public void getBooksFromLocal(System.Action<List<BookInfo>> callbackWhenDone, string catName)
     {
