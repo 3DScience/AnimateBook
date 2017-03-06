@@ -8,7 +8,9 @@ using System.IO;
 public class Book2DDetail : MonoBehaviour {
 
 	public Image img;
-	public Text bookDescription;
+	public Text bookDescription1;
+	public Text bookDescription2;
+	public Text bookContent;
 	public Text bookName;
 
 	private BookInfo bookInfo;
@@ -29,7 +31,9 @@ public class Book2DDetail : MonoBehaviour {
         bookInfo = (BookInfo) GlobalVar.shareContext.shareVar["bookInfo"];
 		GlobalVar.shareContext.shareVar.Remove ("bookInfo");
 		StartCoroutine (loadImg (bookInfo.picture_url));
-		loadDescription ();
+		loadContent ();
+		loadDescription1 ();
+		loadDescription2 ();
 		loadTitle ();
 	}
 	
@@ -42,17 +46,28 @@ public class Book2DDetail : MonoBehaviour {
 	
 	}
 
-	private void loadDescription() {
-		description = bookInfo.description;
+	private void loadContent() {
+		description = bookInfo.detail;
+		bookContent.text = "<size=16> \nGiới thiệu về sách: </size> \n\n" + description;
+	}
+
+	private void loadDescription1() {
 		price = bookInfo.price;
 		version = bookInfo.version;
-		bookDescription.text = "Giới thiệu về sách: \n" + description + "\n\nThông tin sách: \nPrice: " + price + "\nversion: " + version;
+		status = bookInfo.status;
+		min_app_version = bookInfo.min_app_version;
+		bookDescription1.text = "Ngôn ngữ: Tiếng Việt\n" + "Giá Tiền: " + price + "\nstatus: " + status;
+	}
+
+	private void loadDescription2() {
+		status = bookInfo.status;
+		min_app_version = bookInfo.min_app_version;
+		bookDescription2.text = "version: " + version + "\nmin_app_version: " + min_app_version;
 	}
 
 	private void loadTitle() {
 		name = bookInfo.name;
-		status = bookInfo.status;
-		bookName.text = name + "\nstatus: " + status;
+		bookName.text = name;
 	}
 
 	public void onHomeButtonClick()
