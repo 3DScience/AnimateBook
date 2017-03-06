@@ -68,10 +68,7 @@ public class LoginPanelController : MonoBehaviour {
         loadingPanel.SetActive(true);
         if (GlobalVar.DEBUG)
             DebugOnScreen.Log("LoginPanelController- OnLoginButtonClick, email=" + txtEmail.text + "/ pass=" + txtPassword.text);
-		if (islogin == false) {
-			islogin = true;
 			ProfileFirebase.getInstance ().Login (txtEmail.text, txtPassword.text, HandleSigninResult);
-		}
     }
 		
 	public void OnLoginButtonFBClick()
