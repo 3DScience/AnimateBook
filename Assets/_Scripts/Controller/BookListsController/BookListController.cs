@@ -28,7 +28,7 @@ public class BookListController : MonoBehaviour {
         float cellWidth= (listUiRectTransform.rect.width - contentGridLayout.padding.left) / 3 - (contentGridLayout.spacing.x);
         contentGridLayout.cellSize = new Vector2(cellWidth, cellWidth*1.3f);
         loadListBook();
-
+        Debug.Log("test book by id 100001:" + BooksFireBaseDb.getInstance().getBookInfoById("100001").name);
         //for( int i=0; i<20; i ++)
         //{
         //    GameObject g=GameObject.Instantiate(bookListItemPref);
@@ -60,12 +60,12 @@ public class BookListController : MonoBehaviour {
                 listGameObjectBookAdded.Add(g);
                 BookListItemController bookListItemController = g.GetComponentInChildren<BookListItemController>();
                 bookListItemController.bookInfo = book;
-                Debug.Log("add gox"+ listGameObjectBookAdded.Count);
+               // Debug.Log("add gox"+ listGameObjectBookAdded.Count);
             }
-
+            StartCoroutine(loadImages());
         }, catName);
         listUiScrollRect.normalizedPosition = new Vector2(0, 1);
-        StartCoroutine(loadImages());
+      
     }
     IEnumerator loadImages()
     {

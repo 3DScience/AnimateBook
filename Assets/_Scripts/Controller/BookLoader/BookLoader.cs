@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class BookLoader : MonoBehaviour {
     public GameObject homeButton;
     public static string assetBundleName;
+    public static string[] dependenciesAbName;
     // Use this for initialization
     IEnumerator Start () {
         // GameObject loadingEffect =GameObject.Instantiate(AssetDataDase.LoadAssetAtPath("Assets/Prefabs/myPrefab.prefab", typeof(GameObject)) as GameObject;
@@ -18,7 +19,8 @@ public class BookLoader : MonoBehaviour {
             assetBundleName = "solar_system_book";
         }
 #if !UNITY_WEBGL
-               yield return AssetBundleHelper.getInstance().InitializeAssetBunder(assetBundleName);
+        DebugOnScreen.Log("init mainfest 10");
+        yield return AssetBundleHelper.getInstance().InitializeAssetBunder(assetBundleName);
 #else
         homeButton.SetActive(false);
         string url = Application.absoluteURL;

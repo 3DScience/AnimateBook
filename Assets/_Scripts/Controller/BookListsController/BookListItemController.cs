@@ -11,7 +11,7 @@ public class BookListItemController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         string imageUrl = bookInfo.picture_url;
-        Debug.Log("ImageURL="+ imageUrl);
+        //Debug.Log("ImageURL="+ imageUrl);
       //  if( imageUrl!=null && imageUrl!="")
         //StartCoroutine(loadImg(imageUrl));
         txtName.text = bookInfo.name;
