@@ -62,19 +62,22 @@ public class LoginPanelController : MonoBehaviour {
 	}
 
 
-
+	public static bool islogin = false;
     public void OnLoginButtonClick()
     {
         loadingPanel.SetActive(true);
         if (GlobalVar.DEBUG)
             DebugOnScreen.Log("LoginPanelController- OnLoginButtonClick, email=" + txtEmail.text + "/ pass=" + txtPassword.text);
-        ProfileFirebase.getInstance().Login(txtEmail.text, txtPassword.text, HandleSigninResult);
+			ProfileFirebase.getInstance ().Login (txtEmail.text, txtPassword.text, HandleSigninResult);
     }
-
+		
 	public void OnLoginButtonFBClick()
 	{
-		var perms = new List<string>(){"public_profile", "email", "user_friends"};
-		FB.LogInWithReadPermissions(perms, AuthCallback);
+		if (islogin == false) {
+			islogin = true;
+			var perms = new List<string> (){ "public_profile", "email", "user_friends" };
+			FB.LogInWithReadPermissions (perms, AuthCallback);
+		}
 	}
 	private void AuthCallback (ILoginResult result) {
 		if (FB.IsLoggedIn) {
@@ -92,6 +95,7 @@ public class LoginPanelController : MonoBehaviour {
 			ProfileFirebase.getInstance ().LoginWithFaceBook (aToken.TokenString, HandleSigninResult);
 
 		} else {
+			islogin = false;
 			Debug.Log("User cancelled login");
 		}
 	}

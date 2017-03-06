@@ -49,6 +49,7 @@ public class ProfilePanelController : MonoBehaviour
             DebugOnScreen.Log("ProfilePanelController- OnLogOutButtonClick");
         try
         {
+			LoginPanelController.islogin = false;
             ProfileFirebase.getInstance().auth.SignOut();
 			FB.LogOut();
             deactiveProfilePanel();
