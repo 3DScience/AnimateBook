@@ -41,7 +41,7 @@ public class AssetBundleHelper {
 #if !UNITY_WEBGL
 		AssetBundleManager.SetSourceAssetBundleURL("file://" + GlobalVar.DATA_PATH + "/");
 #else
-        AssetBundleManager.SetSourceAssetBundleURL(GlobalVar.BASE_ASSET_URL + "/" + assetBundleName );
+        AssetBundleManager.SetSourceAssetBundleURL(GlobalVar.BASE_ASSET_URL  );
 #endif
         this.assetBundleName=assetBundleName;
         // Initialize AssetBundleManifest which loads the AssetBundleManifest object.

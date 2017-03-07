@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if !UNITY_WEBGL
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -209,3 +210,4 @@ public class DownloadAsset : MonoBehaviour {
         yield return null;
     }
 }
+#endif
