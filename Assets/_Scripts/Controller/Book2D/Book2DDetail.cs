@@ -110,7 +110,7 @@ public class Book2DDetail : MonoBehaviour {
         string platform = Application.platform.ToString();
         if (platform == RuntimePlatform.IPhonePlayer.ToString())
         {
-            platform = "IOS";
+            platform = "iOS";
         }
         string assetDataFolder = GlobalVar.DATA_PATH + "/" + platform + "/" + assetBundleName;
         if (File.Exists(assetDataFolder))
