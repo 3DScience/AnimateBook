@@ -27,7 +27,7 @@ namespace Fungus
                 if (firstTouch.phase == TouchPhase.Began)
                 {
                     //DebugOnScreen.Log("on touch "+Time.deltaTime);
-                    Debug.Log("EventSystem.current.currentSelectedGameObject=" + EventSystem.current.IsPointerOverGameObject(0) );
+                    //DebugOnScreen.Log("EventSystem.current.currentSelectedGameObject=" + EventSystem.current.IsPointerOverGameObject(0) );
                     if (Camera.main == null || EventSystem.current.IsPointerOverGameObject(0))
                     {
                         Debug.Log("Camera.current =null or touch on some ui");
@@ -38,11 +38,11 @@ namespace Fungus
                     RaycastHit hit;
                     if (!Physics.Raycast(ray, out hit))
                     {
+                       // Debug.Log("fuck all "+hit.collider.gameObject.name);
                         return true;
                     }
                 }
-            }
-            if (Input.GetMouseButton(0))
+            }else  if (Input.GetMouseButton(0))
             {
                 if (Camera.main == null || EventSystem.current.IsPointerOverGameObject())
                 {
