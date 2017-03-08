@@ -12,6 +12,8 @@ public class ProfilePanelController : MonoBehaviour
 {
     public GameObject loginPanel;
     public GameObject profilePanel;
+	public GameObject loginButton;
+	public GameObject profileButton;
     public Text txtEmail;
     public Text txtCash;
     // Use this for initialization
@@ -65,8 +67,10 @@ public class ProfilePanelController : MonoBehaviour
     public void deactiveProfilePanel()
     {
         loginPanel.SetActive(true);
+		loginButton.SetActive (true);
         loginPanel.GetComponent<RectTransform>().SetAsLastSibling();
         profilePanel.SetActive(false);
+		profileButton.SetActive (false);
     }
 }
 #endif
