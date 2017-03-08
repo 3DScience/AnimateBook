@@ -11,6 +11,8 @@ using Facebook.Unity;
 public class LoginPanelController : MonoBehaviour {
     public GameObject loginPanel;
     public GameObject profilePanel;
+	public GameObject loginButton;
+	public GameObject profileButton;
     public Text txtEmail;
     public InputField txtPassword;
     public Text txtError;
@@ -130,7 +132,9 @@ public class LoginPanelController : MonoBehaviour {
     public void deactiveLoginPanel()
     {
         loginPanel.SetActive(false);
+		loginButton.SetActive (false);
         profilePanel.SetActive(true);
+		profileButton.SetActive (true);
         profilePanel.GetComponent<RectTransform>().SetAsLastSibling();
     }
 		
