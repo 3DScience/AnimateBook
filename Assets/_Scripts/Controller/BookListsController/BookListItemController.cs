@@ -19,7 +19,8 @@ public class BookListItemController : MonoBehaviour {
     public void onClicked()
     {
         Debug.Log("onClicked idx="+idx);
-
+        if (GlobalVar.shareContext.shareVar.ContainsKey("bookInfo"))
+            GlobalVar.shareContext.shareVar.Remove("bookInfo");
         GlobalVar.shareContext.shareVar.Add("bookInfo",bookInfo);
         SceneManager.LoadScene(GlobalVar.BOOK2DDETAIL_SCENE);
     }

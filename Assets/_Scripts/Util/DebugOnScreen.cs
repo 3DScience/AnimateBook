@@ -15,7 +15,7 @@ public class DebugOnScreen : MonoBehaviour {
             GUIStyle gui = new GUIStyle();
             gui.fontSize = 30;
             gui.wordWrap = true;
-            
+            gui.normal.textColor = Color.red;
             // string text = System.IO.File.ReadAllText("D:/ping.bat");
             GUILayout.Label( msgStr, gui);
             GUILayout.EndScrollView();

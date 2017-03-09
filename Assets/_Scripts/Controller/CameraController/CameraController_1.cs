@@ -60,60 +60,91 @@ public class CameraController_1 : MonoBehaviour {
             return false;
         }
     }
+    bool rxTouchEvent = false;
 	public void Update()
 	{
-		if (Camera.main == null || EventSystem.current.IsPointerOverGameObject (0)) {
-			Touch firstTouch= Input.touches[0];
-            if(!chekcIsPoitOverGo(firstTouch.position))
-            {
-                return;
-            }
-
-            //Ray ray = Camera.main.ScreenPointToRay(firstTouch.position);
-            //RaycastHit hit;
-            //         bool b = Physics.Raycast(ray, out hit);
-            //         Debug.Log("b="+b);
-            //         if (b){
-
-            //} else {
-            //             return;
-            //}
-
-        }
-
-		for (int i = 0; i < Input.touchCount; i++) {
-			
-			currTouch = i;
-			if (Input.GetTouch (i).phase == TouchPhase.Began) {	// khi bat dau cham vao man hinh
-				OnTouchBeganAnyWhere ();
-			}
-			if (Input.GetTouch (i).phase == TouchPhase.Ended) {	// khi ket thuc cham vao man hinh
-				OnTouchEndedAnyWhere ();
-			}
-			if (Input.GetTouch (i).phase == TouchPhase.Moved) {	// khi cham vao man hinh va di chuyen
-				OnTouchMoveAnyWhere ();
-			}
-			if (Input.GetTouch (i).phase == TouchPhase.Stationary) {	// khi cham vao man hinh am ko di chuyen
-				OnTouchStayAnyWhere ();
-			}
-		}
-        if(Input.GetMouseButtonDown(0))
+        if (Input.touchCount > 0)
         {
-            originMouseCoordinate = Input.mousePosition;
-        }
-        if(Input.GetMouseButton(0))
-        {
-            Debug.Log("GetMouseButtonDown");
-            if (Camera.main == null || EventSystem.current.IsPointerOverGameObject())
+            Touch firstTouch = Input.touches[0];
+            if (firstTouch.phase == TouchPhase.Began)
             {
-                if (!chekcIsPoitOverGo(Input.mousePosition))
+                
+               // DebugOnScreen.Log("CameraController_1 EventSystem.current.currentSelectedGameObject=" + EventSystem.current.IsPointerOverGameObject(firstTouch.fingerId));
+                if (Camera.main == null || EventSystem.current.IsPointerOverGameObject(firstTouch.fingerId))
                 {
-                    return;
-                }
-             
-            }
-            OnTouchMoveAnyWhere();
 
+                    if (!chekcIsPoitOverGo(firstTouch.position))
+                    {
+                        rxTouchEvent = false;
+                        return;
+                    }else
+                    {
+                        rxTouchEvent = true;
+                    }
+
+                    //Ray ray = Camera.main.ScreenPointToRay(firstTouch.position);
+                    //RaycastHit hit;
+                    //         bool b = Physics.Raycast(ray, out hit);
+                    //         Debug.Log("b="+b);
+                    //         if (b){
+
+                    //} else {
+                    //             return;
+                    //}
+
+                }
+                else
+                {
+                    rxTouchEvent = true;
+                }
+            }
+            if (!rxTouchEvent)
+                return;
+
+
+
+            for (int i = 0; i < Input.touchCount; i++)
+            {
+
+                currTouch = i;
+                if (Input.GetTouch(i).phase == TouchPhase.Began)
+                {   // khi bat dau cham vao man hinh
+                    OnTouchBeganAnyWhere();
+                }
+                if (Input.GetTouch(i).phase == TouchPhase.Ended)
+                {   // khi ket thuc cham vao man hinh
+                    OnTouchEndedAnyWhere();
+                }
+                if (Input.GetTouch(i).phase == TouchPhase.Moved)
+                {   // khi cham vao man hinh va di chuyen
+                    OnTouchMoveAnyWhere();
+                }
+                if (Input.GetTouch(i).phase == TouchPhase.Stationary)
+                {   // khi cham vao man hinh am ko di chuyen
+                    OnTouchStayAnyWhere();
+                }
+            }
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                originMouseCoordinate = Input.mousePosition;
+            }
+            if (Input.GetMouseButton(0))
+            {
+                Debug.Log("GetMouseButtonDown");
+                if (Camera.main == null || EventSystem.current.IsPointerOverGameObject())
+                {
+                    if (!chekcIsPoitOverGo(Input.mousePosition))
+                    {
+                        return;
+                    }
+
+                }
+                OnTouchMoveAnyWhere();
+
+            }
         }
 	}
 		

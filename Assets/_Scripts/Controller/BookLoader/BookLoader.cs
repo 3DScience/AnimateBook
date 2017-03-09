@@ -36,12 +36,12 @@ public class BookLoader : MonoBehaviour {
             
             assetBundleName = httpGetData["assetBundleName"];
             assetBundleUrl = httpGetData["assetBundleUrl"];
-            //DebugOnScreen.Log("getted assetBundleName=" + assetBundleName+ ", assetBundleUrl=" + assetBundleUrl);
+           // DebugOnScreen.Log("getted assetBundleName=" + assetBundleName+ ", assetBundleUrl=" + assetBundleUrl);
         }
-        yield return AssetBundleHelper.getInstance().InitializeAssetBunder(assetBundleUrl);
+        yield return AssetBundleHelper.getInstance().InitializeAssetBunder(assetBundleName);
     
-       // DebugOnScreen.Log("RUN PLATFORM WEBGL 3");
-        Debug.Log("RUN PLATFORM WEBGL 2");
+        //DebugOnScreen.Log("RUN PLATFORM WEBGL 5");
+        //Debug.Log("RUN PLATFORM WEBGL 2");
        // yield return null;
 #endif
 
@@ -84,8 +84,8 @@ public class BookLoader : MonoBehaviour {
         {
             DestroyObject(go);
         }
-        SceneManager.UnloadScene(GlobalVar.BOOK_LOADER_SCENE);
-        SceneManager.LoadScene(GlobalVar.MAINSCENE);
+        SceneManager.UnloadSceneAsync(GlobalVar.BOOK_LOADER_SCENE);
+        SceneManager.LoadScene(GlobalVar.BOOK2DDETAIL_SCENE);
     }
 	
 
