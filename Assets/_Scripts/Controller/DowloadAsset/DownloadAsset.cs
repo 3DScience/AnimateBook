@@ -27,7 +27,7 @@ public class DownloadAsset : MonoBehaviour {
 
 
 		BookInfo bookInfo = (BookInfo) GlobalVar.shareContext.shareVar["bookInfo"];
-		GlobalVar.shareContext.shareVar.Remove ("bookInfo");
+		//GlobalVar.shareContext.shareVar.Remove ("bookInfo");
 
 		if (bookInfo == null) { // for testing
 			//assetBundleName = "test_book";

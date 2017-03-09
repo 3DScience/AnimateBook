@@ -84,8 +84,8 @@ public class BookLoader : MonoBehaviour {
         {
             DestroyObject(go);
         }
-        SceneManager.UnloadScene(GlobalVar.BOOK_LOADER_SCENE);
-        SceneManager.LoadScene(GlobalVar.MAINSCENE);
+        SceneManager.UnloadSceneAsync(GlobalVar.BOOK_LOADER_SCENE);
+        SceneManager.LoadScene(GlobalVar.BOOK2DDETAIL_SCENE);
     }
 	
 

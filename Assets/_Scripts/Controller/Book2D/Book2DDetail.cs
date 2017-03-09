@@ -29,7 +29,7 @@ public class Book2DDetail : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         bookInfo = (BookInfo) GlobalVar.shareContext.shareVar["bookInfo"];
-		GlobalVar.shareContext.shareVar.Remove ("bookInfo");
+		//GlobalVar.shareContext.shareVar.Remove ("bookInfo");
 		StartCoroutine (loadImg (bookInfo.picture_url));
 		loadContent ();
 		loadDescription1 ();
@@ -82,7 +82,7 @@ public class Book2DDetail : MonoBehaviour {
 
 	public void ReDownloadBook()
 	{
-		GlobalVar.shareContext.shareVar.Add ("bookInfo", bookInfo);
+		//GlobalVar.shareContext.shareVar.Add ("bookInfo", bookInfo);
 		SceneManager.LoadScene(GlobalVar.DOWNLOAD_ASSET_SCENE);
 	}
 
@@ -100,7 +100,7 @@ public class Book2DDetail : MonoBehaviour {
 		} 
 		else
 		{
-			GlobalVar.shareContext.shareVar.Add ("bookInfo", bookInfo);
+			//GlobalVar.shareContext.shareVar.Add ("bookInfo", bookInfo);
 			SceneManager.LoadScene(GlobalVar.DOWNLOAD_ASSET_SCENE);
 		}
 	}
