@@ -153,11 +153,7 @@ public class CameraController_1 : MonoBehaviour {
 
 	void OnTouchMoveAnyWhere()
 	{
-		
-        if (Input.GetMouseButton(0))
-        {
-            RotationCamera();
-        }
+	
         if (Input.touchCount == 1) {
 			RotationCamera ();
 		} else if (Input.touchCount == 2) {
@@ -165,7 +161,11 @@ public class CameraController_1 : MonoBehaviour {
 			foreach(BoxCollider bc in myColliders) bc.enabled = true;
 			ZoomCamera ();
 		}
-	}
+        else if (Input.GetMouseButton(0))
+        {
+            RotationCamera();
+        }
+    }
 
 	void OnTouchStayAnyWhere()
 	{
