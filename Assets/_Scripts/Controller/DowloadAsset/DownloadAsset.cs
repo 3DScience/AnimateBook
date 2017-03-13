@@ -151,7 +151,7 @@ public class DownloadAsset : MonoBehaviour {
         }
         bool r= File.Exists(assetDataFolder +platform+"/"+ abname);
         //DebugOnScreen.Log("checking exist ab name " + assetDataFolder + platform + "/" + abname+". Result=" +r);
-        return r;
+        return false;
     }
     IEnumerator saveFileToLocal()
     {
