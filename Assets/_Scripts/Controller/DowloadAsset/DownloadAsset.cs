@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class DownloadAsset : MonoBehaviour {
     public Text txtMsg;
+    public GameObject dialogMessagePref;
     int currentDownloadDependencyIdx = 0;
     string platform = Application.platform.ToString();
     private string assetDataFolder = "";
@@ -17,7 +18,8 @@ public class DownloadAsset : MonoBehaviour {
     private bool isSavingFile= false;
 	string assetBundleName = "";
     ProgressBarBehaviour barBehaviour;
-    private List<BookInfo> dependeciesBook = new List<BookInfo>(); 
+    private List<BookInfo> dependeciesBook = new List<BookInfo>();
+    private DialogMessageController dialogMessageController;
     // Use this for initialization
     void Start () {
         GameObject obj = GameObject.Find("ProgressBarLabelInside");
@@ -72,16 +74,86 @@ public class DownloadAsset : MonoBehaviour {
 		url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + bookInfo.download_url + "/" + platform + ".zip";
         if (GlobalVar.DEBUG)
             DebugOnScreen.Log("url=" + url);
-        www = new WWW(url);
+        startDownload();
+    }
+    private void startDownload()
+    {
+        if (checkNetwork())
+        {
+            www = new WWW(url);
+        }
+        else
+        {
+            if (dialogMessageController == null)
+            {
+                initDialogMessage();
+            }
+            dialogMessageController.setActive(true);
+            dialogMessageController.setMessage("No Internet connection!");
+            dialogMessageController.setButtonText("Retry");
+
+
+
+        }
     }
 
+    private void initDialogMessage()
+    {
+        GameObject dialogMsg = GameObject.Instantiate(dialogMessagePref);
+        dialogMessageController = dialogMsg.GetComponentInChildren<DialogMessageController>();
+        dialogMessageController.onOkButtonClickCallback = dialogOkButtonClick;
+        dialogMessageController.onBackButtonClickCallback = dialogBackButtonClick;
+    }
+
+    private void dialogOkButtonClick()
+    {
+        dialogMessageController.setActive(false);
+        barBehaviour.Value = 0;
+        barBehaviour.m_AttachedText.text = "0%";
+        startDownload();
+    }
+    private void dialogBackButtonClick()
+    {
+        SceneManager.UnloadSceneAsync(GlobalVar.DOWNLOAD_ASSET_SCENE);
+        SceneManager.LoadScene(GlobalVar.BOOK2DDETAIL_SCENE);
+    }
+    private bool checkNetwork()
+    {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            return false;
+        }
+        return true;
+    }
+    private void handleDownloadError()
+    {
+       
+        if (dialogMessageController == null)
+        {
+            initDialogMessage();
+        }
+        dialogMessageController.setActive(true);
+        dialogMessageController.setMessage("There are some errors when loading!");
+        dialogMessageController.setButtonText("Retry");
+       
+#if DEVELOPMENT_BUILD
+        DebugOnScreen.Log("download err:" + www.error);
+#endif
+        www = null;
+    }
     // Update is called once per frame
     void Update()
     {
 
+        if (www == null)
+            return;
         if (www.isDone)
         {
-            if (!isSavingFile)
+            if( www.error!=null)
+            {
+                handleDownloadError();
+                return;
+            }else  if (!isSavingFile)
             {
                 barBehaviour.Value =100;
                 isSavingFile = true;
@@ -91,6 +163,11 @@ public class DownloadAsset : MonoBehaviour {
         }
         else
         {
+            if(www.error != null)
+            {
+                handleDownloadError();
+                return;
+            }
             barBehaviour.Value = www.progress*100;
             if (Debug.isDebugBuild)
                 Debug.Log("downloaded " + www.progress * 100 + " %");
@@ -208,6 +285,13 @@ public class DownloadAsset : MonoBehaviour {
         //BookLoader.assetBundleName = assetBundleName;
         //SceneManager.LoadScene(GlobalVar.BOOK_LOADER_SCENE);
         yield return null;
+    }
+    void OnDestroy()
+    {
+        if(dialogMessageController != null)
+        {
+            dialogMessageController.DestroyGo();
+        }
     }
 }
 #endif
