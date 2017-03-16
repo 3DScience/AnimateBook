@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Analytics;
 public class HomeScript : MonoBehaviour {
     public GameObject settingDialogPrefab;
-
+    private bool selectedCategory=false;
 	ArrayList listBookInfo = new ArrayList();
 	// Use this for initialization
 	void Start () {
@@ -59,6 +59,10 @@ public class HomeScript : MonoBehaviour {
     {
         if (Debug.isDebugBuild)
             Debug.Log("OnSelectedBook "+ index);
+        if (selectedCategory)
+            return;
+
+        selectedCategory = true;
         CategoryInfo categoryInfo = (CategoryInfo)listBookInfo[index];
 #if !UNITY_WEBGL
 		BookListController.catName = categoryInfo.categoryName;
