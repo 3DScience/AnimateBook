@@ -42,7 +42,7 @@ public class GlobalVar {
 
 		System.Collections.Generic.Dictionary<string, object> defaults =
 			new System.Collections.Generic.Dictionary<string, object>();
-		defaults.Add("BASE_ASSET_DOWNLOAD_URL", "http://192.168.0.201/unity3d/3dbook_test/vn/books/");
+		defaults.Add("BASE_ASSET_DOWNLOAD_URL", "http://www.smallworld3d.com/unity3d/3dbook_test/");
 		Firebase.RemoteConfig.FirebaseRemoteConfig.SetDefaults(defaults);
 		BASE_ASSET_DOWNLOAD_URL = Firebase.RemoteConfig.FirebaseRemoteConfig.GetValue("BASE_ASSET_DOWNLOAD_URL").StringValue;
 		//DebugOnScreen.Log("RemoteConfig configured and ready with BASE_ASSET_DOWNLOAD_URL : " + BASE_ASSET_DOWNLOAD_URL);
