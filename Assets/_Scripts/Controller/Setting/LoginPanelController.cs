@@ -9,6 +9,9 @@ using Firebase.Auth;
 using Facebook.Unity;
 
 public class LoginPanelController : MonoBehaviour {
+	public GameObject uiLogin;
+	public GameObject usersLoginPanel;
+	public GameObject usersLoginButton;
     public GameObject loginPanel;
     public GameObject profilePanel;
 	public GameObject loginButton;
@@ -63,10 +66,20 @@ public class LoginPanelController : MonoBehaviour {
 		}
 	}
 
+	public void OnUsersLoginButtonClick()
+	{
+		usersLoginPanel.SetActive (true);
+	}
+
+	public void DisableUsersLoginPanel()
+	{
+		usersLoginPanel.SetActive (false);
+	}
 
 	public static bool islogin = false;
     public void OnLoginButtonClick()
     {
+		DebugOnScreen.Log("LoginPanelController- OnLoginButtonClick");
         loadingPanel.SetActive(true);
         if (GlobalVar.DEBUG)
             DebugOnScreen.Log("LoginPanelController- OnLoginButtonClick, email=" + txtEmail.text + "/ pass=" + txtPassword.text);
@@ -131,6 +144,7 @@ public class LoginPanelController : MonoBehaviour {
 
     public void deactiveLoginPanel()
     {
+		uiLogin.SetActive (false);
         loginPanel.SetActive(false);
 		loginButton.SetActive (false);
         profilePanel.SetActive(true);
