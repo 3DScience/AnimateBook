@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Firebase;
 using Firebase.Auth;
 using Facebook.Unity;
+using UnityEngine.SceneManagement;
 
 public class LoginPanelController : MonoBehaviour {
 	public GameObject uiLogin;
@@ -37,6 +38,7 @@ public class LoginPanelController : MonoBehaviour {
 	{
 		if (!FB.IsInitialized) {
 			// Initialize the Facebook SDK
+			DebugOnScreen.Log("Initialize the Facebook SDK ");
 			FB.Init(InitCallback, OnHideUnity);
 		} else {
 			// Already initialized, signal an app activation App Event
@@ -144,12 +146,14 @@ public class LoginPanelController : MonoBehaviour {
 
     public void deactiveLoginPanel()
     {
-		uiLogin.SetActive (false);
-        loginPanel.SetActive(false);
-		loginButton.SetActive (false);
-        profilePanel.SetActive(true);
-		profileButton.SetActive (true);
-        profilePanel.GetComponent<RectTransform>().SetAsLastSibling();
+		//uiLogin.SetActive (false);
+		GlobalVar.login = 1;
+		SceneManager.LoadScene(GlobalVar.MAINSCENE);
+//        loginPanel.SetActive(false);
+//		loginButton.SetActive (false);
+//        profilePanel.SetActive(true);
+//		profileButton.SetActive (true);
+//        profilePanel.GetComponent<RectTransform>().SetAsLastSibling();
     }
 		
 

@@ -29,16 +29,18 @@ public class SettingDialogController : MonoBehaviour {
         FirebaseUser user = ProfileFirebase.getInstance().auth.CurrentUser;
         if (user != null)
         {
-            if (GlobalVar.DEBUG)
+			//GlobalVar.login = 1;
+            //if (GlobalVar.DEBUG)
                 DebugOnScreen.Log("SettingDialogController-CurrentUser: Email=" + user.Email + ", DisplayName=" + user.DisplayName);
             loginPanelController.deactiveLoginPanel();
             profilePanelController.OnLoginStateChange(true);
         }
         else
         {
+			//GlobalVar.login = 2;
+			//DebugOnScreen.Log("SettingDialogController-CurrentUser= null " + GlobalVar.login);
             profilePanelController.deactiveProfilePanel();
-            if (GlobalVar.DEBUG)
-                DebugOnScreen.Log("SettingDialogController-CurrentUser= null");
+            //if (GlobalVar.DEBUG)
         }
     }
     public void OnSettingClick()

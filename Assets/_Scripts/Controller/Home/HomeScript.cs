@@ -5,14 +5,26 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Analytics;
 public class HomeScript : MonoBehaviour {
     public GameObject settingDialogPrefab;
+	public GameObject uiLogin;
     private bool selectedCategory=false;
 	ArrayList listBookInfo = new ArrayList();
 	// Use this for initialization
 	void Start () {
+
         if(GlobalVar.SETTING_DIALOG == null)
         {
             GlobalVar.SETTING_DIALOG = GameObject.Instantiate(settingDialogPrefab);
         }
+		if (GlobalVar.login == 2) {
+			DebugOnScreen.Log("Home : " + GlobalVar.login);
+			uiLogin.SetActive(true);
+			//GameObject.Instantiate (uiLogin);
+		} else if (GlobalVar.login == 1) {
+			DebugOnScreen.Log("Home : " + GlobalVar.login);
+			//GameObject.DestroyObject (uiLogin);
+			uiLogin.SetActive(false);
+		}
+
         if (Debug.isDebugBuild)
             Debug.Log("HomeScript Start...");
         loadAllCategory();
