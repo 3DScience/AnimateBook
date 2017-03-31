@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+#if !UNITY_WEBGL
 using System.Threading.Tasks;
+#endif
 using System.Collections;
 using System.IO;
 public class GlobalVar {
@@ -40,7 +42,7 @@ public class GlobalVar {
         GameObject g = new GameObject("ShareContext");
         shareContext=g.AddComponent<ShareContext>();
         shareContext.initLoadingIndicator();
-
+		#if !UNITY_WEBGL && !UNITY_STANDALONE
 		System.Collections.Generic.Dictionary<string, object> defaults =
 			new System.Collections.Generic.Dictionary<string, object>();
 		defaults.Add("BASE_ASSET_DOWNLOAD_URL", "http://www.smallworld3d.com/unity3d/3dbook_test/");
@@ -51,9 +53,11 @@ public class GlobalVar {
 		//DebugOnScreen.Log("RemoteConfig Fetching data...");
 		System.Threading.Tasks.Task fetchTask = Firebase.RemoteConfig.FirebaseRemoteConfig.FetchAsync(
 			TimeSpan.Zero);
+		
 		fetchTask.ContinueWith(FetchComplete);
+		#endif
     }
-
+	#if !UNITY_WEBGL
 	static void FetchComplete(Task fetchTask) {
 		if (fetchTask.IsCanceled) {
 			DebugOnScreen.Log("Fetch canceled.");
@@ -86,5 +90,6 @@ public class GlobalVar {
 			break;
 		}
 	}
+	#endif
 
 }

@@ -50,6 +50,26 @@ public class AssetBundleHelper {
         if (request != null)
             yield return context.StartCoroutine(request);
     }
+
+
+	public IEnumerator InitializeAssetBunderWebGL(string assetBundleName, string assetBundleUrl)
+	{
+		if(this.assetBundleName!=null)
+		{
+			getInstance().unLoadAssetBundleManager();
+		}
+			
+
+		AssetBundleManager.SetSourceAssetBundleURL(assetBundleUrl  );
+
+		this.assetBundleName=assetBundleName;
+		// Initialize AssetBundleManifest which loads the AssetBundleManifest object.
+		var request = AssetBundleManager.Initialize(assetBundleName+".mf");
+
+		if (request != null)
+			yield return context.StartCoroutine(request);
+	}
+
     public  IEnumerator LoadAsset<T>(string assetBundleName,string assetName,System.Action<T> callback) where T : Object
     {
         this.assetBundleName = assetBundleName;
