@@ -7,9 +7,11 @@ using UnityEngine.UI;
 using Firebase;
 using Firebase.Auth;
 using Facebook.Unity;
+using UnityEngine.SceneManagement;
 
 public class ProfilePanelController : MonoBehaviour
 {
+	public GameObject dialogUi;
     public GameObject loginPanel;
     public GameObject profilePanel;
 	public GameObject loginButton;
@@ -33,10 +35,14 @@ public class ProfilePanelController : MonoBehaviour
             DebugOnScreen.Log("ProfilePanelController- OnLoginStateChange, logedin= "+ logedin);
         if (logedin)
         {
+			DebugOnScreen.Log ("FUCKKK 1111");
             txtEmail.text = ProfileFirebase.getInstance().auth.CurrentUser.Email;
+			DebugOnScreen.Log("ProfilePanelController- OnLoginStateChange, txtEmail.text 111 = "+ txtEmail.text);
         }else
         {
+			DebugOnScreen.Log("FUCKKK 22222");
             txtEmail.text = "";
+			DebugOnScreen.Log("ProfilePanelController- OnLoginStateChange, txtEmail.text 222 = "+ txtEmail.text);
         }
     }
     void loadUser()
@@ -52,8 +58,11 @@ public class ProfilePanelController : MonoBehaviour
         try
         {
 			LoginPanelController.islogin = false;
+
             ProfileFirebase.getInstance().auth.SignOut();
+
 			FB.LogOut();
+
             deactiveProfilePanel();
         }
         catch (System.Exception ex)
@@ -64,13 +73,17 @@ public class ProfilePanelController : MonoBehaviour
 
     }
 
+
     public void deactiveProfilePanel()
     {
-        loginPanel.SetActive(true);
-		loginButton.SetActive (true);
-        loginPanel.GetComponent<RectTransform>().SetAsLastSibling();
-        profilePanel.SetActive(false);
-		profileButton.SetActive (false);
+		dialogUi.SetActive (false);
+		GlobalVar.login = 2;
+		SceneManager.LoadScene(GlobalVar.MAINSCENE);
+//        loginPanel.SetActive(true);
+//		loginButton.SetActive (true);
+//        loginPanel.GetComponent<RectTransform>().SetAsLastSibling();
+//        profilePanel.SetActive(false);
+//		profileButton.SetActive (false);
     }
 }
 #endif
