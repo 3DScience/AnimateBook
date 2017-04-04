@@ -26,17 +26,50 @@ namespace AssetBundles
             }
 
             AssetBundleBuild[] buildMap = new AssetBundleBuild[3];
-            buildMap[0].assetBundleName = "solar_system_book";
-            buildMap[0].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("solar_system_book");
-            buildMap[1].assetBundleName = "solar_system_book.metadata";
-            buildMap[1].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("solar_system_book.metadata");
-			buildMap[2].assetBundleName = "common_asset_bundle";
-			buildMap[2].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("common_asset_bundle");
-            BuildPipeline.BuildAssetBundles(outputPath, buildMap, BuildAssetBundleOptions.UncompressedAssetBundle, EditorUserBuildSettings.activeBuildTarget); ;
+
+//			buildMap[0].assetBundleName = "universal";
+//			buildMap[0].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("universal");
+
+
+//			buildMap[0].assetBundleName = "nearest_stars";
+//			buildMap[0].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("nearest_stars");
+//			buildMap[1].assetBundleName = "universal";
+//			buildMap[1].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("universal");
+
+//            buildMap[0].assetBundleName = "q10k_01";
+//			buildMap[0].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("q10k_01");
+
+//			buildMap[0].assetBundleName = "solar_system_book";
+//			buildMap[0].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("solar_system_book");
+
+			buildMap[0].assetBundleName = "weather_maker";
+			buildMap[0].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("weather_maker");
+
+//			buildMap[0].assetBundleName = "fishingman";
+//			buildMap[0].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("fishingman");
+//			buildMap[1].assetBundleName = "weather_maker";
+//			buildMap[1].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("weather_maker");
+
+
+//			buildMap[0].assetBundleName = "littleredridinghood";
+//			buildMap[0].assetNames = AssetDatabase.GetAssetPathsFromAssetBundle("littleredridinghood");
+
+			BuildPipeline.BuildAssetBundles(outputPath, buildMap, BuildAssetBundleOptions.ChunkBasedCompression, EditorUserBuildSettings.activeBuildTarget);
             //AssetDatabase.
             //@TODO: use append hash... (Make sure pipeline works correctly with it.)
             //BuildPipeline.BuildAssetBundles (outputPath, BuildAssetBundleOptions.UncompressedAssetBundle, EditorUserBuildSettings.activeBuildTarget);
-        }
+
+			string src = outputPath + "/" + EditorUserBuildSettings.activeBuildTarget.ToString();
+			string des = outputPath + "/" + buildMap[0].assetBundleName + ".mf";
+			if (File.Exists(des))
+			{
+				File.Delete(des);
+			}
+
+			Debug.Log("move file " + src+" ====> "+ des);
+			System.IO.File.Move(src,des);
+
+		}
 	
 		public static void WriteServerURL()
 		{

@@ -53,6 +53,10 @@ public class DownloadAsset : MonoBehaviour {
         {
             platform = "Android";
         }
+		if (platform == RuntimePlatform.IPhonePlayer.ToString())
+		{
+			platform = "iOS";
+		}
         try
         {
             assetDataFolder = GlobalVar.DATA_PATH + "/" ;
@@ -71,9 +75,9 @@ public class DownloadAsset : MonoBehaviour {
         }
 
         txtMsg.text = "Downloading contents.";
-		url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + bookInfo.download_url + "/" + platform + ".zip";
-        if (GlobalVar.DEBUG)
-            DebugOnScreen.Log("url=" + url);
+		url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + bookInfo.download_url + "/" + bookInfo.assetbundle + "_" + platform + ".zip";
+        //if (GlobalVar.DEBUG)
+            DebugOnScreen.Log("url 1 =" + url);
         startDownload();
     }
     private void startDownload()
@@ -204,9 +208,10 @@ public class DownloadAsset : MonoBehaviour {
             {
                 //DebugOnScreen.Log("Download dependency book: " + dependencyBook.name);
 
-                url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + dependencyBook.download_url + "/" + platform + ".zip";
-                if (GlobalVar.DEBUG)
-                    DebugOnScreen.Log("url=" + url);
+				url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + dependencyBook.download_url + "/" + dependencyBook.assetbundle + "_" + platform + ".zip";
+				//url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + dependencyBook.download_url + "/" + platform + ".zip";
+                //if (GlobalVar.DEBUG)
+                    DebugOnScreen.Log("url 2=" + url);
                 www = new WWW(url);
                 currentDownloadDependencyIdx++;
             }
