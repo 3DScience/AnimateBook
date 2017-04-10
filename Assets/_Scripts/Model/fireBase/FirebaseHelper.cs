@@ -6,7 +6,6 @@ using Firebase;
 using Firebase.Database;
 using Firebase.Unity.Editor;
 public class FirebaseHelper  {
-
     private static FirebaseHelper _instance = null;
     private bool initiated = false;
     private FirebaseHelper()
@@ -21,7 +20,7 @@ public class FirebaseHelper  {
         }
         return _instance;
     }
-
+		
     DependencyStatus dependencyStatus = DependencyStatus.UnavailableOther;
     public void initFirebase(System.Action callbackWhenDone)
     {
@@ -71,9 +70,10 @@ public class FirebaseHelper  {
         if (GlobalVar.DEBUG)
             DebugOnScreen.Log("InitializeFirebase done ....");
         initiated = true;
+
         callbackWhenDone();
 
     }
-
+		
 }
 #endif
