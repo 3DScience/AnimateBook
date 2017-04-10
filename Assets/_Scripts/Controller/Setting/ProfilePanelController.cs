@@ -24,7 +24,6 @@ public class ProfilePanelController : MonoBehaviour
         if (GlobalVar.DEBUG)
         {
             Debug.Log("Onstart");
-            DebugOnScreen.Log("ProfilePanelController- Onstart ");
         }
         //loadUser();
         ProfileFirebase.getInstance().listenLoginStateChange(OnLoginStateChange);
@@ -35,16 +34,40 @@ public class ProfilePanelController : MonoBehaviour
             DebugOnScreen.Log("ProfilePanelController- OnLoginStateChange, logedin= "+ logedin);
         if (logedin)
         {
-			DebugOnScreen.Log ("FUCKKK 1111");
-            txtEmail.text = ProfileFirebase.getInstance().auth.CurrentUser.Email;
-			DebugOnScreen.Log("ProfilePanelController- OnLoginStateChange, txtEmail.text 111 = "+ txtEmail.text);
+			if (ProfileFirebase.getInstance().auth.CurrentUser.Email != "") {
+            	txtEmail.text = ProfileFirebase.getInstance().auth.CurrentUser.Email;
+			} else {
+				txtEmail.text = ProfileFirebase.getInstance ().auth.CurrentUser.UserId;
+			}
+			//DebugOnScreen.Log("ProfilePanelController- OnLoginStateChange, txtEmail.text 111 = "+ txtEmail.text);
         }else
         {
-			DebugOnScreen.Log("FUCKKK 22222");
             txtEmail.text = "";
-			DebugOnScreen.Log("ProfilePanelController- OnLoginStateChange, txtEmail.text 222 = "+ txtEmail.text);
+			//DebugOnScreen.Log("ProfilePanelController- OnLoginStateChange, txtEmail.text 222 = "+ txtEmail.text);
         }
     }
+
+//	public static void AuthStateChanged(object sender, System.EventArgs eventArgs) {
+//		DebugOnScreen.Log ("AuthStateChanged");
+//
+//		if (FirebaseHelper.auth.CurrentUser != FirebaseHelper.firebaseUser) {
+//			FirebaseHelper.signedIn = FirebaseHelper.firebaseUser != FirebaseHelper.auth.CurrentUser && FirebaseHelper.auth.CurrentUser != null;
+//			if (!FirebaseHelper.signedIn && FirebaseHelper.firebaseUser != null) {
+//				DebugOnScreen.Log("Signed out :: " + FirebaseHelper.firebaseUser.UserId);
+//			}
+//
+//			FirebaseHelper.firebaseUser = FirebaseHelper.auth.CurrentUser;
+//
+//			if (FirebaseHelper.signedIn) {
+//				Debug.LogFormat("AuthStateChanged :: User Changed: {0} ({1})",
+//					FirebaseHelper.firebaseUser.DisplayName, FirebaseHelper.firebaseUser.UserId);
+//			} else {
+//				DebugOnScreen.Log("AuthStateChanged :: No user is signed in :: "  + FirebaseHelper.firebaseUser.UserId);
+//			}
+//		}
+//	}
+
+
     void loadUser()
     {
        // txtEmail.text = ProfileFirebase.getInstance().user.Email;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if !UNITY_WEBGL
+using UnityEngine;
 using System.Collections;
 using System;
 using System.Runtime.InteropServices;
@@ -64,3 +65,5 @@ public class ZipUtil
 #endif
 	}
 }
+
+#endif

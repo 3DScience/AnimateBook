@@ -11,10 +11,10 @@ using Firebase.Unity.Editor;
 public class ProfileFirebase {
     private bool initedFirebase=false;
     private static ProfileFirebase _instance = null;
+
     public FirebaseAuth auth;
     private FirebaseUser user;
     private System.Action<bool> stateChangedCallback;
-
 
     private ProfileFirebase()
     {
@@ -120,6 +120,53 @@ public class ProfileFirebase {
 		auth.SignInWithCredentialAsync (facebookid).ContinueWith (resultCallback);
 	}
 
+	//create new user
+	private const string USERS = "users";
+	public static bool signedIn = false;
+	public void loginAsAnnonymousUser(System.Action<UserInfo> callbackWhenDone) {
+		if (signedIn == false) {	//only allow to login if it is not logged in
+			auth.SignInAnonymouslyAsync().ContinueWith(task => {
+				if (task.IsCanceled) {
+					Debug.LogError("SignInAnonymouslyAsync was canceled.");
+					//DebugOnScreen.Log ("loginAsAnnonymousUser was canceled");
+					callbackWhenDone(null);
+					return;
+				}
+				if (task.IsFaulted) {
+					Debug.LogError("SignInAnonymouslyAsync encountered an error: " + task.Exception);
+					//DebugOnScreen.Log ("loginAsAnnonymousUser encountered an error: " + task.Exception);
+					callbackWhenDone(null);
+					return;
+				}
 
+			user = task.Result;
+
+			Debug.LogFormat("User signed in successfully: {0} ({1})",user.DisplayName, user.UserId);
+
+			Debug.Log("RefreshToken :: " + user.RefreshToken);
+			Debug.Log("DisplayName :: " + user.DisplayName);
+			Debug.Log("UserId 0:: " + user.UserId);
+
+			UserInfo annonymousUsers = new UserInfo();
+			annonymousUsers.userID = user.UserId;
+			annonymousUsers.username = user.DisplayName;
+			annonymousUsers.firebase_token = user.RefreshToken;
+
+			createNewUser(annonymousUsers);
+
+			callbackWhenDone(annonymousUsers);
+			});
+		} else {
+			Debug.Log("there is a user logged in already");
+
+			callbackWhenDone(null);
+		}
+	}
+	public void createNewUser (UserInfo user) {
+		FirebaseDatabase.DefaultInstance
+			.GetReference(USERS)
+			.Child(user.userID)
+			.SetRawJsonValueAsync(JsonUtility.ToJson(user));
+	}
 }
 #endif

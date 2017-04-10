@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Firebase;
 using Firebase.Auth;
 using Facebook.Unity;
+using Firebase.Database;
 using UnityEngine.SceneManagement;
 
 public class LoginPanelController : MonoBehaviour {
@@ -78,10 +79,24 @@ public class LoginPanelController : MonoBehaviour {
 		usersLoginPanel.SetActive (false);
 	}
 
+	public void OnLoginButtonGuestClick()
+	{
+			if (GlobalVar.DEBUG)
+				DebugOnScreen.Log ("OnLoginButtonGuestClick");
+			ProfileFirebase.getInstance ().loginAsAnnonymousUser (userInfo => {
+				//DebugOnScreen.Log("OnLoginButtonGuestClick- loginAsAnnonymousUser :: " +userInfo.userID);
+				deactiveLoginPanel();
+			});
+	}
+
+	void HandleAction (UserInfo obj)
+	{
+		
+	}
+
 	public static bool islogin = false;
     public void OnLoginButtonClick()
     {
-		DebugOnScreen.Log("LoginPanelController- OnLoginButtonClick");
         loadingPanel.SetActive(true);
         if (GlobalVar.DEBUG)
             DebugOnScreen.Log("LoginPanelController- OnLoginButtonClick, email=" + txtEmail.text + "/ pass=" + txtPassword.text);

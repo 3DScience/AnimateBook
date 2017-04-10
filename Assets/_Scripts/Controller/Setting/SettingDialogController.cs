@@ -30,7 +30,7 @@ public class SettingDialogController : MonoBehaviour {
         if (user != null)
         {
 			//GlobalVar.login = 1;
-            //if (GlobalVar.DEBUG)
+            if (GlobalVar.DEBUG)
                 DebugOnScreen.Log("SettingDialogController-CurrentUser: Email=" + user.Email + ", DisplayName=" + user.DisplayName);
             loginPanelController.deactiveLoginPanel();
             profilePanelController.OnLoginStateChange(true);
