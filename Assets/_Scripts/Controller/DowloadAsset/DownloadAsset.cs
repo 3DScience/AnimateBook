@@ -76,7 +76,7 @@ public class DownloadAsset : MonoBehaviour {
 
         txtMsg.text = "Downloading contents.";
 		url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + bookInfo.download_url + "/" + bookInfo.assetbundle + "_" + platform + ".zip";
-        //if (GlobalVar.DEBUG)
+        if (GlobalVar.DEBUG)
             DebugOnScreen.Log("url 1 =" + url);
         startDownload();
     }
@@ -210,7 +210,7 @@ public class DownloadAsset : MonoBehaviour {
 
 				url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + dependencyBook.download_url + "/" + dependencyBook.assetbundle + "_" + platform + ".zip";
 				//url = GlobalVar.BASE_ASSET_DOWNLOAD_URL + dependencyBook.download_url + "/" + platform + ".zip";
-                //if (GlobalVar.DEBUG)
+                if (GlobalVar.DEBUG)
                     DebugOnScreen.Log("url 2=" + url);
                 www = new WWW(url);
                 currentDownloadDependencyIdx++;
@@ -229,7 +229,7 @@ public class DownloadAsset : MonoBehaviour {
         string platform = Application.platform.ToString();
         if (platform == RuntimePlatform.IPhonePlayer.ToString())
         {
-            platform = "IOS";
+			platform = "iOS";
         }
         bool r= File.Exists(assetDataFolder +platform+"/"+ abname);
         //DebugOnScreen.Log("checking exist ab name " + assetDataFolder + platform + "/" + abname+". Result=" +r);
